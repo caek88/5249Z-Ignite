@@ -7,14 +7,11 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// ---- END VEXCODE CONFIGURED DEVICES ----
 
-#include "vex.h"
+#include "RobotConfig.h"
 
 using namespace vex;
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  
+    
 }
