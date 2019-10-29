@@ -2,15 +2,24 @@
 #define __ROBOTCONFIG_H_INCLUDED__
 
 #include "vex.h"
-using namespace vex;
-// A global instance of vex::brain used for printing to the V5 brain screen
-static brain Brain;
-static competition compControl = competition();
+vex::brain       Brain;
 
 // define your global instances of motors and other devices here
-static controller ctrPrimary = controller(controllerType::primary);
+
+//This program is for a single stick driven robot
+using namespace vex;
+motor mtrLeft = motor(PORT1, false);//Create the motors
+motor mtrRight = motor(PORT10, true);
+motor mtrArmLeft = motor(PORT2, false);
+motor mtrArmRight = motor(PORT8, true);
+motor mtrIntakeLeft = motor(PORT3, false);
+motor mtrIntakeRight = motor(PORT9, true);
+motor mtrRampLift = motor(PORT7);
+motor29 speaker = motor29(Brain.ThreeWirePort.H);
+controller ctrPrimary = controller(controllerType::primary);//Create the controller
 
 //Variables and methods for main file to control competition
 static bool colorRed;
 static int autonMode;
+static competition compControl;
 #endif
