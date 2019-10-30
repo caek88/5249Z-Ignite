@@ -1,10 +1,10 @@
 #include "RobotConfig.h"
 
 int driver(){
-    bool kristen = false;
+    bool kristen = true;
     while (true){
         if (ctrPrimary.ButtonUp.pressing()){
-            kristen = true;
+            kristen = !kristen;
             while (ctrPrimary.ButtonUp.pressing()){
                 task::sleep(10);
             }
@@ -15,7 +15,7 @@ int driver(){
             int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
             mtrLeft.spin(directionType::fwd, y+x, percentUnits::pct);
             mtrRight.spin(directionType::fwd, y-x, percentUnits::pct);
-            /*int arm = ctrPrimary.Axis2.position(percentUnits::pct);
+            int arm = ctrPrimary.Axis2.position(percentUnits::pct);
             if(abs(arm) > 10){
               mtrArmLeft.spin(directionType::fwd, arm, velocityUnits::pct);
               mtrArmRight.spin(directionType::fwd, arm, velocityUnits::pct);
@@ -42,7 +42,7 @@ int driver(){
             } else {
                 mtrRampLift.spin(directionType::fwd, 0, velocityUnits::pct);
                 mtrRampLift.spin(directionType::fwd, 0, velocityUnits::pct);
-            }*/
+            }
             
         }
         task::sleep(10);

@@ -7,8 +7,8 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "RobotConfig.h"
-#include "driver.cpp"
-#include "auton.cpp"
+#include "DriverControl.cpp"
+#include "Autonomous.cpp"
 
 static int mode = -1;//Mode for the robot to operate in
 
