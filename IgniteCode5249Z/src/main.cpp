@@ -196,7 +196,7 @@ int main() {
                     runAuton.stop();
                 }
                 if(compControl.isEnabled() && compControl.isDriverControl()){//runs driver control when enabled and driver control
-                    vex::task runDriver(auton);
+                    vex::task runDriver(driver);
                     while (confirmDriver()){wait(20);}
                     runDriver.stop();
                 }
