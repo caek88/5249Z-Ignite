@@ -14,7 +14,8 @@ motor mtrArmLeft = motor(PORT2, false);
 motor mtrArmRight = motor(PORT8, true);
 motor mtrIntakeLeft = motor(PORT3, false);
 motor mtrIntakeRight = motor(PORT9, true);
-motor mtrRampLift = motor(PORT7);
+motor mtrRampLift1 = motor(PORT7, ratio6_1, true);
+motor mtrRampLift2 = motor(PORT4, ratio6_1, false);
 motor29 speaker = motor29(Brain.ThreeWirePort.H);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
 

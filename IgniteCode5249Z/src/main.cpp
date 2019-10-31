@@ -105,7 +105,7 @@ class DisplaySelection {//Class created to hold and change the values needed to 
             }
 };
 bool confirmAuton(){
-    if (mode == 1 && !ctrPrimary.ButtonB.pressing()){
+    if (mode == 1 && !ctrPrimary.ButtonDown.pressing()){
         return true;
     }
     if (mode == 2 && compControl.isAutonomous() && compControl.isEnabled() && isField()){
@@ -114,7 +114,7 @@ bool confirmAuton(){
     return false;
 }
 bool confirmDriver(){
-    if (mode == 0 && !ctrPrimary.ButtonB.pressing()){
+    if (mode == 0 && !ctrPrimary.ButtonDown.pressing()){
         return true;
     }
     if (mode == 2 && compControl.isDriverControl() && compControl.isEnabled() && isField()){
@@ -158,7 +158,7 @@ int main() {
             while (confirmDriver()){wait(20);}
             runDriver.stop();
             stopAllMotors();
-            while(ctrPrimary.ButtonB.pressing()){wait(20);}//wait for exit button to be released
+            while(ctrPrimary.ButtonDown.pressing()){wait(20);}//wait for exit button to be released
         }
         if (mode == 1){//Runs an auton
             ctrPrimary.Screen.clearScreen();
@@ -166,7 +166,7 @@ int main() {
             while (confirmAuton()){wait(20);}
             runAuton.stop();
             stopAllMotors();
-            while(ctrPrimary.ButtonB.pressing()){wait(20);}//wait for exit button to be released
+            while(ctrPrimary.ButtonDown.pressing()){wait(20);}//wait for exit button to be released
         }
         if (mode == 2){
             
