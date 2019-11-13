@@ -19,10 +19,24 @@ void calibrateGyros(){//Calibrates gyros
     
 }
 void stopAllMotors(){//stops all motors on the robot
-    //mtrDriveLeft.stop(vex::brakeType::coast);
+    mtrLeft.stop(brakeType::coast);
+    mtrRight.stop(brakeType::coast);
+    mtrArmLeft.stop(brakeType::coast);
+    mtrArmRight.stop(brakeType::coast);
+    mtrIntakeLeft.stop(brakeType::coast);
+    mtrIntakeRight.stop(brakeType::coast);
+    mtrRampLift1.stop(brakeType::coast);
+    mtrRampLift2.stop(brakeType::coast);
 }
 void clearMotorRotations(){
-    //mtrDriveLeft.resetRotation();
+    mtrLeft.resetRotation();
+    mtrRight.resetRotation();
+    mtrArmLeft.resetRotation();
+    mtrArmRight.resetRotation();
+    mtrIntakeLeft.resetRotation();
+    mtrIntakeRight.resetRotation();
+    mtrRampLift1.resetRotation();
+    mtrRampLift2.resetRotation();
 }
 bool isField(){//Method for checking if either field control device is connected
     return compControl.isCompetitionSwitch() || compControl.isFieldControl();

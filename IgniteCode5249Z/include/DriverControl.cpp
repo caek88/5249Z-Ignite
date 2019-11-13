@@ -1,7 +1,9 @@
 #include "RobotConfig.h"
-
+#include "RobotMethods.cpp"
 int driver(){
     bool kristen = false;
+    bool rampUp = false;
+    bool rampMacro = false;
     while (true){
         if (ctrPrimary.ButtonUp.pressing()){
             kristen = !kristen;
@@ -33,15 +35,25 @@ int driver(){
                 mtrIntakeLeft.spin(directionType::fwd, 0, velocityUnits::pct);
                 mtrIntakeRight.spin(directionType::fwd, 0, velocityUnits::pct);
             }
-            if (ctrPrimary.ButtonL1.pressing()){
-                mtrRampLift1.spin(directionType::fwd, 30, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, 30, velocityUnits::pct);
-            } else if (ctrPrimary.ButtonL2.pressing()){
-                mtrRampLift1.spin(directionType::fwd, -30, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, -30, velocityUnits::pct);
+            if (ctrPrimary.ButtonX.pressing()){
+                rampMacro = true;
+                rampUp = !rampUp;
+            }
+            if (rampMacro){
+                if (liftRamp(rampUp)){
+                    rampMacro = false;
+                }
             } else {
-                mtrRampLift1.spin(directionType::fwd, 0, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, 0, velocityUnits::pct);
+                if (ctrPrimary.ButtonL1.pressing()){
+                    mtrRampLift1.spin(directionType::fwd, 30, velocityUnits::pct);
+                    mtrRampLift2.spin(directionType::fwd, 30, velocityUnits::pct);
+                } else if (ctrPrimary.ButtonL2.pressing()){
+                    mtrRampLift1.spin(directionType::fwd, -30, velocityUnits::pct);
+                    mtrRampLift2.spin(directionType::fwd, -30, velocityUnits::pct);
+                } else {
+                    mtrRampLift1.spin(directionType::fwd, 0, velocityUnits::pct);
+                    mtrRampLift2.spin(directionType::fwd, 0, velocityUnits::pct);
+                }
             }
             
         } else {
