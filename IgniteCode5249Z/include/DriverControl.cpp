@@ -4,7 +4,7 @@ int driver(){
     bool kristen = false;
     bool rampUp = false;
     bool rampMacro = false;
-    deployRobot();
+    //deployRobot();
     while (true){
         if (ctrPrimary.ButtonUp.pressing()){
             kristen = !kristen;
@@ -38,7 +38,11 @@ int driver(){
             }
             if (ctrPrimary.ButtonX.pressing()){
                 rampMacro = true;
-                rampUp = !rampUp;
+                rampUp = true;
+            }
+            if (ctrPrimary.ButtonB.pressing()){
+                rampMacro = true;
+                rampUp = false;
             }
             if (rampMacro){
                 if (liftRamp(rampUp)){
