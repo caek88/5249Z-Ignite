@@ -1,8 +1,8 @@
 #include "RobotConfig.h"
 const int DOWN = 10;
 const int UP = 539;
-const int SPEED_MAX = 100;
-const int SLOW_SPEED = 30;
+const int SPEED_MAX = 80;
+const int SLOW_SPEED = 20;
 void deployRobot(){
     mtrRampLift1.spin(directionType::fwd, SPEED_MAX, velocityUnits::pct);
     mtrRampLift2.spin(directionType::fwd, SPEED_MAX, velocityUnits::pct);
