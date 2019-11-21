@@ -10,12 +10,12 @@ extern vex::brain Brain;
 using namespace vex;
 extern motor mtrLeft;
 extern motor mtrRight;
-extern motor mtrArmLeft;
-extern motor mtrArmRight;
+extern motor mtrLeftFront;
+extern motor mtrRightFront;
+extern motor mtrArm;
 extern motor mtrIntakeLeft;
 extern motor mtrIntakeRight;
-extern motor mtrRampLift1;
-extern motor mtrRampLift2;
+extern motor mtrRampLift;
 extern motor29 speaker;
 extern controller ctrPrimary;//Create the controller
 

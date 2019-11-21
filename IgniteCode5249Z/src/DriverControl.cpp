@@ -1,30 +1,57 @@
 #include "RobotConfig.h"
 
+double speedMod = 0.75;
+bool kristen = false;
+void toggleSpeed(){
+  ctrPrimary.Screen.setCursor(1,1);
+  ctrPrimary.Screen.clearLine(1);
+  if(speedMod == 0.75){
+    speedMod = 1.0;
+    ctrPrimary.Screen.print("Maximum Overdrive");
+  }
+  else{
+    speedMod = 0.75;
+    ctrPrimary.Screen.print("Slow Man");
+  }
+}
+
+void toggleMode(){
+  kristen = !kristen;
+  ctrPrimary.Screen.setCursor(2,1);
+  ctrPrimary.Screen.clearLine(2);
+  if(kristen == true){
+    
+    ctrPrimary.Screen.print("Kristen");
+  }
+  else{
+    ctrPrimary.Screen.print("Jimbo");
+  }
+}
+
 int driver(){
-    bool kristen = false;
     bool rampUp = false;
     bool rampMacro = false;
+    ctrPrimary.ButtonA.pressed(toggleSpeed);
+    ctrPrimary.ButtonUp.pressed(toggleMode);
+    ctrPrimary.Screen.setCursor(1,1);
+    ctrPrimary.Screen.print("Slow Man");
+    ctrPrimary.Screen.setCursor(2,1);
+    ctrPrimary.Screen.print("Jimbo");
     //deployRobot();
     while (true){
-        if (ctrPrimary.ButtonUp.pressing()){
-            kristen = !kristen;
-            while (ctrPrimary.ButtonUp.pressing()){
-                task::sleep(10);
-            }
-        }
         if (!kristen){
             speaker.spin(directionType::rev, 100, percentUnits::pct);
             int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
             int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
-            mtrLeft.spin(directionType::fwd, y+x, percentUnits::pct);
-            mtrRight.spin(directionType::fwd, y-x, percentUnits::pct);
+            mtrLeft.spin(directionType::fwd, speedMod * (y+x), percentUnits::pct);
+            mtrRight.spin(directionType::fwd, speedMod * (y-x), percentUnits::pct);
+            mtrLeftFront.spin(directionType::fwd, speedMod * (y+x), percentUnits::pct);
+            mtrRightFront.spin(directionType::fwd, speedMod * (y-x), percentUnits::pct);
             int arm = ctrPrimary.Axis2.position(percentUnits::pct);
             if(abs(arm) > 10){
-              mtrArmLeft.spin(directionType::fwd, arm, velocityUnits::pct);
-              mtrArmRight.spin(directionType::fwd, arm, velocityUnits::pct);
+              mtrArm.spin(directionType::fwd, -arm, velocityUnits::pct);
             } else {
-              mtrArmLeft.stop(hold);
-              mtrArmRight.stop(hold);
+              mtrArm.stop(hold);
             }
             if (ctrPrimary.ButtonR1.pressing()){
                 mtrIntakeLeft.spin(directionType::fwd, 50, velocityUnits::pct);
@@ -50,14 +77,11 @@ int driver(){
                 }
             } else {
                 if (ctrPrimary.ButtonL1.pressing()){
-                    mtrRampLift1.spin(directionType::fwd, 30, velocityUnits::pct);
-                    mtrRampLift2.spin(directionType::fwd, 30, velocityUnits::pct);
+                    mtrRampLift.spin(directionType::fwd, 30, velocityUnits::pct);
                 } else if (ctrPrimary.ButtonL2.pressing()){
-                    mtrRampLift1.spin(directionType::fwd, -30, velocityUnits::pct);
-                    mtrRampLift2.spin(directionType::fwd, -30, velocityUnits::pct);
+                    mtrRampLift.spin(directionType::fwd, -30, velocityUnits::pct);
                 } else {
-                    mtrRampLift1.spin(directionType::fwd, 0, velocityUnits::pct);
-                    mtrRampLift2.spin(directionType::fwd, 0, velocityUnits::pct);
+                    mtrRampLift.spin(directionType::fwd, 0, velocityUnits::pct);
                 }
             }
             
@@ -66,15 +90,14 @@ int driver(){
             int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
             mtrLeft.spin(directionType::fwd, y+x, percentUnits::pct);
             mtrRight.spin(directionType::fwd, y-x, percentUnits::pct);
+            mtrLeftFront.spin(directionType::fwd, y+x, percentUnits::pct);
+            mtrRightFront.spin(directionType::fwd, y-x, percentUnits::pct);
             if (ctrPrimary.ButtonL2.pressing()){
-                mtrArmLeft.spin(directionType::fwd, 50, velocityUnits::pct);
-                mtrArmRight.spin(directionType::fwd, 50, velocityUnits::pct);
+                mtrArm.spin(directionType::fwd, 50, velocityUnits::pct);
             } else if (ctrPrimary.ButtonL1.pressing()){
-                mtrArmLeft.spin(directionType::fwd, -50, velocityUnits::pct);
-                mtrArmRight.spin(directionType::fwd, -50, velocityUnits::pct);
+                mtrArm.spin(directionType::fwd, -50, velocityUnits::pct);
             } else {
-                mtrArmLeft.spin(directionType::fwd, 0, velocityUnits::pct);
-                mtrArmRight.spin(directionType::fwd, 0, velocityUnits::pct);
+                mtrArm.spin(directionType::fwd, 0, velocityUnits::pct);
             }
             
             if (ctrPrimary.ButtonR2.pressing()){
@@ -88,14 +111,11 @@ int driver(){
                 mtrIntakeRight.spin(directionType::fwd, 0, velocityUnits::pct);
             }
             if (ctrPrimary.ButtonX.pressing()){
-                mtrRampLift1.spin(directionType::fwd, 30, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, 30, velocityUnits::pct);
+                mtrRampLift.spin(directionType::fwd, 30, velocityUnits::pct);
             } else if (ctrPrimary.ButtonB.pressing()){
-                mtrRampLift1.spin(directionType::fwd, -30, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, -30, velocityUnits::pct);
+                mtrRampLift.spin(directionType::fwd, -30, velocityUnits::pct);
             } else {
-                mtrRampLift1.spin(directionType::fwd, 0, velocityUnits::pct);
-                mtrRampLift2.spin(directionType::fwd, 0, velocityUnits::pct);
+                mtrRampLift.spin(directionType::fwd, 0, velocityUnits::pct);
             }
         }
         task::sleep(10);
