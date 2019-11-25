@@ -6,7 +6,6 @@ extern vex::brain Brain;
 
 // define your global instances of motors and other devices here
 
-//This program is for a single stick driven robot
 using namespace vex;
 extern motor mtrLeft;
 extern motor mtrRight;
@@ -19,6 +18,10 @@ extern motor mtrRampLift;
 extern motor29 speaker;
 extern controller ctrPrimary;//Create the controller
 
+extern encoder encStrafe;
+extern encoder encLeft;
+extern encoder encRight;
+
 //Variables and methods for main file to control competition
 static bool colorRed;
 static int autonMode;
@@ -28,4 +31,5 @@ int driver();
 int auton();
 void deployRobot();
 bool liftRamp(bool);
+int pos();
 #endif

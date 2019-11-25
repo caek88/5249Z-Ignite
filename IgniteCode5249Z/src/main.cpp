@@ -35,6 +35,10 @@ void clearMotorRotations(){
     mtrIntakeLeft.resetRotation();
     mtrIntakeRight.resetRotation();
     mtrRampLift.resetRotation();
+    encRight.resetRotation();
+    encLeft.resetRotation();
+    encStrafe.resetRotation();
+    task::sleep(500);
 }
 bool isField(){//Method for checking if either field control device is connected
     return compControl.isCompetitionSwitch() || compControl.isFieldControl();
@@ -158,12 +162,12 @@ int main() {
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
         mode = selectMode.select();
-        calibrateGyros();
-        clearMotorRotations();
         colorSelect();
         if (mode == 1 || mode == 2){
             autonMode = selectAutonomous();
         }
+        calibrateGyros();
+        clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();
             vex::task runDriver = vex::task(driver);
