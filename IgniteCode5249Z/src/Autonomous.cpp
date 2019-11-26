@@ -30,7 +30,11 @@ int drivePID(){
         task::sleep(10);
     }
 }
+
 int auton(){
     deployRobot();
+    task driveTask = task(drivePID);
+    task positionTask = task(pos);
+
     return 0;
 }
