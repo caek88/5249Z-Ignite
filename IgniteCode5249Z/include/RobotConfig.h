@@ -26,6 +26,8 @@ extern encoder encRight;
 static bool colorRed;
 static int autonMode;
 static competition compControl;
+static double leftPosition = 0;
+static double rightPosition = 0;
 
 int driver();
 int auton();
