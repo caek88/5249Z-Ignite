@@ -1,7 +1,5 @@
 #include "RobotConfig.h"
 #include "PID.h"
-double leftPosition = 0;
-double rightPosition = 0;
 double maxSpeed = 80;
 PID driveLeft = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
 PID driveRight = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
