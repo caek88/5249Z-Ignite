@@ -39,3 +39,17 @@ int pos(){
 double getRotation(double distance){
     return (360*distance)/(M_PI * DIAMETER_WHEEL);
 }
+double startPoint[2] = {0,0};
+double endPoint[2] = {0,0};
+double distanceToEnd(){
+    double vectST[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};
+    double vectCT[2] = {endPoint[0] - xPosition, endPoint[1] - yPosition};
+    return (vectST[0] * vectCT[0] + vectST[1] * vectCT[1])/sqrt(pow(vectST[0],2) + pow(vectST[1],2));
+}
+void turnToAngle(double finalAngle){
+    double angleChange = finalAngle - angle;
+    double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;
+}
+void driveToPoint(double xPos, double yPos){
+
+}
