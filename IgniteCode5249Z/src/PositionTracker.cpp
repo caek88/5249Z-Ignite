@@ -47,9 +47,18 @@ double distanceToEnd(){
     return (vectST[0] * vectCT[0] + vectST[1] * vectCT[1])/sqrt(pow(vectST[0],2) + pow(vectST[1],2));
 }
 void turnToAngle(double finalAngle){
-    double angleChange = finalAngle - angle;
-    double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;
+    double angleChange;
+    while (fabs(angleChange) > 0.2){
+        angleChange = finalAngle - angle;
+        double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;
+        leftRotation = mtrLeft.rotation(rotationUnits::pct) + rotationToAngle;
+        rightRotation = mtrRight.rotation(rotationUnits::pct) + rotationToAngle;
+    }
 }
 void driveToPoint(double xPos, double yPos){
+    endPoint[0] = xPos;
+    endPoint[1] = yPos;
+    startPoint[0] = xPosition;
+    startPoint[1] = yPosition;
     
 }
