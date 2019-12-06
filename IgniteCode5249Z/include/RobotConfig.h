@@ -26,12 +26,22 @@ extern encoder encRight;
 static bool colorRed;
 static int autonMode;
 static competition compControl;
-static double leftPosition = 0;
-static double rightPosition = 0;
+static double leftPosition;
+static double rightPosition;
 
 int driver();
 int auton();
 void deployRobot();
 bool liftRamp(bool);
 int pos();
+int drivePID();
+void driveToPos(double, double);
+//static vex::task driveTask;
+//static vex::task positionTask;
+extern double xPosition;
+extern double yPosition;
+static double angle = 0.0;
+const double DIAMETER_CHASSIS = 12;
+const double DIAMETER_WHEEL = 4;
 #endif
+

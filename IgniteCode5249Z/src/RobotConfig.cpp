@@ -20,3 +20,5 @@ controller ctrPrimary = controller(controllerType::primary);//Create the control
 encoder encStrafe = encoder(Brain.ThreeWirePort.C);
 encoder encLeft = encoder(Brain.ThreeWirePort.E);
 encoder encRight = encoder(Brain.ThreeWirePort.G);
+double xPosition = 0;
+double yPosition = 0;

@@ -25,6 +25,7 @@ void stopAllMotors(){//stops all motors on the robot
     mtrIntakeLeft.stop(brakeType::coast);
     mtrIntakeRight.stop(brakeType::coast);
     mtrRampLift.stop(brakeType::coast);
+    task::stop(drivePID);
 }
 void clearMotorRotations(){
     mtrLeft.resetRotation();
