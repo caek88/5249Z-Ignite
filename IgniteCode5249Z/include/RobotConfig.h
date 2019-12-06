@@ -35,6 +35,7 @@ void deployRobot();
 bool liftRamp(bool);
 int pos();
 int drivePID();
-void driveToPos(double, double);
+void turnToAngle(double);
+bool driveToPos(double, double, bool, int);
 #endif
 
