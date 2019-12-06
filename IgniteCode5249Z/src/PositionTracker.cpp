@@ -18,8 +18,8 @@ void turnToAngle(double finalAngle){//Turns the robot to a specific angle
     do {
         angleChange = finalAngle - angle;//calculates the change in angle
         double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;//calculates the rotation to finish the turn
-        leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) + rotationToAngle;//sets the motors to go to the correct rotation to turn to
-        rightPosition = mtrRight.rotation(vex::rotationUnits::deg) - rotationToAngle;
+        leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) - rotationToAngle;//sets the motors to go to the correct rotation to turn to
+        rightPosition = mtrRight.rotation(vex::rotationUnits::deg) + rotationToAngle;
     } while (fabs(angleChange) > 0.2);//waits for the angle to be within 0.2 away
 }
 
@@ -29,8 +29,7 @@ bool driveToPos(double xPos, double yPos, bool timeOut = false, int time = 5000)
     startPoint[0] = xPosition;//set the start point to the current position
     startPoint[1] = yPosition;
     double vectSE[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};//Set vector for angle direction
-    turnToAngle((x >= 0?1:-1) * M_PI / 180 * acos(vectSE[1]/sqrt(pow(endPoint[0], 2) + pow(endPoint[1], 2))));//calculate the angle difference and turn to that angle
-    
+    turnToAngle((vectSE[1] >= 0?1:-1) * M_PI / 180 * acos(vectSE[0]/sqrt(pow(vectSE[0], 2) + pow(vectSE[1], 2))));//calculate the angle difference and turn to that angle
     double distance = distanceToEnd();//Find distance to endline
     int timer = 0;//Timer for timeOut
     while (fabs(distance) > 0.5 && (!timeOut || !timer <= time)) {//While the robot is 0.5 inches away or time times out
