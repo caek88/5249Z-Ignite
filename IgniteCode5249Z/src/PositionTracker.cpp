@@ -52,7 +52,7 @@ void turnToAngle(double finalAngle){
         angleChange = finalAngle - angle;
         double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;
         leftPosition = mtrLeft.rotation(rotationUnits::deg) + rotationToAngle;
-        rightPosition = mtrRight.rotation(rotationUnits::deg) + rotationToAngle;
+        rightPosition = mtrRight.rotation(rotationUnits::deg) - rotationToAngle;
     } while (fabs(angleChange) > 0.2);
 }
 void driveToPoint(double xPos, double yPos){
@@ -61,5 +61,10 @@ void driveToPoint(double xPos, double yPos){
     startPoint[0] = xPosition;
     startPoint[1] = yPosition;
     double vectSE[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};
-    turnToAngle(M_PI / 180 * acos(vectSE[1]/sqrt(pow() + pow())))
+    turnToAngle(M_PI / 180 * acos(vectSE[1]/sqrt(pow(endPoint[0], 2) + pow(endpoint[1], 2))));
+    double distance = distanceToEnd();
+    while (fabs(distance) >= 0) {
+        leftPosition = mtrLeft.rotation(rotationUnits::deg) + distance * ;
+        rightPosition = mtrRight.rotation(rotationUnits::deg) - distance * ;
+    }
 }
