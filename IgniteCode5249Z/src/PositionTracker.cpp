@@ -99,8 +99,8 @@ int pos(){
         double deltaTheta = (encTheta*DIAMETER_WHEEL)/DIAMETER_CHASSIS;
         
         angle += deltaTheta;
-        yPosition += (deltaDistX * cos((angle * M_PI)/180.0)) - (deltaDistY * sin((angle * M_PI)/180.0));
-        xPosition += (deltaDistX * sin((angle * M_PI)/180.0)) + (deltaDistY * cos((angle * M_PI)/180.0));
+        xPosition += (deltaDistX * cos((angle * M_PI)/180.0)) - (deltaDistY * sin((angle * M_PI)/180.0));
+        yPosition += (deltaDistX * sin((angle * M_PI)/180.0)) + (deltaDistY * cos((angle * M_PI)/180.0));
         
         oldR = encRVal + oldR;
         oldL = encLVal + oldL;
