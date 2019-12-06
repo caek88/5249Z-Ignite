@@ -48,17 +48,18 @@ double distanceToEnd(){
 }
 void turnToAngle(double finalAngle){
     double angleChange;
-    while (fabs(angleChange) > 0.2){
+    do {
         angleChange = finalAngle - angle;
         double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;
-        leftRotation = mtrLeft.rotation(rotationUnits::pct) + rotationToAngle;
-        rightRotation = mtrRight.rotation(rotationUnits::pct) + rotationToAngle;
-    }
+        leftPosition = mtrLeft.rotation(rotationUnits::deg) + rotationToAngle;
+        rightPosition = mtrRight.rotation(rotationUnits::deg) + rotationToAngle;
+    } while (fabs(angleChange) > 0.2);
 }
 void driveToPoint(double xPos, double yPos){
     endPoint[0] = xPos;
     endPoint[1] = yPos;
     startPoint[0] = xPosition;
     startPoint[1] = yPosition;
-    
+    double vectSE[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};
+    turnToAngle(M_PI / 180 * acos(vectSE[1]/sqrt(pow() + pow())))
 }
