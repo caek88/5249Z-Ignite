@@ -1,5 +1,10 @@
 #include "RobotConfig.h"
 #include "PID.h"
+double xPosition;
+double yPosition;
+double angle = 0.0;
+const double DIAMETER_CHASSIS = 12;
+const double DIAMETER_WHEEL = 4;
 double maxSpeed = 80;
 PID driveLeft = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
 PID driveRight = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
