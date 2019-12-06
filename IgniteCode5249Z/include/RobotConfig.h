@@ -36,7 +36,5 @@ bool liftRamp(bool);
 int pos();
 int drivePID();
 void driveToPos(double, double);
-//static vex::task driveTask;
-//static vex::task positionTask;
 #endif
 
