@@ -38,10 +38,5 @@ int drivePID();
 void driveToPos(double, double);
 //static vex::task driveTask;
 //static vex::task positionTask;
-extern double xPosition;
-extern double yPosition;
-static double angle = 0.0;
-const double DIAMETER_CHASSIS = 12;
-const double DIAMETER_WHEEL = 4;
 #endif
 
