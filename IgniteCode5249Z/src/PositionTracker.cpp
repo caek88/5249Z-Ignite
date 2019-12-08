@@ -93,8 +93,8 @@ int pos(){
         double encDistX = (encRVal + encLVal)/2.0;
         double encTheta = (encRVal - encLVal)/2.0;
         
-        double deltaDistX = (M_PI * encDistX)/(90.0);
-        double deltaDistY = (M_PI * encHVal)/(90.0);
+        double deltaDistX = (M_PI * DIAMETER_WHEEL * encDistX)/(360.0);
+        double deltaDistY = (M_PI * DIAMETER_WHEEL * encHVal)/(360.0);
         //double deltaTheta = (30.0 * encTheta)/(M_PI);
         double deltaTheta = (encTheta*DIAMETER_WHEEL)/DIAMETER_CHASSIS;
         
