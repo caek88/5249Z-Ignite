@@ -31,6 +31,8 @@ static double rightPosition;
 
 int driver();
 int auton();
+bool confirmDriver();
+bool confirmAuton();
 void deployRobot();
 bool liftRamp(bool);
 int pos();

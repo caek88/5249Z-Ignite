@@ -3,36 +3,40 @@
 double speedMod = 0.75;
 bool kristen = false;
 void toggleSpeed(){
-  ctrPrimary.Screen.setCursor(1,1);
-  ctrPrimary.Screen.clearLine(1);
-  if(speedMod == 0.75){
-    speedMod = 1.0;
-    ctrPrimary.Screen.print("Maximum Overdrive");
-    mtrLeft.setMaxTorque(100, percentUnits::pct);
-    mtrRight.setMaxTorque(100, percentUnits::pct);
-    mtrLeftFront.setMaxTorque(100, percentUnits::pct);
-    mtrRightFront.setMaxTorque(100, percentUnits::pct);
-  }
-  else{
-    speedMod = 0.75;
-    ctrPrimary.Screen.print("Slow Man");
-    mtrLeft.setMaxTorque(50, percentUnits::pct);
-    mtrRight.setMaxTorque(50, percentUnits::pct);
-    mtrLeftFront.setMaxTorque(50, percentUnits::pct);
-    mtrRightFront.setMaxTorque(50, percentUnits::pct);
+  if (confirmDriver()){
+      ctrPrimary.Screen.setCursor(1,1);
+      ctrPrimary.Screen.clearLine(1);
+      if(speedMod == 0.75){
+        speedMod = 1.0;
+        ctrPrimary.Screen.print("Maximum Overdrive");
+        mtrLeft.setMaxTorque(100, percentUnits::pct);
+        mtrRight.setMaxTorque(100, percentUnits::pct);
+        mtrLeftFront.setMaxTorque(100, percentUnits::pct);
+        mtrRightFront.setMaxTorque(100, percentUnits::pct);
+      }
+      else{
+        speedMod = 0.75;
+        ctrPrimary.Screen.print("Slow Man");
+        mtrLeft.setMaxTorque(10, percentUnits::pct);
+        mtrRight.setMaxTorque(10, percentUnits::pct);
+        mtrLeftFront.setMaxTorque(10, percentUnits::pct);
+        mtrRightFront.setMaxTorque(10, percentUnits::pct);
+      }
   }
 }
 
 void toggleMode(){
-  kristen = !kristen;
-  ctrPrimary.Screen.setCursor(2,1);
-  ctrPrimary.Screen.clearLine(2);
-  if(kristen == true){
-    
-    ctrPrimary.Screen.print("Kristen");
-  }
-  else{
-    ctrPrimary.Screen.print("Jimbo");
+  if (confirmDriver()){
+      kristen = !kristen;
+      ctrPrimary.Screen.setCursor(2,1);
+      ctrPrimary.Screen.clearLine(2);
+      if(kristen == true){
+        
+        ctrPrimary.Screen.print("Kristen");
+      }
+      else{ 
+        ctrPrimary.Screen.print("Jimbo");
+      }
   }
 }
 
@@ -95,7 +99,7 @@ int driver(){
             
         } else {
             int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
-            int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
+            int x = ctrPrimary.Axis4.position(percentUnits::pct)/2;//Get the position of the controller for Right and Left
             mtrLeft.spin(directionType::fwd, y+x, percentUnits::pct);
             mtrRight.spin(directionType::fwd, y-x, percentUnits::pct);
             mtrLeftFront.spin(directionType::fwd, y+x, percentUnits::pct);
