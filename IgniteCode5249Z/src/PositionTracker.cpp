@@ -1,7 +1,5 @@
 #include "RobotConfig.h"
 #include "PID.h"
-double xPosition;
-double yPosition;
 double angle = 0.0;
 const double DIAMETER_CHASSIS = 12;
 const double DIAMETER_WHEEL = 4;
@@ -13,6 +11,7 @@ PID driveRight = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
 double getRotation(double distance){
     return (360*distance)/(M_PI * DIAMETER_WHEEL);
 }
+
 double distanceToEnd(){//Calculates the robot's distance to the endline with a scalar projection
     double vectST[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};//sets vector from start to the target
     double vectCT[2] = {endPoint[0] - xPosition, endPoint[1] - yPosition};//sets vector from current position to target
@@ -22,25 +21,40 @@ void turnToAngle(double finalAngle){//Turns the robot to a specific angle
     driveLeft.setGains(10.0/7.0, 0, 12.0/42.0);
     driveRight.setGains(10.0/7.0, 0, 12.0/42.0);
     double angleChange;
+    maxSpeed -= 20;
     //Brain.Screen.printAt(1, 120, true, "Position Left: %f", finalAngle);
     do {
         angleChange = finalAngle - angle;//calculates the change in angle
+        if (angleChange > 180){
+            finalAngle -= 360;
+            continue;
+        }
+        if (angleChange < -180){
+            finalAngle += 360;
+            continue;
+        }
         double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;//calculates the rotation to finish the turn
         leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) - rotationToAngle;//sets the motors to go to the correct rotation to turn to
         rightPosition = mtrRight.rotation(vex::rotationUnits::deg) + rotationToAngle;
         task::sleep(10);
-    } while (fabs(angleChange) > 0.2);//waits for the angle to be within 0.2 away
+    } while (fabs(angleChange) > 2.5);//waits for the angle to be within 0.2 away
     driveLeft.setGains(10.0/7.0, 0, 4.0/42.0);
     driveRight.setGains(10.0/7.0, 0, 4.0/42.0);
+    maxSpeed += 20;
+    task::sleep(200);
 }
 
-bool driveToPos(double xPos, double yPos, bool reversed, bool timeOut = false, int time = 5000){//Drives the robot to an (x,y) coordinate
+bool driveToPos(double xPos, double yPos, bool reversed, bool timeOut = false, int time = 5000, bool adjust = true){//Drives the robot to an (x,y) coordinate
     endPoint[0] = xPos;//Set the endpoint to the target
     endPoint[1] = yPos;
     startPoint[0] = xPosition;//set the start point to the current position
     startPoint[1] = yPosition;
     double vectSE[2] = {endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]};//Set vector for angle direction
-    turnToAngle((int)((vectSE[1] >= 0?1:-1) * 180/M_PI * acos(vectSE[0]/sqrt(pow(vectSE[0], 2) + pow(vectSE[1], 2))) + (reversed?180:0))%360);//calculate the angle difference and turn to that angle
+    //maxSpeed -= 20;
+    if(adjust){
+      turnToAngle((vectSE[1] >= 0?1:-1) * 180/M_PI * acos(vectSE[0]/sqrt(pow(vectSE[0], 2) + pow(vectSE[1], 2))) + (reversed?180:0));//calculate the angle difference and turn to that angle
+    }
+    //maxSpeed += 20;
     double distance;//Find distance to endline
     int timer = 0;//Timer for timeOut
     do {//While the robot is 0.5 inches away or time times out
