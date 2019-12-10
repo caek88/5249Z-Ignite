@@ -10,5 +10,6 @@ class PID {
         PID(double, double, double, double);
         double setPoint;
         double calculatePID(double);
+        void setGains(double, double, double);
         void reset();
 };

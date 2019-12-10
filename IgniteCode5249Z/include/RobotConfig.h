@@ -28,6 +28,7 @@ static int autonMode;
 static competition compControl;
 static double leftPosition;
 static double rightPosition;
+extern double maxSpeed;
 
 int driver();
 int auton();
@@ -38,6 +39,6 @@ bool liftRamp(bool);
 int pos();
 int drivePID();
 void turnToAngle(double);
-bool driveToPos(double, double, bool, int);
+bool driveToPos(double, double, bool, bool, int);
 #endif
 

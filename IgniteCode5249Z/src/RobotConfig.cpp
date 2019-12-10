@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "RobotConfig.h"
 using namespace vex;
 brain       Brain;
 
