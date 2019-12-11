@@ -120,7 +120,8 @@ int pos(){
         //double deltaTheta = (30.0 * encTheta)/(M_PI);
         double deltaTheta = (encTheta*DIAMETER_WHEEL)/DIAMETER_CHASSIS;
         
-        angle += deltaTheta;
+        //angle += deltaTheta;
+        angle = -driveGyro.angle(rotationUnits::deg);
         xPosition += (deltaDistX * cos((angle * M_PI)/180.0)) - (deltaDistY * sin((angle * M_PI)/180.0));
         yPosition += (deltaDistX * sin((angle * M_PI)/180.0)) + (deltaDistY * cos((angle * M_PI)/180.0));
         

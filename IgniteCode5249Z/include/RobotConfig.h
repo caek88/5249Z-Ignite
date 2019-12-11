@@ -16,6 +16,7 @@ extern motor mtrIntakeRight;
 extern motor mtrRampLift;
 
 //Other Devices
+extern gyro driveGyro;
 extern motor29 speaker;
 extern controller ctrPrimary;
 extern encoder encStrafe;
@@ -33,6 +34,7 @@ extern double yPosition;
 extern double maxSpeed;
 
 //Methods for all source files
+void wait(int);
 int driver();
 int auton();
 bool confirmDriver();

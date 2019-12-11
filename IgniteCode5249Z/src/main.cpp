@@ -14,7 +14,11 @@ void wait(int time){//waits a number of milliseconds
     task::sleep(time);
 }
 void calibrateGyros(){//Calibrates gyros
-    
+    ctrPrimary.Screen.clearScreen();
+    ctrPrimary.Screen.print("CalGyro");
+    driveGyro.calibrate();
+    task::sleep(3000);
+    ctrPrimary.Screen.clearScreen();
 }
 void stopAllMotors(){//stops all motors on the robot
     mtrLeft.stop(brakeType::coast);
@@ -163,11 +167,11 @@ int main() {
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
         mode = selectMode.select();
+        calibrateGyros();
         colorSelect();
         if (mode == 1 || mode == 2){
             autonMode = selectAutonomous();
         }
-        calibrateGyros();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();
