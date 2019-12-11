@@ -1,5 +1,6 @@
 #include "RobotConfig.h"
 #include "PID.h"
+
 double angle = 0.0;
 const double DIAMETER_CHASSIS = 12;
 const double DIAMETER_WHEEL = 4;
@@ -44,7 +45,7 @@ void turnToAngle(double finalAngle){//Turns the robot to a specific angle
     task::sleep(200);
 }
 
-bool driveToPos(double xPos, double yPos, bool reversed, bool timeOut = false, int time = 5000, bool adjust = true){//Drives the robot to an (x,y) coordinate
+bool driveToPos(double xPos, double yPos, bool reversed, bool adjust, bool timeOut, int time){//Drives the robot to an (x,y) coordinate
     endPoint[0] = xPos;//Set the endpoint to the target
     endPoint[1] = yPos;
     startPoint[0] = xPosition;//set the start point to the current position

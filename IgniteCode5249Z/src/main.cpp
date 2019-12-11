@@ -25,7 +25,7 @@ void stopAllMotors(){//stops all motors on the robot
     mtrIntakeLeft.stop(brakeType::coast);
     mtrIntakeRight.stop(brakeType::coast);
     mtrRampLift.stop(brakeType::coast);
-    task::stop(drivePID);
+    task::stopAll();
 }
 void clearMotorRotations(){
     mtrLeft.resetRotation();
@@ -140,10 +140,10 @@ bool confirmDriver(){
     return false;
 }
 int selectAutonomous(){//method for selecting autons
-    DisplaySelection selectAuton = DisplaySelection(2);//create display selection object
+    DisplaySelection selectAuton = DisplaySelection(3);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
-    strcpy(selectAuton.text[1], "");
-    strcpy(selectAuton.text[2], "");
+    strcpy(selectAuton.text[1], "Auton Left");
+    strcpy(selectAuton.text[2], "Auton Right");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
