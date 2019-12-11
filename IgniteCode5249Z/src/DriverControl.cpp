@@ -1,6 +1,6 @@
 #include "RobotConfig.h"
 
-double speedMod = 0.75;
+double speedMod = 1.0;
 bool kristen = false;
 void toggleSpeed(){
   if (confirmDriver()){
@@ -45,8 +45,7 @@ int driver(){
     bool rampMacro = false;
     ctrPrimary.ButtonA.pressed(toggleSpeed);
     ctrPrimary.ButtonUp.pressed(toggleMode);
-    ctrPrimary.Screen.setCursor(1,1);
-    ctrPrimary.Screen.print("Slow Man");
+    toggleSpeed();
     ctrPrimary.Screen.setCursor(2,1);
     ctrPrimary.Screen.print("Jimbo");
     //deployRobot();
