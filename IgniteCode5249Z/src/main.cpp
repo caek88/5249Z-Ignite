@@ -146,8 +146,8 @@ bool confirmDriver(){
 int selectAutonomous(){//method for selecting autons
     DisplaySelection selectAuton = DisplaySelection(3);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
-    strcpy(selectAuton.text[1], "Auton Left");
-    strcpy(selectAuton.text[2], "Auton Right");
+    strcpy(selectAuton.text[1], "Skills 8");
+    strcpy(selectAuton.text[2], "Game 4");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color

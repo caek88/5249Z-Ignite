@@ -44,6 +44,6 @@ bool liftRamp(bool);
 int pos();
 int drivePID();
 void turnToAngle(double);
-bool driveToPos(double, double, bool, bool adjust = true, bool timeOut = false, int time = 5000);
+bool driveToPos(double, double, bool, bool adjust = true, bool timeOut = false, int timeMax = 5000);
 #endif
 
