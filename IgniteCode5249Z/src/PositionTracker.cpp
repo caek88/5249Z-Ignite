@@ -38,7 +38,7 @@ void turnToAngle(double finalAngle){//Turns the robot to a specific angle
         double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;//calculates the rotation to finish the turn
         leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) - rotationToAngle;//sets the motors to go to the correct rotation to turn to
         rightPosition = mtrRight.rotation(vex::rotationUnits::deg) + rotationToAngle;
-        if(rotationToAngle > 0){
+        if(angleChange > 0){
           condition = angleChange > 2.5;
         }
         else{

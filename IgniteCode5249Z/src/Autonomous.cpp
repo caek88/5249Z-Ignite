@@ -65,24 +65,28 @@ int auton(){
         task::sleep(450);
         mtrIntakeLeft.stop(brakeType::hold);
         mtrIntakeRight.stop(brakeType::hold);
+        maxSpeed = 55;
+        driveToPos(18.0, colorMod*0.0, true);
+        maxSpeed = 45;
+        turnToAngle(colorMod*135);
         maxSpeed = 35;
-        driveToPos(20.0, colorMod*20.0, true);
-        driveToPos(11.0, colorMod*29.0, false, true, true, 3000);
-        int time = 0;
+        driveToPos(10.0, colorMod*8.0, false, false, true, 3000);
+        mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
+        task::sleep(1250);
+        mtrIntakeLeft.stop();
+        mtrIntakeRight.stop();
         while (!liftRamp(true)){
-            if (time < 500){
-                mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
-                mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
-            } else {
-                mtrIntakeLeft.stop(brakeType::hold);
-                mtrIntakeRight.stop(brakeType::hold);
-            }
-            time += 10;
             task::sleep(10);
         }
-        mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
-        driveToPos(xPosition + 4.0, yPosition - colorMod*4.0, true);
+        mtrIntakeLeft.spin(directionType::fwd, 70, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 70, velocityUnits::pct);
+        driveToPos(xPosition + 6.0, yPosition - colorMod*6.0, true, false);
+        mtrIntakeLeft.stop();
+        mtrIntakeRight.stop();
+        while (!liftRamp(false)){
+            task::sleep(10);
+        }
     }
     ctrPrimary.Screen.print("Done");
     return 0; 
