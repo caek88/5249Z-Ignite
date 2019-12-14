@@ -52,11 +52,11 @@ int auton(){
         mtrIntakeLeft.stop(brakeType::hold);
         mtrIntakeRight.stop(brakeType::hold);
         maxSpeed = 55;
-        driveToPos(16.0, colorMod*0.0, true);
+        driveToPos(18.0, colorMod*0.0, true);
         maxSpeed = 45;
         turnToAngle(colorMod*135);
         maxSpeed = 35;
-        driveToPos(xPosition - 9, yPosition + colorMod*9.0, false, false, true, 3000);
+        driveToPos(xPosition - 10, yPosition + colorMod*10.0, false, false, true, 3000);
         stackTower(400);
         mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
