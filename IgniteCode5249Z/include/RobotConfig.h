@@ -17,7 +17,7 @@ extern motor mtrRampLift;
 
 //Other Devices
 extern gyro driveGyro;
-extern bumper cubeBump;
+extern light cubeBump;
 extern controller ctrPrimary;
 extern encoder encStrafe;
 extern encoder encLeft;
@@ -32,6 +32,7 @@ extern double rightPosition;
 extern double xPosition;
 extern double yPosition;
 extern double maxSpeed;
+extern int originalLight;
 
 //Methods for all source files
 void wait(int);
@@ -40,7 +41,7 @@ int auton();
 bool confirmDriver();
 bool confirmAuton();
 void deployRobot();
-bool liftRamp(bool, double slow = 20, double fast = 80);
+bool liftRamp(bool, double slow = 15, double fast = 50);
 int pos();
 int drivePID();
 void turnToAngle(double);

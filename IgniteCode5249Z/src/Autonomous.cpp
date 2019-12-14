@@ -41,22 +41,23 @@ int auton(){
         deployRobot();
         vex::task driveTask = task(drivePID);
         vex::task positionTask = vex::task(pos);
+        originalLight = cubeBump.value(analogUnits::mV);
         maxSpeed = 35;
         mtrRampLift.stop(brakeType::coast);
         mtrArm.stop(brakeType::hold);
         mtrIntakeLeft.spin(directionType::fwd, -100, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
-        driveToPos(33.0, colorMod*0.0, false);
+        driveToPos(36.0, colorMod*0.0, false);
         task::sleep(750);
         mtrIntakeLeft.stop(brakeType::hold);
         mtrIntakeRight.stop(brakeType::hold);
         maxSpeed = 55;
-        driveToPos(18.0, colorMod*0.0, true);
+        driveToPos(16.0, colorMod*0.0, true);
         maxSpeed = 45;
         turnToAngle(colorMod*135);
         maxSpeed = 35;
         driveToPos(xPosition - 9, yPosition + colorMod*9.0, false, false, true, 3000);
-        stackTower(colorRed?270:300);
+        stackTower(400);
         mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
         maxSpeed = 20;
@@ -69,7 +70,7 @@ int auton(){
         mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
         turnToAngle(0);
         driveToPos(46, -9*colorMod, false, false);
-        while (!cubeBump.pressing()){
+        while (/*!cubeBump.pressing()*/true){
             task::sleep(10);
         }
         task::sleep(250);
@@ -85,7 +86,7 @@ int auton(){
         mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
         vex::task driveTask = task(drivePID);
         vex::task positionTask = vex::task(pos);
-        while (!cubeBump.pressing()){
+        while (/*!cubeBump.pressing()*/true){
             task::sleep(10);
         }
         task::sleep(250);

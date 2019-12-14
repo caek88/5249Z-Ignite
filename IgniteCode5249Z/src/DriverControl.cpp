@@ -51,6 +51,8 @@ int driver(){
     ctrPrimary.Screen.print("Jimbo");
     //deployRobot();
     while (true){
+      Brain.Screen.setPenWidth(5);
+      Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
         if (!kristen){
             if (!deployed && ctrPrimary.ButtonLeft.pressing()){
                 deployRobot();

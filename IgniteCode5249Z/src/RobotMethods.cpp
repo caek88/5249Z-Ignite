@@ -14,8 +14,7 @@ void deployRobot(){
         time += 10;
         task::sleep(10);
     }
-    mtrIntakeLeft.stop();
-    mtrIntakeRight.stop();
+    //task::sleep(300);
     time = 0;
     while (!liftRamp(false, 80, 100)){
         if (time < 1000){
@@ -47,9 +46,11 @@ bool liftRamp(bool moveUp, double slow, double fast){
     }
 }
 void stackTower(int rotOut, bool ejectDown){
+        
         mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
-        while (!cubeBump.pressing()){
+        while (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+            Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
         }
         mtrIntakeLeft.startRotateFor(rotOut, degrees);
@@ -71,6 +72,7 @@ void stackTower(int rotOut, bool ejectDown){
             mtrIntakeLeft.spin(directionType::fwd, 10, velocityUnits::pct);
             mtrIntakeRight.spin(directionType::fwd, 10, velocityUnits::pct);
         }
+        task::sleep(500);
         time = 0;
         while (!liftRamp(false)){
             if (time > 500){
