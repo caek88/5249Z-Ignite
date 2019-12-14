@@ -1,15 +1,43 @@
 #include "RobotConfig.h"
 const int DOWN = 10;
 const int UP = 539;
+void intake(double speed){
+    mtrIntakeLeft.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrIntakeRight.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void intakeStop(brakeType stopMode){
+    mtrIntakeLeft.stop(stopMode);
+    mtrIntakeRight.stop(stopMode);
+}
+void chassisLeft(double speed){
+    mtrLeft.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrLeftFront.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void chassisRight(double speed){
+    mtrRight.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrRightFront.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void arm(double speed){
+    mtrArm.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void armStop(brakeType stopMode){
+    mtrArm.stop(stopMode);
+}
+void rampLift(double speed){
+    mtrRampLift.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void rampLiftStop(brakeType stopMode){
+    mtrArm.stop(stopMode);
+}
+
 void deployRobot(){
-    mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
-    mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
+    intake(100);
     int time = 0;
     while (!liftRamp(true, 80, 100)){
         if (time < 1000){
-            mtrArm.spin(directionType::fwd, -50, velocityUnits::pct);
+            arm(-50);
         } else {
-            mtrArm.stop(brakeType::hold);
+            armStop(brakeType::hold);
         }
         time += 10;
         task::sleep(10);
@@ -18,9 +46,9 @@ void deployRobot(){
     time = 0;
     while (!liftRamp(false, 80, 100)){
         if (time < 1000){
-            mtrArm.spin(directionType::fwd, 50, velocityUnits::pct);
+            arm(50);
         } else {
-            mtrArm.stop(brakeType::coast);
+            armStop(brakeType::hold);
         }
         time += 10;
         task::sleep(10);
@@ -28,35 +56,33 @@ void deployRobot(){
 }
 bool liftRamp(bool moveUp, double slow, double fast){
     if (moveUp){
-        double speed = (double)(UP - mtrRampLift.rotation(rotationUnits::deg))/(UP - DOWN)*fast + slow;
-        if (mtrRampLift.rotation(rotationUnits::deg) >= UP){
+        double moveSpeed = (double)(UP - mtrRampLift.rotation(degrees))/(UP - DOWN)*fast + slow;
+        if (mtrRampLift.rotation(degrees) >= UP){
             return true;
         } else {
-            mtrRampLift.spin(directionType::fwd, speed, velocityUnits::pct);
+            rampLift(moveSpeed);
             return false;
         }
     } else {
-        double speed = (double)(mtrRampLift.rotation(rotationUnits::deg)- DOWN)/(UP - DOWN)*fast + slow;
-        if (mtrRampLift.rotation(rotationUnits::deg) <= DOWN){
+        double moveSpeed = (double)(mtrRampLift.rotation(degrees)- DOWN)/(UP - DOWN)*fast + slow;
+        if (mtrRampLift.rotation(degrees) <= DOWN){
             return true;
         } else {
-            mtrRampLift.spin(directionType::fwd, -speed, velocityUnits::pct);
+            rampLift(-moveSpeed);
             return false;
         }
     }
 }
 void stackTower(int rotOut, bool ejectDown){
         
-        mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
+        intake(30);
         while (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
             Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
         }
         mtrIntakeLeft.startRotateFor(rotOut, degrees);
         mtrIntakeRight.rotateFor(rotOut, degrees);
-        mtrIntakeLeft.stop();
-        mtrIntakeRight.stop();
+        intakeStop();
         int time = 0;
         while (!liftRamp(true)){
             if (time > 1000){
@@ -69,19 +95,16 @@ void stackTower(int rotOut, bool ejectDown){
             task::sleep(10);
         }
         if (ejectDown){
-            mtrIntakeLeft.spin(directionType::fwd, 10, velocityUnits::pct);
-            mtrIntakeRight.spin(directionType::fwd, 10, velocityUnits::pct);
+            intake(10);
         }
         task::sleep(500);
         time = 0;
         while (!liftRamp(false)){
             if (time > 500){
-                mtrIntakeLeft.stop();
-                mtrIntakeRight.stop();
+                intakeStop();
             }
             time += 10;
             task::sleep(10);
         }
-        mtrIntakeLeft.stop();
-        mtrIntakeRight.stop();
+        intakeStop();
 }

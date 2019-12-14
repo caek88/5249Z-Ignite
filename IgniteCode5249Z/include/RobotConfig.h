@@ -35,6 +35,15 @@ extern double maxSpeed;
 extern int originalLight;
 
 //Methods for all source files
+void intake(double speed);
+void intakeStop(brakeType stopMode = brakeType::coast);
+void chassisLeft(double speed);
+void chassisRight(double speed);
+void arm(double speed);
+void armStop(brakeType stopMode = brakeType::coast);
+void rampLift(double speed);
+void rampLiftStop(brakeType stopMode = brakeType::coast);
+
 void wait(int);
 int driver();
 int auton();
@@ -42,10 +51,9 @@ bool confirmDriver();
 bool confirmAuton();
 void deployRobot();
 bool liftRamp(bool, double slow = 15, double fast = 50);
-int pos();
 int drivePID();
-void turnToAngle(double);
-bool driveToPos(double, double, bool, bool adjust = true, bool timeOut = false, int timeMax = 5000);
+void driveToPos(double distance);
+bool turnToAngle(double finalAngle, double tolerance = 2.5);
 void stackTower(int, bool ejectDown = false);
 #endif
 

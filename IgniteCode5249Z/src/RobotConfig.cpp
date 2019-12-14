@@ -1,7 +1,7 @@
 #include "vex.h"
 #include "RobotConfig.h"
 using namespace vex;
-brain       Brain;
+brain Brain;
 
 //Initializations from RobotConfig.h
 //Motors
@@ -27,6 +27,7 @@ double xPosition = 0;
 double yPosition = 0;
 double leftPosition = 0;
 double rightPosition = 0;
+double maxSpeed = 80;
 bool colorRed;
 int autonMode;
 int originalLight;
