@@ -82,20 +82,13 @@ int auton(){
         mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
     }
     if (autonMode == 3){
-        mtrIntakeLeft.spin(directionType::fwd, -100, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
+        int colorMod = colorRed?-1:1;
         vex::task driveTask = task(drivePID);
         vex::task positionTask = vex::task(pos);
-        while (/*!cubeBump.pressing()*/true){
-            task::sleep(10);
-        }
+        driveToPos(24, 0, false, true, true, 5000);
+        driveToPos(0, 10*colorMod, true, true, true, 5000);
+        deployRobot();
         task::sleep(250);
-        mtrIntakeLeft.stop(brakeType::hold);
-        mtrIntakeRight.stop(brakeType::hold);
-        mtrRampLift.startRotateTo(100, rotationUnits::deg);
-        mtrArm.rotateTo(-600, rotationUnits::deg);
-        mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
     }
     ctrPrimary.Screen.print("Done");
     return 0; 
