@@ -56,7 +56,7 @@ int driver(){
                 deployRobot();
                 deployed = true;
             }
-            speaker.spin(directionType::rev, 100, percentUnits::pct);
+            //speaker.spin(directionType::rev, 100, percentUnits::pct);
             int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
             int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
             mtrLeft.spin(directionType::fwd, speedMod * (y+x), percentUnits::pct);

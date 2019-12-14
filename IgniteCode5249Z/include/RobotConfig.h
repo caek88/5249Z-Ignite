@@ -17,7 +17,7 @@ extern motor mtrRampLift;
 
 //Other Devices
 extern gyro driveGyro;
-extern motor29 speaker;
+extern bumper cubeBump;
 extern controller ctrPrimary;
 extern encoder encStrafe;
 extern encoder encLeft;
@@ -27,8 +27,8 @@ extern encoder encRight;
 extern bool colorRed;
 extern int autonMode;
 static competition compControl;
-static double leftPosition;
-static double rightPosition;
+extern double leftPosition;
+extern double rightPosition;
 extern double xPosition;
 extern double yPosition;
 extern double maxSpeed;
@@ -40,10 +40,11 @@ int auton();
 bool confirmDriver();
 bool confirmAuton();
 void deployRobot();
-bool liftRamp(bool);
+bool liftRamp(bool, double slow = 20, double fast = 80);
 int pos();
 int drivePID();
 void turnToAngle(double);
 bool driveToPos(double, double, bool, bool adjust = true, bool timeOut = false, int timeMax = 5000);
+void stackTower(int, bool ejectDown = false);
 #endif
 

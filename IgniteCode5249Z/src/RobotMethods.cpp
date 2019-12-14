@@ -1,13 +1,11 @@
 #include "RobotConfig.h"
 const int DOWN = 10;
 const int UP = 539;
-const int SPEED_MAX = 80;
-const int SLOW_SPEED = 20;
 void deployRobot(){
     mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
     mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
     int time = 0;
-    while (!liftRamp(true)){
+    while (!liftRamp(true, 80, 100)){
         if (time < 1000){
             mtrArm.spin(directionType::fwd, -50, velocityUnits::pct);
         } else {
@@ -19,7 +17,7 @@ void deployRobot(){
     mtrIntakeLeft.stop();
     mtrIntakeRight.stop();
     time = 0;
-    while (!liftRamp(false)){
+    while (!liftRamp(false, 80, 100)){
         if (time < 1000){
             mtrArm.spin(directionType::fwd, 50, velocityUnits::pct);
         } else {
@@ -29,9 +27,9 @@ void deployRobot(){
         task::sleep(10);
     }
 }
-bool liftRamp(bool moveUp){
+bool liftRamp(bool moveUp, double slow, double fast){
     if (moveUp){
-        double speed = (double)(UP - mtrRampLift.rotation(rotationUnits::deg))/(UP - DOWN)*SPEED_MAX + SLOW_SPEED;
+        double speed = (double)(UP - mtrRampLift.rotation(rotationUnits::deg))/(UP - DOWN)*fast + slow;
         if (mtrRampLift.rotation(rotationUnits::deg) >= UP){
             return true;
         } else {
@@ -39,7 +37,7 @@ bool liftRamp(bool moveUp){
             return false;
         }
     } else {
-        double speed = (double)(mtrRampLift.rotation(rotationUnits::deg)- DOWN)/(UP - DOWN)*SPEED_MAX + SLOW_SPEED;
+        double speed = (double)(mtrRampLift.rotation(rotationUnits::deg)- DOWN)/(UP - DOWN)*fast + slow;
         if (mtrRampLift.rotation(rotationUnits::deg) <= DOWN){
             return true;
         } else {
@@ -47,4 +45,41 @@ bool liftRamp(bool moveUp){
             return false;
         }
     }
+}
+void stackTower(int rotOut, bool ejectDown){
+        mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
+        while (!cubeBump.pressing()){
+            task::sleep(10);
+        }
+        mtrIntakeLeft.startRotateFor(rotOut, degrees);
+        mtrIntakeRight.rotateFor(rotOut, degrees);
+        mtrIntakeLeft.stop();
+        mtrIntakeRight.stop();
+        int time = 0;
+        while (!liftRamp(true)){
+            if (time > 1000){
+                mtrIntakeLeft.startRotateFor(180, degrees);
+                mtrIntakeRight.startRotateFor(180, degrees);
+                time = 0;
+            } else {
+                time += 10;
+            }
+            task::sleep(10);
+        }
+        if (ejectDown){
+            mtrIntakeLeft.spin(directionType::fwd, 10, velocityUnits::pct);
+            mtrIntakeRight.spin(directionType::fwd, 10, velocityUnits::pct);
+        }
+        time = 0;
+        while (!liftRamp(false)){
+            if (time > 500){
+                mtrIntakeLeft.stop();
+                mtrIntakeRight.stop();
+            }
+            time += 10;
+            task::sleep(10);
+        }
+        mtrIntakeLeft.stop();
+        mtrIntakeRight.stop();
 }

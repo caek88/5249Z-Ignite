@@ -18,7 +18,6 @@ int auton(){
         mtrIntakeLeft.stop(brakeType::hold);
         mtrIntakeRight.stop(brakeType::hold);
         maxSpeed = 45;
-        task::sleep(100);
         driveToPos(6.0, colorMod*22.0, true);
         maxSpeed = 37;
         turnToAngle(5*colorMod);
@@ -28,27 +27,13 @@ int auton(){
         maxSpeed = 30;
         task::sleep(100);
         driveToPos(42.0, yPosition, false, false);
-        task::sleep(200);
-        mtrIntakeLeft.stop(brakeType::hold);
-        mtrIntakeRight.stop(brakeType::hold);
-        maxSpeed = 35;
-        driveToPos(20.0, colorMod*20.0, true);
-        driveToPos(12.0, colorMod*30.0, false, true, true, 3000);
-        int time = 0;
-        while (!liftRamp(true)){
-            if (time < 500){
-                mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
-                mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
-            } else {
-                mtrIntakeLeft.stop(brakeType::hold);
-                mtrIntakeRight.stop(brakeType::hold);
-            }
-            time += 10;
-            task::sleep(10);
-        }
-        mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
-        driveToPos(xPosition + 4.0, yPosition - colorMod*4.0, true);
+        stackTower(700);
+        mtrIntakeLeft.spin(directionType::fwd, 25, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 25, velocityUnits::pct);
+        maxSpeed = 20;
+        leftPosition -= 360;
+        rightPosition -= 360;
+        task::sleep(2000);
     }
     if (autonMode == 2){
         driveGyro.setRotation(0, degrees);
@@ -62,7 +47,7 @@ int auton(){
         mtrIntakeLeft.spin(directionType::fwd, -100, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
         driveToPos(33.0, colorMod*0.0, false);
-        task::sleep(450);
+        task::sleep(750);
         mtrIntakeLeft.stop(brakeType::hold);
         mtrIntakeRight.stop(brakeType::hold);
         maxSpeed = 55;
@@ -70,23 +55,46 @@ int auton(){
         maxSpeed = 45;
         turnToAngle(colorMod*135);
         maxSpeed = 35;
-        driveToPos(10.0, colorMod*8.0, false, false, true, 3000);
+        driveToPos(xPosition - 9, yPosition + colorMod*9.0, false, false, true, 3000);
+        stackTower(colorRed?270:300);
         mtrIntakeLeft.spin(directionType::fwd, 30, velocityUnits::pct);
         mtrIntakeRight.spin(directionType::fwd, 30, velocityUnits::pct);
-        task::sleep(1250);
-        mtrIntakeLeft.stop();
-        mtrIntakeRight.stop();
-        while (!liftRamp(true)){
+        maxSpeed = 20;
+        leftPosition -= 360;
+        rightPosition -= 360;
+        task::sleep(2000);
+        maxSpeed = 40;
+        driveToPos(24, -9*colorMod, true);
+        mtrIntakeLeft.spin(directionType::fwd, -100, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
+        turnToAngle(0);
+        driveToPos(46, -9*colorMod, false, false);
+        while (!cubeBump.pressing()){
             task::sleep(10);
         }
-        mtrIntakeLeft.spin(directionType::fwd, 70, velocityUnits::pct);
-        mtrIntakeRight.spin(directionType::fwd, 70, velocityUnits::pct);
-        driveToPos(xPosition + 6.0, yPosition - colorMod*6.0, true, false);
-        mtrIntakeLeft.stop();
-        mtrIntakeRight.stop();
-        while (!liftRamp(false)){
+        task::sleep(250);
+        mtrIntakeLeft.stop(brakeType::hold);
+        mtrIntakeRight.stop(brakeType::hold);
+        mtrRampLift.startRotateTo(100, rotationUnits::deg);
+        mtrArm.rotateTo(-600, rotationUnits::deg);
+        mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
+    }
+    if (autonMode == 3){
+        mtrIntakeLeft.spin(directionType::fwd, -100, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, -100, velocityUnits::pct);
+        vex::task driveTask = task(drivePID);
+        vex::task positionTask = vex::task(pos);
+        while (!cubeBump.pressing()){
             task::sleep(10);
         }
+        task::sleep(250);
+        mtrIntakeLeft.stop(brakeType::hold);
+        mtrIntakeRight.stop(brakeType::hold);
+        mtrRampLift.startRotateTo(100, rotationUnits::deg);
+        mtrArm.rotateTo(-600, rotationUnits::deg);
+        mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
+        mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
     }
     ctrPrimary.Screen.print("Done");
     return 0; 
