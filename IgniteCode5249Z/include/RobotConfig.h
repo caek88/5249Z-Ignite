@@ -53,6 +53,7 @@ void deployRobot();
 bool liftRamp(bool, double slow = 15, double fast = 50);
 int drivePID();
 void driveToPos(double distance);
+double driveDistance();
 bool turnToAngle(double finalAngle, double tolerance = 2.5);
 void stackTower(int, bool ejectDown = false);
 #endif
