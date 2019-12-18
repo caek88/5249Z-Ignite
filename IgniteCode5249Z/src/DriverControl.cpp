@@ -57,7 +57,7 @@ int driver(){
         } else if (ctrPrimary.ButtonR2.pressing()){
             intake(-50);
         } else {
-            intake(0);
+            intakeStop(brakeType::hold);
         }
         if (ctrPrimary.ButtonX.pressing()){
             rampMacro = true;

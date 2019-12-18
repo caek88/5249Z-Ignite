@@ -30,8 +30,8 @@ int drivePID(){//Sets driver motors to specified rotation setting
     while (true){
         driveLeft.setPoint = leftPosition;
         driveRight.setPoint = rightPosition;
-        double speedLeft = driveLeft.calculatePID(mtrLeft.rotation(rotationUnits::deg));
-        double speedRight = driveRight.calculatePID(mtrRight.rotation(rotationUnits::deg));
+        double speedLeft = (int)driveLeft.calculatePID(mtrLeft.rotation(rotationUnits::deg));
+        double speedRight = (int)driveRight.calculatePID(mtrRight.rotation(rotationUnits::deg));
         Brain.Screen.printAt(1, 120, true, "Position Left: %f", leftPosition);
         Brain.Screen.printAt(1, 150, true, "Position Right: %f", rightPosition);
         if (speedLeft > maxSpeed){
