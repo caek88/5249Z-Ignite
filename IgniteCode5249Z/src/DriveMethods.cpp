@@ -12,7 +12,7 @@ bool turnToAngle(double finalAngle, double tolerance){//Turns the robot to a spe
     driveLeft.setGains(10.0/7.0, 0, 16.0/42.0);
     driveRight.setGains(10.0/7.0, 0, 16.0/42.0);
     double angleChange = finalAngle + driveGyro.angle(rotationUnits::deg);;//calculates the change in angle
-    if (angleChange > 180){
+    if (angleChange > 180){ 
         finalAngle -= 360;
         return false;
     }
@@ -23,12 +23,7 @@ bool turnToAngle(double finalAngle, double tolerance){//Turns the robot to a spe
     double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;//calculates the rotation to finish the turn
     leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) - rotationToAngle;//sets the motors to go to the correct rotation to turn to
     rightPosition = mtrRight.rotation(vex::rotationUnits::deg) + rotationToAngle;
-    if(angleChange > 0){
-        return angleChange > tolerance;
-    }
-    else{
-        return angleChange < -tolerance;
-    }
+    return fabs(angleChange) < tolerance;
 }
 void driveToPos(double distance){//Drives the robot to an (x,y) coordinate
     driveLeft.setGains(10.0/7.0, 0, 4.0/42.0);

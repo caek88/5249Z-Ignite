@@ -23,6 +23,22 @@ int auton(){
             task::sleep(10);
         }
     }
+    if (autonMode == 2){
+        vex::task driveTask = task(drivePID);
+        driveGyro.setRotation(0, degrees);
+        maxSpeed = 30;
+        while (!turnToAngle(90)){
+            task::sleep(10);
+        }
+        task::sleep(1000);
+        while (!turnToAngle(-90)){
+            task::sleep(10);
+        }
+        task::sleep(1000);
+        while (!turnToAngle(0)){
+            task::sleep(10);
+        }
+    }
     ctrPrimary.Screen.print("Done");
     return 0; 
 

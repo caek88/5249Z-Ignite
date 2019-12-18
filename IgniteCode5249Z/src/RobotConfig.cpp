@@ -16,7 +16,7 @@ motor mtrRampLift = motor(PORT4, ratio36_1, false);
 
 //Peripherals
 light cubeBump = light(Brain.ThreeWirePort.A);
-gyro driveGyro = gyro(Brain.ThreeWirePort.B);
+gyro driveGyro = gyro(Brain.ThreeWirePort.H);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
 encoder encStrafe = encoder(Brain.ThreeWirePort.C);
 encoder encLeft = encoder(Brain.ThreeWirePort.E);

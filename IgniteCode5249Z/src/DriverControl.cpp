@@ -76,8 +76,8 @@ int driver(){
                 mtrRampLift.spin(directionType::fwd, 30, velocityUnits::pct);
             } else if (ctrPrimary.ButtonL2.pressing()){
                 mtrRampLift.spin(directionType::fwd, -30, velocityUnits::pct);
-            } else if(abs(arm) > 10){
-                mtrRampLift.spin(directionType::fwd, 0.2 * arm, velocityUnits::pct);
+            } else if(abs(armSpeed) > 10){
+                mtrRampLift.spin(directionType::fwd, 0.2 * armSpeed, velocityUnits::pct);
             } else {
                 mtrRampLift.stop(brakeType::hold);
             }
