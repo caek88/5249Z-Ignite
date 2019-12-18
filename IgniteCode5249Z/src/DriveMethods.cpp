@@ -11,15 +11,7 @@ double getRotation(double distance){
 bool turnToAngle(double finalAngle, double tolerance){//Turns the robot to a specific angle
     driveLeft.setGains(10.0/7.0, 0, 16.0/42.0);
     driveRight.setGains(10.0/7.0, 0, 16.0/42.0);
-    double angleChange = finalAngle + driveGyro.angle(rotationUnits::deg);;//calculates the change in angle
-    if (angleChange > 180){ 
-        finalAngle -= 360;
-        return false;
-    }
-    if (angleChange < -180){
-        finalAngle += 360;
-        return false;
-    }
+    double angleChange = finalAngle + driveGyro.angle(rotationUnits::deg);//calculates the change in angle
     double rotationToAngle = DIAMETER_CHASSIS/DIAMETER_WHEEL*angleChange;//calculates the rotation to finish the turn
     leftPosition = mtrLeft.rotation(vex::rotationUnits::deg) - rotationToAngle;//sets the motors to go to the correct rotation to turn to
     rightPosition = mtrRight.rotation(vex::rotationUnits::deg) + rotationToAngle;
