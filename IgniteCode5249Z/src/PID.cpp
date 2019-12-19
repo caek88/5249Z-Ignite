@@ -11,7 +11,6 @@ double PID::calculatePID(double processVar){
     double derivative = (error - prevError)/samplePeriod;
     integral += error * samplePeriod;
     prevError = error;
-    task::sleep(10);
     return error * kP + derivative * kD + integral * kI;
 }
 void PID::reset(){

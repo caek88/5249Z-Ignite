@@ -27,10 +27,6 @@ extern encoder encRight;
 extern bool colorRed;
 extern int autonMode;
 static competition compControl;
-extern double leftPosition;
-extern double rightPosition;
-extern double xPosition;
-extern double yPosition;
 extern double maxSpeed;
 extern int originalLight;
 
@@ -52,9 +48,11 @@ bool confirmAuton();
 void deployRobot();
 bool liftRamp(bool, double slow = 15, double fast = 50);
 int drivePID();
+void resetPosition();
 void driveToPos(double distance);
-double driveDistance();
-bool turnToAngle(double finalAngle, double tolerance = 2.5);
+void turnToAngle(double angle);
+double longitudeError();
+double yawError();
 void stackTower(int, bool ejectDown = false);
 #endif
 
