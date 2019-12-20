@@ -53,9 +53,9 @@ int driver(){
           armStop(brakeType::hold);
         }
         if (ctrPrimary.ButtonR1.pressing()){
-            intake(50);
+            intake(100);
         } else if (ctrPrimary.ButtonR2.pressing()){
-            intake(-50);
+            intake(-100);
         } else {
             intakeStop(brakeType::hold);
         }
@@ -73,13 +73,13 @@ int driver(){
             }
         } else {
             if (ctrPrimary.ButtonL1.pressing()){
-                mtrRampLift.spin(directionType::fwd, 30, velocityUnits::pct);
+                rampLift(30);
             } else if (ctrPrimary.ButtonL2.pressing()){
-                mtrRampLift.spin(directionType::fwd, -30, velocityUnits::pct);
+                rampLift(-30);
             } else if(abs(armSpeed) > 10){
-                mtrRampLift.spin(directionType::fwd, 0.2 * armSpeed, velocityUnits::pct);
+                rampLift(0.2 * armSpeed);
             } else {
-                mtrRampLift.stop(brakeType::hold);
+                rampLiftStop(brakeType::hold);
             }
         }
         task::sleep(10);
