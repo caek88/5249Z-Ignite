@@ -7,20 +7,23 @@ int auton(){
         deployRobot();
         originalLight = cubeBump.value(analogUnits::mV);
         maxSpeed = 35;
-        driveToPos(24);
-        while (longitudeError() > 0.5) {
-            double distance = longitudeError();
-            if (distance < 18 && distance > 6){
+        double error;
+        do {
+            error = fabs(longitudeError());
+            if (error < 18.0){
                 maxSpeed = 80;
-            } else {
-                maxSpeed = 35;
+            }
+            if (error < 6){
+                maxSpeed = 30;
             }
             task::sleep(10);
-        } 
+        } while (error > 0.2);
         turnToAngle(-90);
-        while (yawError() > 2.5){
+        while (fabs(yawError()) > 2){
             task::sleep(10);
         }
+        turnToAngle(90);
+        
     }
     ctrPrimary.Screen.print("Done");
     return 0; 

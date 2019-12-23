@@ -19,9 +19,6 @@ extern motor mtrRampLift;
 extern gyro driveGyro;
 extern light cubeBump;
 extern controller ctrPrimary;
-extern encoder encStrafe;
-extern encoder encLeft;
-extern encoder encRight;
 
 //extern variables
 extern bool colorRed;
