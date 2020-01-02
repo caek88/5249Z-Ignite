@@ -40,9 +40,6 @@ void clearMotorRotations(){
     mtrIntakeLeft.resetRotation();
     mtrIntakeRight.resetRotation();
     mtrRampLift.resetRotation();
-    encRight.resetRotation();
-    encLeft.resetRotation();
-    encStrafe.resetRotation();
     task::sleep(500);
 }
 bool isField(){//Method for checking if either field control device is connected

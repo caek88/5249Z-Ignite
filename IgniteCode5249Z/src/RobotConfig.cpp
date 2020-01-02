@@ -18,15 +18,8 @@ motor mtrRampLift = motor(PORT4, ratio36_1, false);
 light cubeBump = light(Brain.ThreeWirePort.A);
 gyro driveGyro = gyro(Brain.ThreeWirePort.H);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
-encoder encStrafe = encoder(Brain.ThreeWirePort.C);
-encoder encLeft = encoder(Brain.ThreeWirePort.E);
-encoder encRight = encoder(Brain.ThreeWirePort.G);
 
 //extern variables
-double xPosition = 0;
-double yPosition = 0;
-double leftPosition = 0;
-double rightPosition = 0;
 double maxSpeed = 80;
 bool colorRed;
 int autonMode;
