@@ -16,7 +16,7 @@ extern motor mtrIntakeRight;
 extern motor mtrRampLift;
 
 //Other Devices
-extern gyro driveGyro;
+extern inertial navInert;
 extern light cubeBump;
 extern controller ctrPrimary;
 

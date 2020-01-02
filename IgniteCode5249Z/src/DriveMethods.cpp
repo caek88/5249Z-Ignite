@@ -4,13 +4,13 @@
 double yawAngle = 0;
 double longitude = 0;
 const double DIAMETER_CHASSIS = 12;
-const double DIAMETER_WHEEL = 2.5;
+const double DIAMETER_WHEEL = 4;
 PID longitudePID = PID(10.0/7.0, 0, 2.0/21.0, 0.01);//PID objects created
 PID yawPID = PID(18.0/7.0, 0, 7.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
-    driveGyro.setRotation(0, degrees);
+    navInert.setRotation(0, degrees);
 }
 double getRotation(double distanceHoriz){
     return (360*distanceHoriz)/(M_PI * DIAMETER_WHEEL);
@@ -25,7 +25,7 @@ double longitudeError(){
     return (M_PI * DIAMETER_WHEEL)/360.0*(longitude - (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0);
 }
 double yawError(){
-    return yawAngle - driveGyro.angle(degrees);
+    return yawAngle - navInert.angle();
 }
 int drivePID(){//Sets driver motors to specified rotation setting
     while (true){
@@ -39,7 +39,7 @@ int drivePID(){//Sets driver motors to specified rotation setting
         yawPID.setPoint = yawAngle;
         double longitudeCurrent = (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0;
         double dLongitude = longitudePID.calculatePID(longitudeCurrent);
-        double dYaw = yawPID.calculatePID(driveGyro.angle(degrees));
+        double dYaw = yawPID.calculatePID(navInert.angle());
         Brain.Screen.printAt(1, 30, true, "Long: %f", longitudeError());
         Brain.Screen.printAt(1, 60, true, "Yaw: %f", yawError());
         double speedLeft = dLongitude + dYaw;

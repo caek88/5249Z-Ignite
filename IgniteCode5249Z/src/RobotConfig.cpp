@@ -11,12 +11,12 @@ motor mtrLeftFront = motor(PORT11, false);
 motor mtrRightFront = motor(PORT20, true);
 motor mtrArm = motor(PORT10, ratio36_1, true);
 motor mtrIntakeLeft = motor(PORT2, true);
-motor mtrIntakeRight = motor(PORT8, false);
+motor mtrIntakeRight = motor(PORT7, false);
 motor mtrRampLift = motor(PORT4, ratio36_1, false);
 
 //Peripherals
 light cubeBump = light(Brain.ThreeWirePort.A);
-gyro driveGyro = gyro(Brain.ThreeWirePort.H);
+inertial navInert = inertial(PORT13);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
 
 //extern variables

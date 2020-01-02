@@ -27,7 +27,7 @@ void rampLift(double speed){
     mtrRampLift.spin(directionType::fwd, speed, velocityUnits::pct);
 }
 void rampLiftStop(brakeType stopMode){
-    mtrArm.stop(stopMode);
+    mtrRampLift.stop(stopMode);
 }
 
 void deployRobot(){

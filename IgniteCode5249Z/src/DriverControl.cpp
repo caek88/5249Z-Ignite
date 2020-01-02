@@ -76,7 +76,7 @@ int driver(){
                 rampLift(30);
             } else if (ctrPrimary.ButtonL2.pressing()){
                 rampLift(-30);
-            } else if(abs(armSpeed) > 10){
+            } else if(armSpeed > 10){
                 rampLift(0.2 * armSpeed);
             } else {
                 rampLiftStop();
