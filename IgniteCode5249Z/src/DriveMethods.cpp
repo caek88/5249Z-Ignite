@@ -6,7 +6,7 @@ double longitude = 0;
 const double DIAMETER_CHASSIS = 12;
 const double DIAMETER_WHEEL = 4;
 PID longitudePID = PID(10.0/7.0, 0, 2.0/21.0, 0.01);//PID objects created
-PID yawPID = PID(18.0/7.0, 0, 9.0/21.0, 0.01);
+PID yawPID = PID(18.0/7.0, 0, 7.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
