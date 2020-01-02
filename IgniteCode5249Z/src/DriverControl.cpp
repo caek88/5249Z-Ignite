@@ -79,7 +79,7 @@ int driver(){
             } else if(abs(armSpeed) > 10){
                 rampLift(0.2 * armSpeed);
             } else {
-                rampLiftStop(brakeType::hold);
+                rampLiftStop();
             }
         }
         task::sleep(10);
