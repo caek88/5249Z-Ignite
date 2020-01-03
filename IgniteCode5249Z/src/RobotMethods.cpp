@@ -56,6 +56,11 @@ void deployRobot(){
 }
 bool liftRamp(bool moveUp, double slow, double fast){
     if (moveUp){
+        if (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+            intakeStop();
+        } else {
+            intake(20);
+        }
         double moveSpeed = (double)(UP - mtrRampLift.rotation(degrees))/(UP - DOWN)*fast + slow;
         if (mtrRampLift.rotation(degrees) >= UP){
             return true;

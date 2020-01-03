@@ -19,6 +19,7 @@ extern motor mtrRampLift;
 extern inertial navInert;
 extern light cubeBump;
 extern controller ctrPrimary;
+extern gyro gyroDrive;
 
 //extern variables
 extern bool colorRed;

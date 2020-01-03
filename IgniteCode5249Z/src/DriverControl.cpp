@@ -32,6 +32,7 @@ int driver(){
     toggleSpeed();
     ctrPrimary.Screen.setCursor(2,1);
     ctrPrimary.Screen.print("Jimbo");
+    originalLight = cubeBump.value(analogUnits::mV);
     //deployRobot();
     while (true){
         Brain.Screen.setPenWidth(5);

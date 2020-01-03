@@ -17,6 +17,7 @@ void calibrateGyros(){//Calibrates gyros
     ctrPrimary.Screen.clearScreen();
     ctrPrimary.Screen.print("CalGyro");
     navInert.calibrate();
+    gyroDrive.calibrate();
     task::sleep(3000);
     ctrPrimary.Screen.clearScreen();
 }
