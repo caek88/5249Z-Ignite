@@ -167,7 +167,7 @@ int main() {
         strcpy(selectMode.text[3], "");
         //mode = selectMode.select();*/
         calibrateGyros();
-        colorSelect();
+        //colorSelect();
         mode = 1;
         colorRed = false;
         if (mode == 1 || mode == 2){

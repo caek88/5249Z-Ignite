@@ -78,31 +78,27 @@ bool liftRamp(bool moveUp, double slow, double fast){
         }
     }
 }
-void stackTower(int rotOut, bool ejectDown){
-        
+void stackTower(){
         intake(30);
         while (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
             Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
         }
-        mtrIntakeLeft.startRotateFor(rotOut, degrees);
-        mtrIntakeRight.rotateFor(rotOut, degrees);
         intakeStop();
         int time = 0;
         while (!liftRamp(true)){
-            if (time > 1000){
+            /*if (time > 1000){
                 mtrIntakeLeft.startRotateFor(180, degrees);
                 mtrIntakeRight.startRotateFor(180, degrees);
                 time = 0;
             } else {
                 time += 10;
-            }
+            }*/
             task::sleep(10);
         }
-        if (ejectDown){
-            intake(10);
-        }
+        arm(50);
         task::sleep(500);
+        armStop();
         time = 0;
         while (!liftRamp(false)){
             if (time > 500){

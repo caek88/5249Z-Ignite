@@ -10,7 +10,7 @@ PID yawPID = PID(18.0/7.0, 0, 7.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
-    navInert.setRotation(0, degrees);
+    //navInert.setRotation(0, degrees);
     //gyroDrive.setRotation(0, degrees);
 }
 double getRotation(double distanceHoriz){
@@ -44,7 +44,7 @@ int drivePID(){//Sets driver motors to specified rotation setting
         double dYaw = yawPID.calculatePID(navInert.rotation(degrees));
         Brain.Screen.printAt(1, 30, true, "Long: %f", longitudeError());
         //Brain.Screen.printAt(1, 60, true, "Yaw: %f", navInert.angle());
-        Brain.Screen.printAt(1, 60, true, "Yaw: %f", yawError());
+        Brain.Screen.printAt(1, 60, true, "Yaw: %f", navInert.rotation(degrees));
         double speedLeft = dLongitude + dYaw;
         double speedRight = dLongitude - dYaw;
         if (speedLeft > maxSpeed){

@@ -95,6 +95,27 @@ int auton(){
             task::sleep(10);
         }
     }
+    if (autonMode == 2){
+        vex::task driveTask = task(drivePID);
+        resetPosition();
+        int colorMod = colorRed?-1:1;
+        //deployRobot();
+        originalLight = cubeBump.value(analogUnits::mV);
+        maxSpeed = 35;
+        stackTower();
+
+        intake(50);
+        driveToPos(-20);
+        while (longitudeError() > 0.5) {
+            double distance = longitudeError();
+            if (fabs(distance) < 15 && fabs(distance) > 5){
+                maxSpeed = 60;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+    }
     ctrPrimary.Screen.print("Done");
     return 0; 
 

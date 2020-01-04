@@ -16,7 +16,7 @@ motor mtrRampLift = motor(PORT4, ratio36_1, false);
 
 //Peripherals
 light cubeBump = light(Brain.ThreeWirePort.A);
-inertial navInert = inertial(PORT13);
+inertial navInert = inertial(PORT12);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
 //gyro gyroDrive = gyro(Brain.ThreeWirePort.H);
 

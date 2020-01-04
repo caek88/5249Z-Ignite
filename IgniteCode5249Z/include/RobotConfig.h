@@ -51,6 +51,6 @@ void driveToPos(double distance);
 void turnToAngle(double angle);
 double longitudeError();
 double yawError();
-void stackTower(int, bool ejectDown = false);
+void stackTower();
 #endif
 
