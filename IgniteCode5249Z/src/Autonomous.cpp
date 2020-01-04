@@ -4,7 +4,7 @@ int auton(){
         vex::task driveTask = task(drivePID);
         resetPosition();
         int colorMod = colorRed?-1:1;
-        deployRobot();
+        //deployRobot();
         originalLight = cubeBump.value(analogUnits::mV);
         maxSpeed = 35;
         intake(-70);

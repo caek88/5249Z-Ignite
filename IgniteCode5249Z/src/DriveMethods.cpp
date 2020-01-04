@@ -10,8 +10,8 @@ PID yawPID = PID(18.0/7.0, 0, 7.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
-    //navInert.setRotation(0, degrees);
-    gyroDrive.setRotation(0, degrees);
+    navInert.setRotation(0, degrees);
+    //gyroDrive.setRotation(0, degrees);
 }
 double getRotation(double distanceHoriz){
     return (360*distanceHoriz)/(M_PI * DIAMETER_WHEEL);
@@ -23,11 +23,11 @@ void driveToPos(double distance){//Drives the robot to an (x,y) coordinate
     longitude += getRotation(distance);
 }
 double longitudeError(){
-    return (longitude - (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0);//(M_PI * DIAMETER_WHEEL)/360.0*(longitude - (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0);
+    return (M_PI * DIAMETER_WHEEL)/360.0*(longitude - (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0);
 }
 double yawError(){
-    //return yawAngle - navInert.angle();
-    return yawAngle - gyroDrive.angle();
+    return yawAngle - navInert.rotation(degrees);
+    //return yawAngle - gyroDrive.angle();
 }
 int drivePID(){//Sets driver motors to specified rotation setting
     while (true){
@@ -41,10 +41,10 @@ int drivePID(){//Sets driver motors to specified rotation setting
         yawPID.setPoint = yawAngle;
         double longitudeCurrent = (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0;
         double dLongitude = longitudePID.calculatePID(longitudeCurrent);
-        double dYaw = yawPID.calculatePID(gyroDrive.angle());
+        double dYaw = yawPID.calculatePID(navInert.rotation(degrees));
         Brain.Screen.printAt(1, 30, true, "Long: %f", longitudeError());
         //Brain.Screen.printAt(1, 60, true, "Yaw: %f", navInert.angle());
-        Brain.Screen.printAt(1, 60, true, "Yaw: %f", gyroDrive.angle());
+        Brain.Screen.printAt(1, 60, true, "Yaw: %f", yawError());
         double speedLeft = dLongitude + dYaw;
         double speedRight = dLongitude - dYaw;
         if (speedLeft > maxSpeed){
