@@ -37,7 +37,7 @@ void arm(double speed);
 void armStop(brakeType stopMode = brakeType::coast);
 void rampLift(double speed);
 void rampLiftStop(brakeType stopMode = brakeType::coast);
-
+bool cubesClear();
 void wait(int);
 int driver();
 int auton();

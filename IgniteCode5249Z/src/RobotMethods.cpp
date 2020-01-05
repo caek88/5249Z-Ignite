@@ -29,7 +29,9 @@ void rampLift(double speed){
 void rampLiftStop(brakeType stopMode){
     mtrRampLift.stop(stopMode);
 }
-
+bool cubesClear(){
+    return abs(cubeBump.value(analogUnits::mV) - originalLight) < 50;
+}
 void deployRobot(){
     intake(100);
     int time = 0;
@@ -83,6 +85,9 @@ void stackTower(){
         while (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
             Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
+            if(ctrPrimary.ButtonB.pressing()){
+              return;
+            }
         }
         intakeStop();
         int time = 0;
@@ -95,6 +100,9 @@ void stackTower(){
                 time += 10;
             }*/
             task::sleep(10);
+            if(ctrPrimary.ButtonB.pressing()){
+              return;
+            }
         }
         arm(50);
         task::sleep(500);
@@ -106,6 +114,9 @@ void stackTower(){
             }
             time += 10;
             task::sleep(10);
+            if(ctrPrimary.ButtonB.pressing()){
+              return;
+            }
         }
         intakeStop();
 }

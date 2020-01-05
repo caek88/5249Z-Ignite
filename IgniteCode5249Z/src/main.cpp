@@ -160,18 +160,19 @@ int main() {
     ctrPrimary.Screen.clearScreen();
     ctrPrimary.Screen.setCursor(1,0);
     while(true){
-        /*DisplaySelection selectMode = DisplaySelection(3); //Create Display object
+        DisplaySelection selectMode = DisplaySelection(3); //Create Display object
         strcpy(selectMode.text[0], "Driver Control");//set values in array to options
         strcpy(selectMode.text[1], "Autonomous");
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
-        //mode = selectMode.select();*/
+        //mode = selectMode.select();
         calibrateGyros();
         //colorSelect();
         mode = 1;
         colorRed = false;
         if (mode == 1 || mode == 2){
-            autonMode = selectAutonomous();
+            //autonMode = selectAutonomous();
+            autonMode = 1;
         }
         clearMotorRotations();
         if(mode == 0){//Runs driver control
