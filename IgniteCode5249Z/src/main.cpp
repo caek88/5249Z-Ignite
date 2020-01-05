@@ -144,7 +144,7 @@ bool confirmDriver(){
 int selectAutonomous(){//method for selecting autons
     DisplaySelection selectAuton = DisplaySelection(4);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
-    strcpy(selectAuton.text[1], "Skills 8");
+    strcpy(selectAuton.text[1], "Game 6");
     strcpy(selectAuton.text[2], "Game 4");
     strcpy(selectAuton.text[3], "Test");
     return selectAuton.select();
@@ -165,15 +165,15 @@ int main() {
         strcpy(selectMode.text[1], "Autonomous");
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
-        //mode = selectMode.select();
-        calibrateGyros();
-        //colorSelect();
-        mode = 1;
-        colorRed = false;
+        mode = selectMode.select();
+        //mode = 1;
+        //colorRed = false;
         if (mode == 1 || mode == 2){
-            //autonMode = selectAutonomous();
-            autonMode = 1;
+            calibrateGyros();
+            autonMode = selectAutonomous();
+            //autonMode = 1;
         }
+        colorSelect();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();
