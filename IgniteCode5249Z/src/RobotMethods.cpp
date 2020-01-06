@@ -56,12 +56,14 @@ void deployRobot(){
         task::sleep(10);
     }
 }
-bool liftRamp(bool moveUp, double slow, double fast){
+bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
     if (moveUp){
-        if (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
-            intakeStop();
-        } else {
-            intake(20);
+        if (outtake){
+            if (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+                intakeStop();
+            } else {
+                intake(20);
+            }
         }
         double moveSpeed = (double)(UP - mtrRampLift.rotation(degrees))/(UP - DOWN)*fast + slow;
         if (mtrRampLift.rotation(degrees) >= UP){
@@ -91,7 +93,7 @@ void stackTower(){
         }
         intakeStop();
         int time = 0;
-        while (!liftRamp(true)){
+        while (!liftRamp(true, 15,50,true)){
             /*if (time > 1000){
                 mtrIntakeLeft.startRotateFor(180, degrees);
                 mtrIntakeRight.startRotateFor(180, degrees);

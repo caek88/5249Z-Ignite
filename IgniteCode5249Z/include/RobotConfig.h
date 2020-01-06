@@ -44,7 +44,7 @@ int auton();
 bool confirmDriver();
 bool confirmAuton();
 void deployRobot();
-bool liftRamp(bool, double slow = 15, double fast = 50);
+bool liftRamp(bool, double slow = 15, double fast = 50, bool outtake = false);
 int drivePID();
 void resetPosition();
 void driveToPos(double distance);
