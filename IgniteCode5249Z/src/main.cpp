@@ -166,7 +166,7 @@ int main() {
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
         //mode = selectMode.select();
-        mode = 1;
+        mode = 0;
         colorRed = false;
         if (mode == 1 || mode == 2){
             calibrateGyros();

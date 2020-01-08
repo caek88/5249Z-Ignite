@@ -99,20 +99,20 @@ int auton(){
             task::sleep(10);
         } 
         task::sleep(500);
-        intakeStop(hold);
         driveToPos(-16);
         intakeStop(hold);
         while (fabs(longitudeError()) > 0.5) {
             double distance = fabs(longitudeError());
             if (distance > 6 && distance < 34){
                 maxSpeed = 70;
+                intakeStop(hold);
             } else {
                 maxSpeed = 35;
             }
             task::sleep(10);
         }
         task::sleep(200);
-        turnToAngle(colorMod*-125);
+        turnToAngle(colorMod*-135);
         while (fabs(yawError()) > 2.5){
             if (fabs(yawError()) < 10){
                 maxSpeed = 10;

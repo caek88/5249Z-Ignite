@@ -109,16 +109,5 @@ void stackTower(){
         arm(50);
         task::sleep(500);
         armStop();
-        time = 0;
-        while (!liftRamp(false)){
-            if (time > 500){
-                intakeStop();
-            }
-            time += 10;
-            task::sleep(10);
-            if(ctrPrimary.ButtonB.pressing()){
-              return;
-            }
-        }
         intakeStop();
 }
