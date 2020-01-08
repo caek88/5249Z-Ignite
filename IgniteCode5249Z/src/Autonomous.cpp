@@ -8,7 +8,7 @@ int auton(){
         originalLight = cubeBump.value(analogUnits::mV);
         maxSpeed = 40;
         //drive forward and pick up cubes
-        intake(-70);
+        intake(-100);
         driveToPos(36);
         while (longitudeError() > 0.5) {
             task::sleep(10);
@@ -91,16 +91,16 @@ int auton(){
         int colorMod = colorRed?-1:1;
         deployRobot();
         originalLight = cubeBump.value(analogUnits::mV);
-        maxSpeed = 40;
+        maxSpeed = 30;
         //drive forward and pick up cubes
-        intake(-70);
-        driveToPos(36);
+        intake(-100);
+        driveToPos(38);
         while (longitudeError() > 0.5) {
             task::sleep(10);
         } 
         task::sleep(500);
         intakeStop(hold);
-        driveToPos(-14);
+        driveToPos(-16);
         intakeStop(hold);
         while (fabs(longitudeError()) > 0.5) {
             double distance = fabs(longitudeError());
@@ -112,7 +112,7 @@ int auton(){
             task::sleep(10);
         }
         task::sleep(200);
-        turnToAngle(colorMod*-135);
+        turnToAngle(colorMod*-125);
         while (fabs(yawError()) > 2.5){
             if (fabs(yawError()) < 10){
                 maxSpeed = 10;
