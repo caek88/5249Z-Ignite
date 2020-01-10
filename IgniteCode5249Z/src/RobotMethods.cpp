@@ -47,7 +47,7 @@ void deployRobot(){
     //task::sleep(300);
     time = 0;
     while (!liftRamp(false, 80, 100)){
-        if (time < 1000){
+        if (time < 2000 && time > 1000){
             arm(50);
         } else {
             armStop(brakeType::hold);

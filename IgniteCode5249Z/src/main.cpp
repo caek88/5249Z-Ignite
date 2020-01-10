@@ -145,8 +145,8 @@ int selectAutonomous(){//method for selecting autons
     DisplaySelection selectAuton = DisplaySelection(4);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
     strcpy(selectAuton.text[1], "Game 6");
-    strcpy(selectAuton.text[2], "Game 4");
-    strcpy(selectAuton.text[3], "Test");
+    strcpy(selectAuton.text[2], "Game 5");
+    strcpy(selectAuton.text[3], "Skills?");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
@@ -167,11 +167,11 @@ int main() {
         strcpy(selectMode.text[3], "");
         //mode = selectMode.select();
         mode = 0;
-        colorRed = false;
+        colorRed = true;
         if (mode == 1 || mode == 2){
             calibrateGyros();
             //autonMode = selectAutonomous();
-            autonMode = 2;
+            autonMode = 3;
         }
         //colorSelect();
         clearMotorRotations();

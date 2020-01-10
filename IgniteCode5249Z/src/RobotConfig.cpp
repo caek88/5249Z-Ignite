@@ -10,7 +10,7 @@ motor mtrRight = motor(PORT16, true);
 motor mtrLeftFront = motor(PORT11, false);
 motor mtrRightFront = motor(PORT20, true);
 motor mtrArm = motor(PORT10, ratio36_1, true);
-motor mtrIntakeLeft = motor(PORT5, ratio36_1, true);
+motor mtrIntakeLeft = motor(PORT2, ratio36_1, true);
 motor mtrIntakeRight = motor(PORT6, ratio36_1, false);
 motor mtrRampLift = motor(PORT4, ratio36_1, false);
 
