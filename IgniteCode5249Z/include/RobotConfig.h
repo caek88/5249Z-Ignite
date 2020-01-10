@@ -51,6 +51,6 @@ void driveToPos(double distance);
 void turnToAngle(double angle);
 double longitudeError();
 double yawError();
-void stackTower();
+void stackTower(bool waitForCubes = true);
 #endif
 

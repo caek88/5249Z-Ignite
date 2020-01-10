@@ -48,13 +48,14 @@ void deployRobot(){
     time = 0;
     while (!liftRamp(false, 80, 100)){
         if (time < 2000 && time > 1000){
-            arm(50);
+            arm(100);
         } else {
             armStop(brakeType::hold);
         }
         time += 10;
         task::sleep(10);
     }
+    rampLiftStop();
 }
 bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
     if (moveUp){
@@ -82,9 +83,9 @@ bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
         }
     }
 }
-void stackTower(){
+void stackTower(bool waitForCube){
         intake(30);
-        while (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+        while (waitForCube && abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
             Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
             if(ctrPrimary.ButtonB.pressing()){

@@ -219,16 +219,17 @@ int auton(){
             task::sleep(10);
         }
         task::sleep(200);
+        intake(-100);
         maxSpeed = 35;
-        driveToPos(18);
+        driveToPos(17);
         while (fabs(longitudeError()) > 0.5) {
             task::sleep(10);
         }
         stackTower();
 
         intake(100);
-        driveToPos(-26);
-        while (fabs(longitudeError()) > 0.5 || !liftRamp(false)) {
+        driveToPos(-22);
+        while (!liftRamp(false) || fabs(longitudeError()) > 0.5 ) {//Special short curcuit if switched
             double distance = longitudeError();
             if (fabs(distance) < 15 && fabs(distance) > 5){
                 maxSpeed = 60;
@@ -239,6 +240,11 @@ int auton(){
             task::sleep(10);
         }
         intakeStop();
+        arm(-50);
+        task::sleep(500);
+        arm(50);
+        task::sleep(500);
+        armStop();
         turnToAngle(0);
         while (fabs(yawError()) > 2.5){
             if (fabs(yawError()) < 10){
@@ -248,10 +254,12 @@ int auton(){
         }
         intake(-100);
         driveToPos(16);
+        
         while (fabs(longitudeError()) > 0.5 || cubesClear()) {
             double distance = longitudeError();
             if (fabs(distance) < 15 && fabs(distance) > 5){
                 maxSpeed = 60;
+                
             } else {
                 maxSpeed = 35;
             }
