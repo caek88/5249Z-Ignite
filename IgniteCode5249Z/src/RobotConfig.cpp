@@ -25,3 +25,7 @@ double maxSpeed = 80;
 bool colorRed;
 int autonMode;
 int originalLight;
+
+void wait(int time){
+    task::sleep(time);
+}

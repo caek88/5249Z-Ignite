@@ -1,4 +1,6 @@
 #include "RobotConfig.h"
+#include "RobotMethods.h"
+#include "NavMethods.h"
 #include "PID.h"
 
 double yawAngle = 0;

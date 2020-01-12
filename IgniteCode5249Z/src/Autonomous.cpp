@@ -1,4 +1,6 @@
 #include "RobotConfig.h"
+#include "RobotMethods.h"
+#include "NavMethods.h"
 int auton(){
 
     if (autonMode == 1){

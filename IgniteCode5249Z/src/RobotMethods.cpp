@@ -1,4 +1,5 @@
 #include "RobotConfig.h"
+#include "RobotMethods.h"
 const int DOWN = 10;
 const int UP = 539;
 void intake(double speed){
