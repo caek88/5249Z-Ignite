@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: NavMethods.cpp                                      */
+/*    Description: Defines methods in NavMethods.h              */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
 #include "NavMethods.h"

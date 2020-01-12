@@ -1,3 +1,10 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: RobotMethods.h                                      */
+/*    Description: Methods for controlling different parts of   */
+/*        the robot                                             */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 void intake(double speed);
 void intakeStop(brakeType stopMode = brakeType::coast);

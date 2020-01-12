@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: DriverControl.cpp                                   */
+/*    Description: Driver Control code for competition          */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
 double speedMod = 1.0;

@@ -1,3 +1,10 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: RobotConfig.h                                       */
+/*    Description: Defines the global variables for the program */
+/*      and methods for the main program                        */
+/*--------------------------------------------------------------*/
 #ifndef __ROBOTCONFIG_H_INCLUDED__
 #define __ROBOTCONFIG_H_INCLUDED__
 

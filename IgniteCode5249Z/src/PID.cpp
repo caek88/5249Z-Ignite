@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: PID.cpp                                             */
+/*    Description: Defines methods in the PID class             */
+/*--------------------------------------------------------------*/
 #include "PID.h"
 
 PID::PID(double kP, double kI, double kD, double samplePeriod){

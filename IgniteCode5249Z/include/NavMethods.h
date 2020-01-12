@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: NavMethods.h                                        */
+/*    Description: Methods for navigating the robot in auton    */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 int drivePID();
 void resetPosition();

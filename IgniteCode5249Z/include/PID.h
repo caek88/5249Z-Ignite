@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: PID.h                                               */
+/*    Description: header file for PID class                    */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 
 class PID {

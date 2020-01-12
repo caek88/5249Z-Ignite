@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: RobotMethods.cpp                                    */
+/*    Description: Defines functions in RobotMethods.h          */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
 const int DOWN = 10;
