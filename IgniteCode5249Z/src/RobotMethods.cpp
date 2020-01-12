@@ -1,50 +1,114 @@
 #include "RobotConfig.h"
 const int DOWN = 10;
 const int UP = 539;
-const int SPEED_MAX = 80;
-const int SLOW_SPEED = 20;
-void deployRobot(){
-    mtrIntakeLeft.spin(directionType::fwd, 100, velocityUnits::pct);
-    mtrIntakeRight.spin(directionType::fwd, 100, velocityUnits::pct);
-    int time = 0;
-    while (!liftRamp(true)){
-        if (time < 1000){
-            mtrArm.spin(directionType::fwd, -50, velocityUnits::pct);
-        } else {
-            mtrArm.stop(brakeType::hold);
-        }
-        time += 10;
-        task::sleep(10);
-    }
-    mtrIntakeLeft.stop();
-    mtrIntakeRight.stop();
-    time = 0;
-    while (!liftRamp(false)){
-        if (time < 1000){
-            mtrArm.spin(directionType::fwd, 50, velocityUnits::pct);
-        } else {
-            mtrArm.stop(brakeType::coast);
-        }
-        time += 10;
-        task::sleep(10);
-    }
+void intake(double speed){
+    mtrIntakeLeft.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrIntakeRight.spin(directionType::fwd, speed, velocityUnits::pct);
 }
-bool liftRamp(bool moveUp){
+void intakeStop(brakeType stopMode){
+    mtrIntakeLeft.stop(stopMode);
+    mtrIntakeRight.stop(stopMode);
+}
+void chassisLeft(double speed){
+    mtrLeft.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrLeftFront.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void chassisRight(double speed){
+    mtrRight.spin(directionType::fwd, speed, velocityUnits::pct);
+    mtrRightFront.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void arm(double speed){
+    mtrArm.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void armStop(brakeType stopMode){
+    mtrArm.stop(stopMode);
+}
+void rampLift(double speed){
+    mtrRampLift.spin(directionType::fwd, speed, velocityUnits::pct);
+}
+void rampLiftStop(brakeType stopMode){
+    mtrRampLift.stop(stopMode);
+}
+bool cubesClear(){
+    return abs(cubeBump.value(analogUnits::mV) - originalLight) < 50;
+}
+void deployRobot(){
+    intake(100);
+    int time = 0;
+    while (!liftRamp(true, 80, 100)){
+        if (time < 1000){
+            arm(-50);
+        } else {
+            armStop(brakeType::hold);
+        }
+        time += 10;
+        task::sleep(10);
+    }
+    //task::sleep(300);
+    time = 0;
+    while (!liftRamp(false, 80, 100)){
+        if (time < 2000 && time > 1000){
+            arm(100);
+        } else {
+            armStop(brakeType::hold);
+        }
+        time += 10;
+        task::sleep(10);
+    }
+    rampLiftStop();
+}
+bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
     if (moveUp){
-        double speed = (double)(UP - mtrRampLift.rotation(rotationUnits::deg))/(UP - DOWN)*SPEED_MAX + SLOW_SPEED;
-        if (mtrRampLift.rotation(rotationUnits::deg) >= UP){
+        if (outtake){
+            if (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+                intakeStop();
+            } else {
+                intake(20);
+            }
+        }
+        double moveSpeed = (double)(UP - mtrRampLift.rotation(degrees))/(UP - DOWN)*fast + slow;
+        if (mtrRampLift.rotation(degrees) >= UP){
             return true;
         } else {
-            mtrRampLift.spin(directionType::fwd, speed, velocityUnits::pct);
+            rampLift(moveSpeed);
             return false;
         }
     } else {
-        double speed = (double)(mtrRampLift.rotation(rotationUnits::deg)- DOWN)/(UP - DOWN)*SPEED_MAX + SLOW_SPEED;
-        if (mtrRampLift.rotation(rotationUnits::deg) <= DOWN){
+        double moveSpeed = (double)(mtrRampLift.rotation(degrees)- DOWN)/(UP - DOWN)*fast + slow;
+        if (mtrRampLift.rotation(degrees) <= DOWN){
             return true;
         } else {
-            mtrRampLift.spin(directionType::fwd, -speed, velocityUnits::pct);
+            rampLift(-moveSpeed);
             return false;
         }
     }
+}
+void stackTower(bool waitForCube){
+        intake(30);
+        while (waitForCube && abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+            Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
+            task::sleep(10);
+            if(ctrPrimary.ButtonB.pressing()){
+              return;
+            }
+        }
+        intakeStop();
+        int time = 0;
+        while (!liftRamp(true, 15,50,true)){
+            /*if (time > 1000){
+                mtrIntakeLeft.startRotateFor(180, degrees);
+                mtrIntakeRight.startRotateFor(180, degrees);
+                time = 0;
+            } else {
+                time += 10;
+            }*/
+            task::sleep(10);
+            if(ctrPrimary.ButtonB.pressing()){
+              return;
+            }
+        }
+        arm(50);
+        task::sleep(500);
+        armStop();
+        intakeStop();
 }

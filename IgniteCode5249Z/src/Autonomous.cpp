@@ -1,40 +1,283 @@
 #include "RobotConfig.h"
-#include "PID.h"
-double leftPosition = 0;
-double rightPosition = 0;
-double maxSpeed = 80;
-PID driveLeft = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
-PID driveRight = PID(10.0/7.0, 0, 4.0/42.0, 0.01);
-int drivePID(){
-    driveLeft.setPoint = leftPosition;
-    driveRight.setPoint = rightPosition;
-    while (true){
-        double speedLeft = driveLeft.calculatePID(mtrLeft.rotation(rotationUnits::deg));
-        double speedRight = driveLeft.calculatePID(mtrLeft.rotation(rotationUnits::deg));
-        if (speedLeft > maxSpeed){
-            speedLeft = maxSpeed;
-        }
-        if (speedRight > maxSpeed){
-            speedRight = maxSpeed;
-        }
-        if (speedLeft < -maxSpeed){
-            speedLeft = -maxSpeed;
-        }
-        if (speedRight < -maxSpeed){
-            speedRight = -maxSpeed;
-        }
-        mtrLeft.spin(directionType::fwd, speedLeft, velocityUnits::pct);
-        mtrLeftFront.spin(directionType::fwd, speedLeft, velocityUnits::pct);
-        mtrRight.spin(directionType::fwd, speedRight, velocityUnits::pct);
-        mtrRightFront.spin(directionType::fwd, speedRight, velocityUnits::pct);
-        task::sleep(10);
-    }
-}
-
 int auton(){
-    deployRobot();
-    task driveTask = task(drivePID);
-    task positionTask = task(pos);
 
-    return 0;
+    if (autonMode == 1){
+        vex::task driveTask = task(drivePID);
+        resetPosition();
+        int colorMod = colorRed?-1:1;
+        deployRobot();
+        originalLight = cubeBump.value(analogUnits::mV);
+        maxSpeed = 30;
+        //drive forward and pick up cubes
+        intake(-100);
+        driveToPos(38);
+        while (longitudeError() > 0.5) {
+            task::sleep(10);
+        } 
+        task::sleep(500);
+        turnToAngle(colorMod*20);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(500);
+        maxSpeed = 35;
+        driveToPos(13);
+        while (longitudeError() > 0.5) {
+            task::sleep(10);
+        } 
+        task::sleep(1000);
+        intakeStop(hold);
+        turnToAngle(colorMod*20);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        driveToPos(-27);
+        
+        while (fabs(longitudeError()) > 0.5) {
+            double distance = fabs(longitudeError());
+            if (distance > 6 && distance < 34){
+                maxSpeed = 70;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+        task::sleep(200);
+        turnToAngle(colorMod*-145);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(500);
+        maxSpeed = 35;
+        driveToPos(15);
+        while (longitudeError() > 0.5) {
+            double distance = longitudeError();
+            if (distance < 23 && distance > 8){
+                maxSpeed = 80;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+
+        stackTower();
+
+        intake(50);
+        driveToPos(-20);
+        while (longitudeError() > 0.5) {
+            double distance = longitudeError();
+            if (fabs(distance) < 15 && fabs(distance) > 5){
+                maxSpeed = 60;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+    }
+    if (autonMode == 2){
+        vex::task driveTask = task(drivePID);
+        resetPosition();
+        int colorMod = colorRed?-1:1;
+        deployRobot();
+        originalLight = cubeBump.value(analogUnits::mV);
+        maxSpeed = 30;
+        //drive forward and pick up cubes
+        intake(-100);
+        driveToPos(38);
+        while (longitudeError() > 0.5) {
+            task::sleep(10);
+        } 
+        task::sleep(500);
+        driveToPos(-16);
+        intakeStop(hold);
+        while (fabs(longitudeError()) > 0.5) {
+            double distance = fabs(longitudeError());
+            if (distance > 6 && distance < 34){
+                maxSpeed = 70;
+                intakeStop(hold);
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+        task::sleep(200);
+        turnToAngle(colorMod*-135);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(500);
+        maxSpeed = 35;
+        driveToPos(14);
+        while (longitudeError() > 0.5) {
+            double distance = longitudeError();
+            if (distance < 23 && distance > 8){
+                maxSpeed = 80;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+
+        stackTower();
+
+        intake(50);
+        driveToPos(-20);
+        while (longitudeError() > 0.5) {
+            double distance = longitudeError();
+            if (fabs(distance) < 15 && fabs(distance) > 5){
+                maxSpeed = 60;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+    }
+    if (autonMode == 3){
+        vex::task driveTask = task(drivePID);
+        resetPosition();
+        int colorMod = colorRed?-1:1;
+        deployRobot();
+        originalLight = cubeBump.value(analogUnits::mV);
+        maxSpeed = 30;
+        //drive forward and pick up cubes
+        intake(-100);
+        driveToPos(38);
+        while (longitudeError() > 0.5) {
+            task::sleep(10);
+        } 
+        task::sleep(200);
+        intakeStop(hold);
+        turnToAngle(colorMod*30);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(500);
+        driveToPos(-36);
+        
+        while (fabs(longitudeError()) > 0.5) {
+            double distance = fabs(longitudeError());
+            if (distance > 6 && distance < 34){
+                maxSpeed = 70;
+                intakeStop(hold);
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+        
+        task::sleep(200);
+        turnToAngle(colorMod*-10);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(200);
+        maxSpeed = 35;
+        intake(-100);
+        maxSpeed = 30;
+        driveToPos(33);
+        while (longitudeError() > 0.5){
+            task::sleep(10);
+        }
+        task::sleep(500);
+        intakeStop(hold);
+        maxSpeed = 35;
+        driveToPos(-15);
+        while (fabs(longitudeError()) > 0.5) {
+            double distance = longitudeError();
+            if (distance < 23 && distance > 8){
+                maxSpeed = 80;
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+        maxSpeed = 25;
+        task::sleep(500);
+        turnToAngle(colorMod*-135);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        task::sleep(200);
+        intake(-100);
+        maxSpeed = 35;
+        driveToPos(17);
+        while (fabs(longitudeError()) > 0.5) {
+            task::sleep(10);
+        }
+        stackTower();
+
+        intake(100);
+        driveToPos(-22);
+        while (!liftRamp(false) || fabs(longitudeError()) > 0.5 ) {//Special short curcuit if switched
+            double distance = longitudeError();
+            if (fabs(distance) < 15 && fabs(distance) > 5){
+                maxSpeed = 60;
+                intakeStop();
+            } else {
+                maxSpeed = 35;
+            }
+            task::sleep(10);
+        }
+        intakeStop();
+        arm(-50);
+        task::sleep(500);
+        arm(50);
+        task::sleep(500);
+        armStop();
+        turnToAngle(0);
+        while (fabs(yawError()) > 2.5){
+            if (fabs(yawError()) < 10){
+                maxSpeed = 10;
+            }
+            task::sleep(10);
+        }
+        intake(-100);
+        driveToPos(16);
+        
+        while (fabs(longitudeError()) > 0.5 || cubesClear()) {
+            double distance = longitudeError();
+            if (fabs(distance) < 15 && fabs(distance) > 5){
+                maxSpeed = 60;
+                
+            } else {
+                maxSpeed = 35;
+            }
+            if (!cubesClear()){
+                intakeStop();
+            }
+            task::sleep(10);
+        }
+        intakeStop();
+        driveToPos(-2);
+        arm(-50);
+        while (mtrArm.rotation(degrees) > -560){
+            task::sleep(10);
+        }
+        armStop(hold);
+        intake(50);
+        task::sleep(2000);
+    }
+    ctrPrimary.Screen.print("Done");
+    return 0; 
 }

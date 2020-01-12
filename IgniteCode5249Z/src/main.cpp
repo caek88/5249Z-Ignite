@@ -14,7 +14,12 @@ void wait(int time){//waits a number of milliseconds
     task::sleep(time);
 }
 void calibrateGyros(){//Calibrates gyros
-    
+    ctrPrimary.Screen.clearScreen();
+    ctrPrimary.Screen.print("CalGyro");
+    navInert.calibrate();
+    //gyroDrive.calibrate();
+    task::sleep(3000);
+    ctrPrimary.Screen.clearScreen();
 }
 void stopAllMotors(){//stops all motors on the robot
     mtrLeft.stop(brakeType::coast);
@@ -25,6 +30,7 @@ void stopAllMotors(){//stops all motors on the robot
     mtrIntakeLeft.stop(brakeType::coast);
     mtrIntakeRight.stop(brakeType::coast);
     mtrRampLift.stop(brakeType::coast);
+    task::stopAll();
 }
 void clearMotorRotations(){
     mtrLeft.resetRotation();
@@ -35,9 +41,6 @@ void clearMotorRotations(){
     mtrIntakeLeft.resetRotation();
     mtrIntakeRight.resetRotation();
     mtrRampLift.resetRotation();
-    encRight.resetRotation();
-    encLeft.resetRotation();
-    encStrafe.resetRotation();
     task::sleep(500);
 }
 bool isField(){//Method for checking if either field control device is connected
@@ -139,10 +142,11 @@ bool confirmDriver(){
     return false;
 }
 int selectAutonomous(){//method for selecting autons
-    DisplaySelection selectAuton = DisplaySelection(2);//create display selection object
+    DisplaySelection selectAuton = DisplaySelection(4);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
-    strcpy(selectAuton.text[1], "");
-    strcpy(selectAuton.text[2], "");
+    strcpy(selectAuton.text[1], "Game 6");
+    strcpy(selectAuton.text[2], "Game 5");
+    strcpy(selectAuton.text[3], "Skills?");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
@@ -162,11 +166,14 @@ int main() {
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
         mode = selectMode.select();
-        colorSelect();
+        //mode = 1;
+        //colorRed = true;
         if (mode == 1 || mode == 2){
+            calibrateGyros();
             autonMode = selectAutonomous();
+            //autonMode = 3;
         }
-        calibrateGyros();
+        colorSelect();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();

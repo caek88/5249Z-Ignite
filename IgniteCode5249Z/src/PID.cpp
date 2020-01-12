@@ -17,3 +17,8 @@ void PID::reset(){
     prevError = 0;
     integral = 0;
 }
+void PID::setGains(double kProportional, double kIntegral, double kDerivative){
+    kP = kProportional;
+    kI = kIntegral;
+    kD = kDerivative;
+}
