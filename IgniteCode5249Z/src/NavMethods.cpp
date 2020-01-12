@@ -12,7 +12,7 @@ PID yawPID = PID(15.0/7.0, 0, 6.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
-    //navInert.setRotation(0, degrees);
+    navInert.setRotation(0, degrees);
     //gyroDrive.setRotation(0, degrees);
 }
 double getRotation(double distanceHoriz){
@@ -21,7 +21,7 @@ double getRotation(double distanceHoriz){
 void turnToAngle(double angle){
     yawAngle = angle;
 }
-void driveToPos(double distance){//Drives the robot to an (x,y) coordinate
+void driveToPos(double distance){
     longitude += getRotation(distance);
 }
 double longitudeError(){
