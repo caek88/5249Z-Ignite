@@ -1,4 +1,12 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: Autonomous.cpp                                      */
+/*    Description: Contains all the autons for the competition  */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
+#include "RobotMethods.h"
+#include "NavMethods.h"
 int auton(){
 
     if (autonMode == 1){

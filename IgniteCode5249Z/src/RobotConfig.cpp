@@ -1,3 +1,9 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: RobotConfig.cpp                                     */
+/*    Description: Instantiates extern objects in RobotConfig.h */
+/*--------------------------------------------------------------*/
 #include "vex.h"
 #include "RobotConfig.h"
 using namespace vex;
@@ -25,3 +31,7 @@ double maxSpeed = 80;
 bool colorRed;
 int autonMode;
 int originalLight;
+
+void wait(int time){
+    task::sleep(time);
+}

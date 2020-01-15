@@ -1,5 +1,11 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: DriverControl.cpp                                   */
+/*    Description: Driver Control code for competition          */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
-
+#include "RobotMethods.h"
 double speedMod = 1.0;
 void toggleSpeed(){
   if (confirmDriver()){
@@ -28,13 +34,21 @@ int driver(){
     bool rampUp = false;
     bool rampMacro = false;
     bool deployed = false;
-    ctrPrimary.ButtonA.pressed(toggleSpeed);
+    //ctrPrimary.ButtonA.pressed(toggleSpeed);
     toggleSpeed();
     ctrPrimary.Screen.setCursor(2,1);
     ctrPrimary.Screen.print("Jimbo");
     originalLight = cubeBump.value(analogUnits::mV);
     //deployRobot();
+    bool waitForReleaseA = false;
     while (true){
+        if (!waitForReleaseA && ctrPrimary.ButtonA.pressing()){
+            toggleSpeed();
+            waitForReleaseA = true;
+        }
+        if (waitForReleaseA && !ctrPrimary.ButtonA.pressing()){
+            waitForReleaseA = false;
+        }
         Brain.Screen.setPenWidth(5);
         Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
         if (!deployed && ctrPrimary.ButtonLeft.pressing()){

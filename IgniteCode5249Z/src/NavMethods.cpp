@@ -1,4 +1,12 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: NavMethods.cpp                                      */
+/*    Description: Defines methods in NavMethods.h              */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
+#include "RobotMethods.h"
+#include "NavMethods.h"
 #include "PID.h"
 
 double yawAngle = 0;
@@ -10,7 +18,7 @@ PID yawPID = PID(15.0/7.0, 0, 6.0/21.0, 0.01);
 void resetPosition(){
     yawAngle = 0;
     longitude = 0;
-    //navInert.setRotation(0, degrees);
+    navInert.setRotation(0, degrees);
     //gyroDrive.setRotation(0, degrees);
 }
 double getRotation(double distanceHoriz){
@@ -19,7 +27,7 @@ double getRotation(double distanceHoriz){
 void turnToAngle(double angle){
     yawAngle = angle;
 }
-void driveToPos(double distance){//Drives the robot to an (x,y) coordinate
+void driveToPos(double distance){
     longitude += getRotation(distance);
 }
 double longitudeError(){
@@ -29,7 +37,7 @@ double yawError(){
     return yawAngle - navInert.rotation(degrees);
     //return yawAngle - gyroDrive.angle();
 }
-int drivePID(){//Sets driver motors to specified rotation setting
+int drivePID(){//Maintains set robot position
     while (true){
         longitudePID.setPoint = longitude;
         while (yawError() > 180){

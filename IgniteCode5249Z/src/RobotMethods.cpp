@@ -1,4 +1,11 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: RobotMethods.cpp                                    */
+/*    Description: Defines functions in RobotMethods.h          */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
+#include "RobotMethods.h"
 const int DOWN = 10;
 const int UP = 539;
 void intake(double speed){
@@ -60,7 +67,7 @@ void deployRobot(){
 bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
     if (moveUp){
         if (outtake){
-            if (abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+            if (!cubesClear()){
                 intakeStop();
             } else {
                 intake(20);
@@ -85,7 +92,7 @@ bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
 }
 void stackTower(bool waitForCube){
         intake(30);
-        while (waitForCube && abs(cubeBump.value(analogUnits::mV) - originalLight) > 50){
+        while (waitForCube && cubesClear()){
             Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
             task::sleep(10);
             if(ctrPrimary.ButtonB.pressing()){

@@ -1,21 +1,17 @@
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       C:\Users\Cameron                                          */
-/*    Created:      Mon Oct 28 2019                                           */
-/*    Description:  V5 project                                                */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: main.cpp                                            */
+/*    Description: Main control file for the program, contains  */
+/*      main.cpp                                                */
+/*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 
 static int mode = -1;//Mode for the robot to operate in
 
-void wait(int time){//waits a number of milliseconds
-    task::sleep(time);
-}
 void calibrateGyros(){//Calibrates gyros
     ctrPrimary.Screen.clearScreen();
-    ctrPrimary.Screen.print("CalGyro");
+    ctrPrimary.Screen.print("Calibrating");
     navInert.calibrate();
     //gyroDrive.calibrate();
     task::sleep(3000);

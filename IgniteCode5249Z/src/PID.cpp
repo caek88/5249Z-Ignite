@@ -1,10 +1,16 @@
+/*--------------------------------------------------------------*/
+/*    5249Z-Ignite                                              */
+/*    Version: 1.0                                              */
+/*    File: PID.cpp                                             */
+/*    Description: Defines methods in the PID class             */
+/*--------------------------------------------------------------*/
 #include "PID.h"
 
-PID::PID(double kProportional, double kIntegral, double kDerivative, double period){
-    kP = kProportional;
-    kI = kIntegral;
-    kD = kDerivative;
-    samplePeriod = period;
+PID::PID(double kP, double kI, double kD, double samplePeriod){
+    this->kP = kP;
+    this->kI = kI;
+    this->kD = kD;
+    this->samplePeriod = samplePeriod;
 }
 double PID::calculatePID(double processVar){
     double error = setPoint - processVar;
@@ -17,8 +23,8 @@ void PID::reset(){
     prevError = 0;
     integral = 0;
 }
-void PID::setGains(double kProportional, double kIntegral, double kDerivative){
-    kP = kProportional;
-    kI = kIntegral;
-    kD = kDerivative;
+void PID::setGains(double kP, double kI, double kD){
+    this->kP = kP;
+    this->kI = kI;
+    this->kD = kD;
 }
