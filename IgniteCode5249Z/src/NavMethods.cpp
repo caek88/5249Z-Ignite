@@ -37,7 +37,7 @@ double yawError(){
     return yawAngle - navInert.rotation(degrees);
     //return yawAngle - gyroDrive.angle();
 }
-int drivePID(){//Sets driver motors to specified rotation setting
+int drivePID(){//Maintains set robot position
     while (true){
         longitudePID.setPoint = longitude;
         while (yawError() > 180){
