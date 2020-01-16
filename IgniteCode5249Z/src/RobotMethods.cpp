@@ -8,6 +8,7 @@
 #include "RobotMethods.h"
 const int DOWN = 10;
 const int UP = 539;
+int originalLight = 0;
 void intake(double speed){
     mtrIntakeLeft.spin(directionType::fwd, speed, velocityUnits::pct);
     mtrIntakeRight.spin(directionType::fwd, speed, velocityUnits::pct);
@@ -38,6 +39,9 @@ void rampLiftStop(brakeType stopMode){
 }
 bool cubesClear(){
     return abs(cubeBump.value(analogUnits::mV) - originalLight) < 50;
+}
+void setOriginalLight(int light){
+    originalLight = 
 }
 void deployRobot(){
     intake(100);
