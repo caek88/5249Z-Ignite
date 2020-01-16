@@ -32,8 +32,6 @@ extern controller ctrPrimary;
 extern bool colorRed;
 extern int autonMode;
 static competition compControl;
-extern double maxSpeed;
-extern int originalLight;
 
 //Methods for all source files
 void wait(int);
