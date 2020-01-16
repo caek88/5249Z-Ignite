@@ -11,3 +11,4 @@ void driveToPos(double distance);
 void turnToAngle(double angle);
 double longitudeError();
 double yawError();
+extern double maxSpeed;
