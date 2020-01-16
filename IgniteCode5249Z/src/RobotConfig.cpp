@@ -27,10 +27,8 @@ controller ctrPrimary = controller(controllerType::primary);//Create the control
 //gyro gyroDrive = gyro(Brain.ThreeWirePort.H);
 
 //extern variables
-double maxSpeed = 80;
 bool colorRed;
 int autonMode;
-int originalLight;
 
 void wait(int time){
     task::sleep(time);
