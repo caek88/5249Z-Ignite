@@ -38,7 +38,7 @@ int driver(){
     toggleSpeed();
     ctrPrimary.Screen.setCursor(2,1);
     ctrPrimary.Screen.print("Jimbo");
-    originalLight = cubeBump.value(analogUnits::mV);
+    setOriginalLight();
     //deployRobot();
     bool waitForReleaseA = false;
     while (true){
@@ -88,9 +88,9 @@ int driver(){
             }
         } else {
             if (ctrPrimary.ButtonL1.pressing()){
-                rampLift(30);
+                rampLift(100);
             } else if (ctrPrimary.ButtonL2.pressing()){
-                rampLift(-30);
+                rampLift(-100);
             } else if(armSpeed > 10){
                 rampLift(0.2*armSpeed);
             } else {
