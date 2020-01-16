@@ -9,6 +9,7 @@
 #include "NavMethods.h"
 #include "PID.h"
 
+double maxSpeed = 80;
 double yawAngle = 0;
 double longitude = 0;
 const double DIAMETER_CHASSIS = 12;
