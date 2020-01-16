@@ -41,7 +41,7 @@ bool cubesClear(){
     return abs(cubeBump.value(analogUnits::mV) - originalLight) < 50;
 }
 void setOriginalLight(int light){
-    originalLight = 
+    originalLight = cubeBump.value(analogUnits::mV);
 }
 void deployRobot(){
     intake(100);
