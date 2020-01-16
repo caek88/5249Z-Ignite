@@ -14,7 +14,7 @@ int auton(){
         resetPosition();
         int colorMod = colorRed?-1:1;
         deployRobot();
-        originalLight = cubeBump.value(analogUnits::mV);
+        setOriginalLight();
         maxSpeed = 30;
         //drive forward and pick up cubes
         intake(-100);
