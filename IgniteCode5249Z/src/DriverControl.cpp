@@ -71,8 +71,10 @@ int driver(){
             intake(100);
         } else if (ctrPrimary.ButtonR2.pressing()){
             intake(-100);
-        } else {
+        } else if (!rampMacro && !ctrPrimary.ButtonL1.pressing() && !ctrPrimary.ButtonL2.pressing()){
             intakeStop(brakeType::hold);
+        } else {
+            intakeStop(brakeType::coast);
         }
         if (ctrPrimary.ButtonX.pressing()){
             rampMacro = true;
@@ -91,8 +93,8 @@ int driver(){
                 rampLift(100);
             } else if (ctrPrimary.ButtonL2.pressing()){
                 rampLift(-100);
-            } else if(armSpeed > 10){
-                rampLift(0.2*armSpeed);
+            } else if(abs(armSpeed) > 10){
+                rampLift(0.4*armSpeed);
             } else {
                 rampLiftStop();
             }

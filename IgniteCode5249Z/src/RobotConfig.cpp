@@ -15,10 +15,10 @@ motor mtrLeft = motor(PORT1, false);
 motor mtrRight = motor(PORT2, true);
 motor mtrLeftFront = motor(PORT5, false);
 motor mtrRightFront = motor(PORT3, true);
-motor mtrArm = motor(PORT7, ratio36_1, true);
+motor mtrArm = motor(PORT7, ratio36_1);
 motor mtrIntakeLeft = motor(PORT8, ratio36_1, true);
 motor mtrIntakeRight = motor(PORT9, ratio36_1, false);
-motor mtrRampLift = motor(PORT4, false);
+motor mtrRampLift = motor(PORT4, true);
 
 //Peripherals
 light cubeBump = light(Brain.ThreeWirePort.A);
