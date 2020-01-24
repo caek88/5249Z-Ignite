@@ -60,10 +60,10 @@ int driver(){
         int x = ctrPrimary.Axis1.position(percentUnits::pct);//Get the position of the controller for Right and Left
         chassisLeft(speedMod * (y+x));
         chassisRight(speedMod * (y-x));
-        if (ctrPrimary.ButtonL1.pressing(){
-            arm(100);
-        } else if (ctrPrimary.L2.pressing()){
+        if (ctrPrimary.ButtonL1.pressing()){
             arm(-100);
+        } else if (ctrPrimary.ButtonL2.pressing()){
+            arm(100);
         } else {
             armStop(hold);
         }
