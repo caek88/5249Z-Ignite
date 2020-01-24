@@ -57,15 +57,15 @@ int driver(){
         }
         //speaker.spin(directionType::rev, 100, percentUnits::pct);
         int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
-        int x = ctrPrimary.Axis4.position(percentUnits::pct);//Get the position of the controller for Right and Left
+        int x = ctrPrimary.Axis1.position(percentUnits::pct);//Get the position of the controller for Right and Left
         chassisLeft(speedMod * (y+x));
         chassisRight(speedMod * (y-x));
-        int armSpeed = ctrPrimary.Axis2.position(percentUnits::pct);
-        if(abs(armSpeed) > 10){
-          arm(-armSpeed);
-          //mtrRampLift.spin(directionType::fwd, 0.1*arm, velocityUnits::pct);
+        if (ctrPrimary.ButtonL1.pressing(){
+            arm(100);
+        } else if (ctrPrimary.L2.pressing()){
+            arm(-100);
         } else {
-          armStop(brakeType::hold);
+            armStop(hold);
         }
         if (ctrPrimary.ButtonR1.pressing()){
             intake(100);
@@ -76,7 +76,7 @@ int driver(){
         } else {
             intakeStop(brakeType::coast);
         }
-        if (ctrPrimary.ButtonX.pressing()){
+        if (ctrPrimary.ButtonY.pressing()){
             rampMacro = true;
             rampUp = true;
         }
@@ -89,12 +89,14 @@ int driver(){
                 rampMacro = false;
             }
         } else {
-            if (ctrPrimary.ButtonL1.pressing()){
+            if (ctrPrimary.ButtonRight.pressing()){
                 rampLift(100);
-            } else if (ctrPrimary.ButtonL2.pressing()){
+            } else if (ctrPrimary.ButtonDown.pressing()){
                 rampLift(-100);
-            } else if(abs(armSpeed) > 10){
-                rampLift(0.4*armSpeed);
+            } else if (ctrPrimary.ButtonL1.pressing()){
+                rampLift(40);
+            } else if (ctrPrimary.ButtonL2.pressing()){
+                rampLift(-40);
             } else {
                 rampLiftStop();
             }
