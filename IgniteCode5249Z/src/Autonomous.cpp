@@ -8,8 +8,84 @@
 #include "RobotMethods.h"
 #include "NavMethods.h"
 int auton(){
-
+    
     if (autonMode == 1){
+
+      vex::task driveTask = task(drivePID);
+      resetPosition();
+      int colorMod = colorRed?-1:1;
+      intake(-100);
+      setOriginalLight();
+      maxSpeed = 32;
+      intake(-100);
+      //Move forward to get 3 cubes
+      driveToPos(43);
+      while (longitudeError() > 0.5) {
+        task::sleep(10);
+      } 
+      task::sleep(550);
+      intakeStop();
+      //turn to get other cubes
+      turnToAngle(colorMod*30);
+      while (fabs(yawError()) > 2.5){
+        if (fabs(yawError()) < 10){
+          maxSpeed = 10;
+        }
+        task::sleep(10);
+      }
+      task::sleep(400);
+      //Move backwards to position robot
+      maxSpeed = 70;
+      driveToPos(-38);
+      while (longitudeError() > 0.5) {
+        maxSpeed = 70;
+        task::sleep(10);
+      } 
+      task::sleep(500);
+      //Turn to orient robot
+      turnToAngle(colorMod*0);
+      maxSpeed = 30;
+      while (fabs(yawError()) > 2.5){
+        if (fabs(yawError()) < 10){
+          maxSpeed = 10;
+        }
+        task::sleep(10);
+      }
+      task::sleep(400);
+      //Move forward to get 4 cubes
+      intake(-100);
+      maxSpeed = 30;
+      driveToPos(35);
+      while (longitudeError() > 0.5) {
+        task::sleep(10);
+      } 
+      task::sleep(500);
+      intakeStop();
+      //turn around to score
+      turnToAngle(colorMod*-149);
+      maxSpeed = 30;
+      while (fabs(yawError()) > 2.5){
+        if (fabs(yawError()) < 10){
+          maxSpeed = 10;
+        }
+        task::sleep(10);
+      }
+      //Move to the scoring zone
+      maxSpeed = 60;
+      driveToPos(33);
+      while (longitudeError() > 0.5) {
+        task::sleep(10);
+      } 
+      task::sleep(500);
+      //Stack and move back
+      stackTower();
+      intake(50);
+      maxSpeed = 40;
+      driveToPos(-20);
+      while (longitudeError() > 0.5) {
+        task::sleep(10);
+      } 
+      /*
         vex::task driveTask = task(drivePID);
         resetPosition();
         int colorMod = colorRed?-1:1;
@@ -89,8 +165,16 @@ int auton(){
                 maxSpeed = 35;
             }
             task::sleep(10);
-        }
+        }*/
     }
+
+
+
+
+
+
+
+
     if (autonMode == 2){
         vex::task driveTask = task(drivePID);
         resetPosition();
@@ -152,6 +236,11 @@ int auton(){
             task::sleep(10);
         }
     }
+
+
+
+
+
     if (autonMode == 3){
         vex::task driveTask = task(drivePID);
         resetPosition();
@@ -286,6 +375,11 @@ int auton(){
         intake(50);
         task::sleep(2000);
     }
+
+
+
+
+
     ctrPrimary.Screen.print("Done");
     return 0; 
 }
