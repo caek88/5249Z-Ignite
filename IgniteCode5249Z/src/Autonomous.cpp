@@ -26,7 +26,7 @@ int auton(){
       task::sleep(550);
       intakeStop();
       //turn to get other cubes
-      turnToAngle(colorMod*36);
+      turnToAngle(colorMod*35);
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
@@ -36,7 +36,7 @@ int auton(){
       task::sleep(200);
       //Move backwards to position robot
       maxSpeed = 70;
-      driveToPos(-40);
+      driveToPos(-39);
       while (longitudeError() > 0.5) {
         maxSpeed = 70;
         task::sleep(10);
@@ -60,7 +60,7 @@ int auton(){
         task::sleep(10);
       } 
       task::sleep(500);
-      intakeStop();
+      //intakeStop();
       //turn around to score
       turnToAngle(colorMod*-149);
       maxSpeed = 30;

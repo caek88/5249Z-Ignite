@@ -33,7 +33,6 @@ void toggleSpeed(){
 int driver(){
     bool rampUp = false;
     bool rampMacro = false;
-    bool deployed = false;
     //ctrPrimary.ButtonA.pressed(toggleSpeed);
     toggleSpeed();
     ctrPrimary.Screen.setCursor(2,1);
@@ -51,10 +50,6 @@ int driver(){
         }
         Brain.Screen.setPenWidth(5);
         Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
-        if (!deployed && ctrPrimary.ButtonLeft.pressing()){
-            deployRobot();
-            deployed = true;
-        }
         //speaker.spin(directionType::rev, 100, percentUnits::pct);
         int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
         int x = ctrPrimary.Axis1.position(percentUnits::pct);//Get the position of the controller for Right and Left
@@ -96,9 +91,9 @@ int driver(){
                 rampLift(-100);
                 rampMacro = false;
             } else if (ctrPrimary.ButtonL1.pressing()){
-                rampLift(40);
+                rampLift(80);
             } else if (ctrPrimary.ButtonL2.pressing()){
-                rampLift(-40);
+                rampLift(-80);
             } else {
                 rampLiftStop();
             }
