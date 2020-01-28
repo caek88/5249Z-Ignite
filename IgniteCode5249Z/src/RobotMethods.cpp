@@ -106,13 +106,13 @@ void stackTower(bool waitForCube){
         intakeStop();
         int time = 0;
         while (!liftRamp(true, 15,50,true)){
-            /*if (time > 1000){
+            if (time > 1000){
                 mtrIntakeLeft.startRotateFor(180, degrees);
                 mtrIntakeRight.startRotateFor(180, degrees);
                 time = 0;
             } else {
                 time += 10;
-            }*/
+            }
             task::sleep(10);
             if(ctrPrimary.ButtonB.pressing()){
               return;

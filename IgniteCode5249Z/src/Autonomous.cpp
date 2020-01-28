@@ -26,17 +26,17 @@ int auton(){
       task::sleep(550);
       intakeStop();
       //turn to get other cubes
-      turnToAngle(colorMod*30);
+      turnToAngle(colorMod*36);
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
         }
         task::sleep(10);
       }
-      task::sleep(400);
+      task::sleep(200);
       //Move backwards to position robot
       maxSpeed = 70;
-      driveToPos(-38);
+      driveToPos(-40);
       while (longitudeError() > 0.5) {
         maxSpeed = 70;
         task::sleep(10);
@@ -78,7 +78,10 @@ int auton(){
       } 
       task::sleep(500);
       //Stack and move back
-      stackTower();
+      intakeStop(coast);
+      while (!liftRamp(true)){
+        task::sleep(10);
+      }
       intake(50);
       maxSpeed = 40;
       driveToPos(-20);
