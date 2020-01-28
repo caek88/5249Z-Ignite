@@ -18,6 +18,6 @@ bool cubesClear();
 void setOriginalLight();
 
 void deployRobot();
-bool liftRamp(bool moveUp, double slow = 15, double fast = 50, bool outtake = false);
+bool liftRamp(bool moveUp, double slow = 50, double fast = 100, bool outtake = false);
 void stackTower(bool waitForCubes = true);
 

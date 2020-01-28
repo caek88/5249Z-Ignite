@@ -7,7 +7,7 @@
 #include "RobotConfig.h"
 #include "RobotMethods.h"
 const int DOWN = 10;
-const int UP = 539;
+const int UP = 1290;//539
 int originalLight = 0;
 void intake(double speed){
     mtrIntakeLeft.spin(directionType::fwd, speed, velocityUnits::pct);
