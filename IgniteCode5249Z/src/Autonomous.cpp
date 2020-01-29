@@ -26,6 +26,7 @@ int auton(){
       task::sleep(550);
       intakeStop();
       //turn to get other cubes
+      maxSpeed = 40;
       turnToAngle(colorMod*32);
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
@@ -35,23 +36,23 @@ int auton(){
       }
       task::sleep(200);
       //Move backwards to position robot
-      maxSpeed = 70;
-      driveToPos(-45);
-      while (longitudeError() > 0.5) {
-        maxSpeed = 70;
+      maxSpeed = 100;//70
+      driveToPos(-40);//45
+      while (fabs(longitudeError()) > 0.5) {
+        //maxSpeed = 70;
         task::sleep(10);
       } 
-      task::sleep(500);
+      //task::sleep(200);
       //Turn to orient robot
       turnToAngle(colorMod*0);
-      maxSpeed = 30;
+      maxSpeed = 40;
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
         }
         task::sleep(10);
       }
-      task::sleep(400);
+      //task::sleep(400);
       //Move forward to get 4 cubes
       intake(-100);
       maxSpeed = 30;
@@ -59,11 +60,11 @@ int auton(){
       while (longitudeError() > 0.5) {
         task::sleep(10);
       } 
-      task::sleep(500);
+      //task::sleep(500);
       //intakeStop();
       //turn around to score
       turnToAngle(colorMod*-152);
-      maxSpeed = 30;
+      maxSpeed = 32;
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
@@ -71,17 +72,24 @@ int auton(){
         task::sleep(10);
       }
       //Move to the scoring zone
-      maxSpeed = 60;
+      task::sleep(200);
+      maxSpeed = 60;//60
+      intakeStop(coast);
       driveToPos(33);
       while (longitudeError() > 0.5) {
+        if (longitudeError() < 10){
+          maxSpeed = 30;
+        }
+        if (33-longitudeError() > 10){
+          liftRamp(true);
+        }
         task::sleep(10);
       } 
-      task::sleep(500);
-      //Stack and move back
-      intakeStop(coast);
-      while (!liftRamp(true)){
+      while (!longitudeError()){
         task::sleep(10);
       }
+      task::sleep(500);
+      //Stack and move back
       intake(50);
       maxSpeed = 40;
       driveToPos(-20);
@@ -182,7 +190,7 @@ int auton(){
         vex::task driveTask = task(drivePID);
         resetPosition();
         int colorMod = colorRed?-1:1;
-        deployRobot();
+        //deployRobot();
         setOriginalLight();
         maxSpeed = 30;
         //drive forward and pick up cubes
@@ -224,9 +232,11 @@ int auton(){
             }
             task::sleep(10);
         }
-
-        stackTower();
-
+        intakeStop(coast);
+        while(!liftRamp(true)){
+          task::sleep(10);
+        }
+        task::sleep(500);
         intake(50);
         driveToPos(-20);
         while (longitudeError() > 0.5) {
@@ -238,6 +248,8 @@ int auton(){
             }
             task::sleep(10);
         }
+        intakeStop();
+        while (!liftRamp(false));
     }
 
 

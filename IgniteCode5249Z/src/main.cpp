@@ -162,12 +162,12 @@ int main() {
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
         mode = selectMode.select();
-        //mode = 1;
-        //colorRed = true;
+        //mode = 2;
+        //colorRed = false;
         if (mode == 1 || mode == 2){
             calibrateGyros();
             autonMode = selectAutonomous();
-            //autonMode = 3;
+            //autonMode = 1;
         }
         colorSelect();
         clearMotorRotations();
