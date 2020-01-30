@@ -16,18 +16,25 @@ int auton(){
       int colorMod = colorRed?-1:1;
       intake(-100);
       setOriginalLight();
-      maxSpeed = 32;
+      maxSpeed = 40;
       intake(-100);
       //Move forward to get 3 cubes
       driveToPos(43);
+      int time = 0;
       while (longitudeError() > 0.5) {
+        if (time > 500 && time < 1000){
+            intake(100);
+        } else {
+            intake(-100);
+        }
+        time += 10;
         task::sleep(10);
       } 
       task::sleep(550);
       intakeStop();
       //turn to get other cubes
       maxSpeed = 40;
-      turnToAngle(colorMod*32);
+      turnToAngle(colorMod*30);
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
@@ -68,19 +75,21 @@ int auton(){
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
+          intakeStop(coast);
         }
         task::sleep(10);
       }
       //Move to the scoring zone
       task::sleep(200);
-      maxSpeed = 60;//60
-      intakeStop(coast);
-      driveToPos(33);
+      maxSpeed = 55;//60
+      
+      driveToPos(31);
       while (longitudeError() > 0.5) {
-        if (longitudeError() < 10){
-          maxSpeed = 30;
+        if (longitudeError() < 7){
+          maxSpeed = 15;
+          intakeStop(coast);
         }
-        if (33-longitudeError() > 10){
+        if (31-longitudeError() > 10){
           liftRamp(true);
         }
         task::sleep(10);
@@ -88,10 +97,10 @@ int auton(){
       while (!longitudeError()){
         task::sleep(10);
       }
-      task::sleep(500);
+      task::sleep(1000);
       //Stack and move back
       intake(50);
-      maxSpeed = 40;
+      maxSpeed = 15;
       driveToPos(-20);
       while (longitudeError() > 0.5) {
         task::sleep(10);

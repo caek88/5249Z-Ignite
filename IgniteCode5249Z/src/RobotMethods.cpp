@@ -85,13 +85,11 @@ bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
             return false;
         }
     } else {
-        double moveSpeed = (double)(mtrRampLift.rotation(degrees)- DOWN)/(UP - DOWN)*fast + slow;
-        if (mtrRampLift.rotation(degrees) <= DOWN){
-            return true;
-        } else {
-            rampLift(-moveSpeed);
+        if (!limRamp.pressing()){
+            rampLift(-fast);
             return false;
         }
+        return true;
     }
 }
 void stackTower(bool waitForCube){

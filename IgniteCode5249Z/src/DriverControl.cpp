@@ -55,9 +55,9 @@ int driver(){
         int x = ctrPrimary.Axis1.position(percentUnits::pct) *0.8;//Get the position of the controller for Right and Left
         chassisLeft(speedMod * (y+x));
         chassisRight(speedMod * (y-x));
-        if (ctrPrimary.ButtonL1.pressing()){
+        if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
             arm(-100);
-        } else if (ctrPrimary.ButtonL2.pressing()){
+        } else if (ctrPrimary.ButtonL2.pressing() && !limArm.pressing()){
             arm(100);
         } else {
             armStop(hold);
@@ -90,12 +90,17 @@ int driver(){
             } else if (ctrPrimary.ButtonDown.pressing()){
                 rampLift(-100);
                 rampMacro = false;
-            } else if (ctrPrimary.ButtonL1.pressing()){
+            } else if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
                 rampLift(80);
-            } else if (ctrPrimary.ButtonL2.pressing()){
+            } else if (ctrPrimary.ButtonL2.pressing() && !limArm.pressing()){
                 rampLift(-80);
             } else {
-                rampLiftStop();
+                if (limRamp.pressing()){
+                    rampLiftStop(coast);
+                } else {
+                    rampLiftStop(hold);
+                }
+                
             }
         }
         task::sleep(10);

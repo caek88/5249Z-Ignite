@@ -25,6 +25,8 @@ extern motor mtrRampLift;
 //Other Devices
 extern inertial navInert;
 extern light cubeBump;
+extern limit limArm;
+extern limit limRamp;
 extern controller ctrPrimary;
 //extern gyro gyroDrive;
 
