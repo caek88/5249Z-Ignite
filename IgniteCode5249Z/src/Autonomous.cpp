@@ -65,20 +65,20 @@ int auton(){
       //Move forward to get 4 cubes
       intake(-100);
       maxSpeed = 30;
-      driveToPos(35);
+      driveToPos(36);
       while (longitudeError() > 0.5) {
         task::sleep(10);
       } 
-      wait(200);
+      wait(500);
       //task::sleep(500);
       //intakeStop();
       //turn around to score
-      turnToAngle(colorMod*-152);
+      turnToAngle(colorMod*-153);
       maxSpeed = 32;
       while (fabs(yawError()) > 2.5){
         if (fabs(yawError()) < 10){
           maxSpeed = 10;
-          intakeStop(coast);
+          //intakeStop(coast);
         }
         task::sleep(10);
       }
@@ -92,7 +92,7 @@ int auton(){
           maxSpeed = 15;
           intakeStop(coast);
         }
-        if (31-longitudeError() > 10){
+        if (31-longitudeError() > 9){
           liftRamp(true);
         }
         task::sleep(10);

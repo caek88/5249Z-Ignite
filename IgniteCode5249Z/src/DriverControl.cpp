@@ -57,7 +57,7 @@ int driver(){
         chassisRight(speedMod * (y-x));
         if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
             arm(-100);
-        } else if (ctrPrimary.ButtonL2.pressing() && !limArm.pressing()){
+        } else if (ctrPrimary.ButtonL2.pressing()){
             arm(100);
         } else {
             armStop(hold);
