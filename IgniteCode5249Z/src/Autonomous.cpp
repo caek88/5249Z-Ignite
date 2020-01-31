@@ -18,8 +18,10 @@ int auton(){
       setOriginalLight();
       maxSpeed = 40;
       intake(-100);
+      wait(100);
       //Move forward to get 3 cubes
       driveToPos(43);
+      wait(200);
       int time = 0;
       while (longitudeError() > 0.5) {
         if (time > 500 && time < 1000){
@@ -67,6 +69,7 @@ int auton(){
       while (longitudeError() > 0.5) {
         task::sleep(10);
       } 
+      wait(200);
       //task::sleep(500);
       //intakeStop();
       //turn around to score
