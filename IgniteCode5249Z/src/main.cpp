@@ -140,9 +140,9 @@ bool confirmDriver(){
 int selectAutonomous(){//method for selecting autons
     DisplaySelection selectAuton = DisplaySelection(4);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
-    strcpy(selectAuton.text[1], "Game 6");
+    strcpy(selectAuton.text[1], "Game 8");
     strcpy(selectAuton.text[2], "Game 5");
-    strcpy(selectAuton.text[3], "Skills?");
+    strcpy(selectAuton.text[3], "Game 10S");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
@@ -163,7 +163,7 @@ int main() {
         strcpy(selectMode.text[3], "");
         mode = selectMode.select();
         //mode = 2;
-        //colorRed = false;
+        //colorRed = true;
         if (mode == 1 || mode == 2){
             calibrateGyros();
             autonMode = selectAutonomous();
