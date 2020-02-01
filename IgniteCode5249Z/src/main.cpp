@@ -142,7 +142,7 @@ int selectAutonomous(){//method for selecting autons
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
     strcpy(selectAuton.text[1], "Game 8");
     strcpy(selectAuton.text[2], "Game 5");
-    strcpy(selectAuton.text[3], "Game 10S");
+    strcpy(selectAuton.text[3], "Game 6");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
