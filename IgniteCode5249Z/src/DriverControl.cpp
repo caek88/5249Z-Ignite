@@ -49,7 +49,7 @@ int driver(){
             waitForReleaseA = false;
         }
         Brain.Screen.setPenWidth(5);
-        Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
+        Brain.Screen.printAt(10, 210, true, "arm: %f", mtrArm.rotation(deg));
         //speaker.spin(directionType::rev, 100, percentUnits::pct);
         int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
         int x = ctrPrimary.Axis1.position(percentUnits::pct) *0.5;//Get the position of the controller for Right and Left
