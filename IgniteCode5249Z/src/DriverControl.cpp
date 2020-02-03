@@ -57,15 +57,15 @@ int driver(){
         chassisRight(speedMod * (y-x));
         if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
             arm(-100);
-        } else if (ctrPrimary.ButtonL2.pressing()){
+        } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){
             arm(100);
         } else {
             armStop(hold);
         }
         if (ctrPrimary.ButtonR1.pressing()){
-            intake(100);
+            intake(limArmBottom.pressing()?100:30);
         } else if (ctrPrimary.ButtonR2.pressing()){
-            intake(-100);
+            intake(limArmBottom.pressing()?-100:-30);
         } else if (!rampMacro && !ctrPrimary.ButtonDown.pressing() && !ctrPrimary.ButtonRight.pressing()){
             intakeStop(brakeType::hold);
         } else {
@@ -92,7 +92,7 @@ int driver(){
                 rampMacro = false;
             } else if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
                 rampLift(80);
-            } else if (ctrPrimary.ButtonL2.pressing() && !limArm.pressing()){
+            } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){
                 rampLift(-80);
             } else {
                 if (limRamp.pressing()){

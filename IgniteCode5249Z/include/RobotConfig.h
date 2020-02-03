@@ -27,6 +27,7 @@ extern inertial navInert;
 extern light cubeBump;
 extern limit limArm;
 extern limit limRamp;
+extern limit limArmBottom;
 extern controller ctrPrimary;
 //extern gyro gyroDrive;
 
