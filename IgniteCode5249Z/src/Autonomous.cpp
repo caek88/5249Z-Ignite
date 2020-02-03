@@ -191,7 +191,7 @@ int auton() {
     }
     wait(200);
     //angle for 5th
-    turnToAngle(colorRed ? -3 : 3);
+    turnToAngle(colorRed ? -8 : 8);
     //maxSpeed = 32;
     while (fabs(yawError()) > 0.5) {
       if (fabs(yawError()) < 10) {
@@ -212,8 +212,8 @@ int auton() {
     while (longitudeError() > 0.5) {
       task::sleep(10);
     }
-    // angle for cubes
-    turnToAngle(colorRed ? -13 : 13);
+    // angle for 6th cube
+    turnToAngle(colorRed ? -20 : 20);
     maxSpeed = 32;
     while (fabs(yawError()) > 2.5) {
       if (fabs(yawError()) < 10) {
