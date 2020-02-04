@@ -29,7 +29,11 @@ void turnToAngle(double angle){
     yawAngle = angle;
 }
 void driveToPos(double distance){
-    longitude += getRotation(distance);
+    mtrLeft.resetRotation();
+    mtrRight.resetRotation();
+    mtrLeftFront.resetRotation();
+    mtrRightFront.resetRotation();
+    longitude = getRotation(distance);
 }
 double longitudeError(){
     return (M_PI * DIAMETER_WHEEL)/360.0*(longitude - (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0);
