@@ -6,12 +6,13 @@
 /*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
-double speedMod = 1.0;
+bool speedMax = true;
+double speedMod = 0.75;
 void toggleSpeed(){
   if (confirmDriver()){
       ctrPrimary.Screen.setCursor(1,1);
       ctrPrimary.Screen.clearLine(1);
-      if(speedMod == 0.75){
+      if(!speedMax){
         speedMod = 1.0;
         ctrPrimary.Screen.print("Maximum Overdrive");
         mtrLeft.setMaxTorque(90, percentUnits::pct);
@@ -63,9 +64,9 @@ int driver(){
             armStop(hold);
         }
         if (ctrPrimary.ButtonR1.pressing()){
-            intake(limArmBottom.pressing()?100:30);
+            intake(limArmBottom.pressing()?100:50);
         } else if (ctrPrimary.ButtonR2.pressing()){
-            intake(limArmBottom.pressing()?-100:-30);
+            intake(limArmBottom.pressing()?-100:-50);
         } else if (!rampMacro && !ctrPrimary.ButtonDown.pressing() && !ctrPrimary.ButtonRight.pressing()){
             intakeStop(brakeType::hold);
         } else {

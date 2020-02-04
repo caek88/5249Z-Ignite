@@ -26,6 +26,11 @@ double getRotation(double distanceHoriz){
     return (360*distanceHoriz)/(M_PI * DIAMETER_WHEEL);
 }
 void turnToAngle(double angle){
+    mtrLeft.resetRotation();
+    mtrRight.resetRotation();
+    mtrLeftFront.resetRotation();
+    mtrRightFront.resetRotation();
+    longitude = 0;
     yawAngle = angle;
 }
 void driveToPos(double distance){
