@@ -12,7 +12,8 @@
 double maxSpeed = 80;
 double yawAngle = 0;
 double longitude = 0;
-const double DIAMETER_CHASSIS = 12;
+double inertialLongitude = 0;
+bool useInertial = false;
 const double DIAMETER_WHEEL = 4;
 PID longitudePID = PID(10.0/7.0, 0, 2.0/21.0, 0.01);//PID objects created
 PID yawPID = PID(15.0/7.0, 0, 6.0/21.0, 0.01);
@@ -34,10 +35,16 @@ void turnToAngle(double angle){
     yawAngle = angle;
 }
 void driveToPos(double distance){
+    useInertial = false;
     mtrLeft.resetRotation();
     mtrRight.resetRotation();
     mtrLeftFront.resetRotation();
     mtrRightFront.resetRotation();
+    longitude = getRotation(distance);
+}
+void driveToPosInertial(double distance){
+    useInertial = true;
+    inertialLongitude = 0;
     longitude = getRotation(distance);
 }
 double longitudeError(){
@@ -57,7 +64,12 @@ int drivePID(){//Maintains set robot position
             yawAngle += 360;
         }
         yawPID.setPoint = yawAngle;
-        double longitudeCurrent = (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0;
+        double longitudeCurrent;
+        if (useInertial){
+            longitudeCurrent = getRotation(inertialLongitude);
+        } else {
+            longitudeCurrent = (mtrLeft.rotation(degrees) + mtrRight.rotation(degrees))/2.0;
+        }
         double dLongitude = longitudePID.calculatePID(longitudeCurrent);
         double dYaw = yawPID.calculatePID(navInert.rotation(degrees));
         Brain.Screen.printAt(1, 30, true, "Long: %f", longitudeError());
@@ -80,6 +92,28 @@ int drivePID(){//Maintains set robot position
         chassisLeft(speedLeft);
         chassisRight(speedRight);
         task::sleep(10);
+    }
+    return 0;
+}
+int trackPosition(){
+    Brain.setTimer(0, seconds);
+    double initialAccelx = navInert.acceleration(xaxis);
+    double initialRoll = navInert.roll();
+    double previousTime = 0;
+    double velocity = 0;
+    while (true){
+        if (useInertial){
+            double accelX = (navInert.acceleration(xaxis) - initialAccelx)/cos((navInert.roll()-initialRoll) * M_PI/180);
+            velocity += accelX*(Brain.timer(seconds) - previousTime);
+            inertialLongitude += velocity*(Brain.timer(seconds) - previousTime) * 9.8 * 39.3701;
+            previousTime = Brain.timer(seconds);
+        } else {
+            Brain.setTimer(0, seconds);
+            previousTime = 0;
+            velocity = 0;
+        }
+        Brain.Screen.printAt(1, 90, true, "Inertial: %f", inertialLongitude);
+        wait(1);
     }
     return 0;
 }
