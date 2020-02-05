@@ -14,6 +14,7 @@ void toggleSpeed(){
       ctrPrimary.Screen.clearLine(1);
       if(!speedMax){
         speedMod = 1.0;
+        speedMax = true;
         ctrPrimary.Screen.print("Maximum Overdrive");
         mtrLeft.setMaxTorque(90, percentUnits::pct);
         mtrRight.setMaxTorque(90, percentUnits::pct);
@@ -22,6 +23,7 @@ void toggleSpeed(){
       }
       else{
         speedMod = 0.75;
+        speedMax = false;
         ctrPrimary.Screen.print("Slow Man");
         mtrLeft.setMaxTorque(40, percentUnits::pct);
         mtrRight.setMaxTorque(40, percentUnits::pct);

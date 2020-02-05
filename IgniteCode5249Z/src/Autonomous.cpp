@@ -9,8 +9,10 @@
 #include "RobotMethods.h"
 
 int auton() {
-
-  if (autonMode == 1) {
+  /*---------------*/
+  /*    Auton 1    */
+  /*---------------*/
+  if (autonMode == 1) {//Tries to get 8 cubes, cubes may cross the auton line - use in skills
     vex::task driveTask = task(drivePID);
     resetPosition();
     int colorMod = colorRed ? -1 : 1;
@@ -114,8 +116,10 @@ int auton() {
     }
     intakeStop();
   }
-
-  if (autonMode == 2) {
+  /*---------------*/
+  /*    Auton 2    */
+  /*---------------*/
+  if (autonMode == 2) { //7 cubes, cubes will not cross the line
     vex::task driveTask = task(drivePID);
     resetPosition();
     int colorMod = colorRed ? -1 : 1;
@@ -213,7 +217,9 @@ int auton() {
     }
     intakeStop();
   }
-
+  /*---------------*/
+  /*    Auton 3    */
+  /*---------------*/
   if (autonMode == 3) {
     vex::task driveTask = task(drivePID);
     resetPosition();
@@ -322,7 +328,9 @@ int auton() {
 
 
 
-
+  /*---------------*/
+  /*    Auton 4    */
+  /*---------------*/
   if (autonMode == 4) {
     vex::task driveTask = task(drivePID);
     resetPosition();
@@ -368,7 +376,11 @@ int auton() {
     }
     // Bring arms down while also driving forward faster
   }
-  if (autonMode == 5){
+
+  /*---------------*/
+  /*    Auton 5    */
+  /*---------------*/
+  if (autonMode == 5){ // One point basic auton
       vex::task driveTask = task(drivePID);
       resetPosition();
       intake(-100);
@@ -376,7 +388,7 @@ int auton() {
       maxSpeed = 40;
 
       wait(100);
-      // Move forward to get 3 cubes
+      // Move forward to shove one cube really hard
       driveToPos(10);
       intake(-100);
       wait(200);
@@ -391,7 +403,7 @@ int auton() {
         task::sleep(10);
       }
       task::sleep(1000);
-      intake(100);
+      intake(100);//Intake out and drive backwards; don't look at the cube, it doesn't want you
       driveToPos(-10);
   }
   ctrPrimary.Screen.print("Done");
