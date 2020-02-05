@@ -154,24 +154,36 @@ void colorSelect(){//method for selecting field color
     strcpy(selectColor.text[2], "");
     colorRed = (selectColor.select() == 0);
 }
+void displayLevels(){
+    printf("Battery: %d\n", (int)Brain.Battery.capacity(percent));
+    printf("Drive Left Front: %d\n", (int)mtrLeft.temperature(percent));
+    printf("Drive Left Back: %d\n", (int)mtrLeftFront.temperature(percent));
+    printf("Drive Right Front: %d\n", (int)mtrRight.temperature(percent));
+    printf("Drive Right Back: %d\n", (int)mtrRightFront.temperature(percent));
+    printf("Arm: %d\n", (int)mtrArm.temperature(percent));
+    printf("Ramp: %d\n", (int)mtrRampLift.temperature(percent));
+    printf("Intake Left: %d\n", (int)mtrIntakeLeft.temperature(percent));
+    printf("Intake Right: %d\n\n", (int)mtrIntakeRight.temperature(percent));
+}
 int main() {
     ctrPrimary.Screen.clearScreen();
     ctrPrimary.Screen.setCursor(1,0);
     while(true){
+        ctrPrimary.ButtonLeft.pressed(displayLevels);
         DisplaySelection selectMode = DisplaySelection(3); //Create Display object
         strcpy(selectMode.text[0], "Driver Control");//set values in array to options
         strcpy(selectMode.text[1], "Autonomous");
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
-        mode = selectMode.select();
-        //mode = 2;
-        //colorRed = true;
+        //mode = selectMode.select();
+        mode = 1;
+        colorRed = false;
         if (mode == 1 || mode == 2){
             calibrateGyros();
-            autonMode = selectAutonomous();
-            //autonMode = 1;
+            //autonMode = selectAutonomous();
+            autonMode = 2;
         }
-        colorSelect();
+        //colorSelect();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();

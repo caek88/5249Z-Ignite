@@ -6,6 +6,7 @@
 /*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
+#include <cstdio>
 bool speedMax = true;
 double speedMod = 0.75;
 void toggleSpeed(){
@@ -55,7 +56,7 @@ int driver(){
         Brain.Screen.printAt(10, 210, true, "arm: %f", mtrArm.rotation(deg));
         //speaker.spin(directionType::rev, 100, percentUnits::pct);
         int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
-        int x = ctrPrimary.Axis1.position(percentUnits::pct) *0.5;//Get the position of the controller for Right and Left
+        int x = ctrPrimary.Axis1.position(percentUnits::pct);//Get the position of the controller for Right and Left
         chassisLeft(speedMod * (y+x));
         chassisRight(speedMod * (y-x));
         if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
