@@ -9,10 +9,6 @@
 #include "RobotMethods.h"
 
 int auton() {
-  if (autonMode == 6){
-      vex::task inertialTask = task(trackPosition);
-      driveToPosInertial(1);
-  }
   /*---------------*/
   /*    Auton 1    */
   /*---------------*/
