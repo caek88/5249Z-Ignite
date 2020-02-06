@@ -103,7 +103,8 @@ int trackPosition(){
     double velocity = 0;
     while (true){
         if (useInertial){
-            double accelX = (-navInert.acceleration(xaxis) - initialAccelx)/cos((-navInert.roll()-initialRoll) * M_PI/180);
+            double graviteOffset = sin((-navInert.roll()-initialRoll) * M_PI/180);
+            double accelX = (-navInert.acceleration(xaxis) - initialAccelx)/cos((-navInert.roll()-initialRoll) * M_PI/180) - gravityOffset;
             velocity += accelX*(Brain.timer(seconds) - previousTime);
             inertialLongitude += velocity*(Brain.timer(seconds) - previousTime) * 9.8 * 39.3701;
             previousTime = Brain.timer(seconds);
