@@ -97,13 +97,13 @@ int drivePID(){//Maintains set robot position
 }
 int trackPosition(){
     Brain.setTimer(0, seconds);
-    double initialAccelx = navInert.acceleration(xaxis);
-    double initialRoll = navInert.roll();
+    double initialAccelx = -navInert.acceleration(xaxis);
+    double initialRoll = -navInert.roll();
     double previousTime = 0;
     double velocity = 0;
     while (true){
         if (useInertial){
-            double accelX = (navInert.acceleration(xaxis) - initialAccelx)/cos((navInert.roll()-initialRoll) * M_PI/180);
+            double accelX = (-navInert.acceleration(xaxis) - initialAccelx)/cos((-navInert.roll()-initialRoll) * M_PI/180);
             velocity += accelX*(Brain.timer(seconds) - previousTime);
             inertialLongitude += velocity*(Brain.timer(seconds) - previousTime) * 9.8 * 39.3701;
             previousTime = Brain.timer(seconds);
