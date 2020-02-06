@@ -26,10 +26,10 @@ void toggleSpeed(){
         speedMod = 0.75;
         speedMax = false;
         ctrPrimary.Screen.print("Slow Man");
-        mtrLeft.setMaxTorque(40, percentUnits::pct);
-        mtrRight.setMaxTorque(40, percentUnits::pct);
-        mtrLeftFront.setMaxTorque(40, percentUnits::pct);
-        mtrRightFront.setMaxTorque(40, percentUnits::pct);
+        mtrLeft.setMaxTorque(90, percentUnits::pct);
+        mtrRight.setMaxTorque(90, percentUnits::pct);
+        mtrLeftFront.setMaxTorque(90, percentUnits::pct);
+        mtrRightFront.setMaxTorque(90, percentUnits::pct);
       }
   }
 }

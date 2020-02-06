@@ -148,7 +148,7 @@ int auton() {
 
     //Drive forward to get 6th cube
     maxSpeed = 40;
-    driveToPos(12);
+    driveToPos(13);
     while (longitudeError() > 0.5) {
       wait(10);
     }
@@ -157,7 +157,7 @@ int auton() {
     //Turn to get 7th cube
     maxSpeed = 20;
     turnToAngle(colorMod*-10);
-    while (fabs(yawError()) > 1.0) {
+    while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
       }
@@ -171,19 +171,19 @@ int auton() {
     while (longitudeError() > 0.5) {
       wait(10);
     }
-    wait(300);
+    wait(500);
 
     //Drive backward
-    driveToPos(-7);
+    driveToPos(colorRed?-10:-9);
     while (fabs(longitudeError()) > 0.5) {
       task::sleep(10);
     }
-    wait(300);
+    wait(500);
 
     // turn around to score
-    turnToAngle(colorMod*-149);
+    turnToAngle(colorRed?141:-145);
     maxSpeed = 32;
-    while (fabs(yawError()) > 1.0) {
+    while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
       }
@@ -192,15 +192,12 @@ int auton() {
     wait(100);
 
     // Move to the scoring zone
-    maxSpeed = 55;
-    driveToPos(36);
+    maxSpeed = 100;
+    driveToPos(33);
     while (longitudeError() > 0.5) {
-      if (longitudeError() < 7) {
+      if (longitudeError() < 9) {
         maxSpeed = 15;
         intakeStop(coast);
-      }
-      if (36 - longitudeError() > 11) {
-        liftRamp(true);
       }
       task::sleep(10);
     }

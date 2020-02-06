@@ -37,6 +37,10 @@ void clearMotorRotations(){
     mtrIntakeLeft.resetRotation();
     mtrIntakeRight.resetRotation();
     mtrRampLift.resetRotation();
+    mtrLeft.setMaxTorque(100, percentUnits::pct);
+    mtrRight.setMaxTorque(100, percentUnits::pct);
+    mtrLeftFront.setMaxTorque(100, percentUnits::pct);
+    mtrRightFront.setMaxTorque(100, percentUnits::pct);
     task::sleep(500);
 }
 bool isField(){//Method for checking if either field control device is connected
@@ -176,15 +180,15 @@ int main() {
         strcpy(selectMode.text[1], "Autonomous");
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
-        //mode = selectMode.select();
-        mode = 1;
-        colorRed = false;
+        mode = selectMode.select();
+        //mode = 2;
+        //colorRed = true;
         if (mode == 1 || mode == 2){
             calibrateGyros();
-            //autonMode = selectAutonomous();
-            autonMode = 2;
+            autonMode = selectAutonomous();
+            //autonMode = 2;
         }
-        //colorSelect();
+        colorSelect();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();
