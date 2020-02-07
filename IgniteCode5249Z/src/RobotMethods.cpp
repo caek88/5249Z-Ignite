@@ -38,7 +38,7 @@ void rampLiftStop(brakeType stopMode){
     mtrRampLift.stop(stopMode);
 }
 bool cubesClear(){
-    return abs(cubeBump.value(analogUnits::mV) - originalLight) < 50;
+    return abs(cubeBump.value(analogUnits::mV) - originalLight) > 200;
 }
 void setOriginalLight(){
     originalLight = cubeBump.value(analogUnits::mV);

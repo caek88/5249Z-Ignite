@@ -9,6 +9,12 @@
 #include "RobotMethods.h"
 
 int auton() {
+  if (autonMode == 6){
+      setOriginalLight();
+      while (true){
+          Brain.Screen.printAt(1, 30, true, cubesClear()?"true":"false");
+      }
+  }
   /*---------------*/
   /*    Auton 1    */
   /*---------------*/
@@ -351,7 +357,7 @@ int auton() {
       wait(300);
 
       //Move backward to scoring zone
-      driveToPos(-16);
+      driveToPos(-15);
       while (fabs(longitudeError()) > 0.5) {
         if (38 - longitudeError() > 3){
           intake(-100);
@@ -363,26 +369,30 @@ int auton() {
       //Turn to zone
       maxSpeed = 30;
       turnToAngle(colorMod*-135);
-      while (fabs(yawError()) > 1.0){
+      while (fabs(yawError()) > 2.0){
           if (fabs(yawError()) < 10){
               maxSpeed = 10;
           }
           wait(10);
       }
-      wait(1000);
+      wait(700);
       
       maxSpeed = 30;
       driveToPos(13);
       while (longitudeError() > 0.5) {
-        if (longitudeError() < 9) {
+        if (longitudeError() < 10) {
           maxSpeed = 15;
           intakeStop(coast);
         }
         task::sleep(10);
       }
-      intake(50);
-      wait(500);
-      intakeStop(coast);
+      int time = 0;
+      while(cubesClear() && time < 1000){
+          intake(50);
+          time += 10;
+          wait(10);
+      }
+      intakeStop();
       while (!liftRamp(true)) {
         task::sleep(10);
       }

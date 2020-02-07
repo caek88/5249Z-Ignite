@@ -60,6 +60,9 @@ int driver(){
         if (abs(x) < 5){
             x = 0;
         }
+        if (abs(y) < 5){
+            y = 0;
+        }
         chassisLeft(speedMod * y + x * (speedMax?1.0:0.5));
         chassisRight(speedMod * y - x * (speedMax?1.0:0.5));
         if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
