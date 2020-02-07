@@ -57,8 +57,11 @@ int driver(){
         //speaker.spin(directionType::rev, 100, percentUnits::pct);
         int y = ctrPrimary.Axis3.position(percentUnits::pct);//Get the position of the controller for forward and back
         int x = ctrPrimary.Axis1.position(percentUnits::pct);//Get the position of the controller for Right and Left
-        chassisLeft(speedMod * (y+x));
-        chassisRight(speedMod * (y-x));
+        if (abs(x) < 5){
+            x = 0;
+        }
+        chassisLeft(speedMod * y + x * (speedMax?1.0:0.5));
+        chassisRight(speedMod * y - x * (speedMax?1.0:0.5));
         if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
             arm(-100);
         } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){

@@ -330,7 +330,74 @@ int auton() {
   /*---------------*/
   /*    Auton 4    */
   /*---------------*/
-  if (autonMode == 4) {
+  if (autonMode == 4){
+      vex::task driveTask = task(drivePID);
+      resetPosition();
+      int colorMod = colorRed ? -1 : 1;
+      setOriginalLight();
+      
+      // Move forward to get 4 cubes
+      intake(-100);
+      wait(400);
+      intake(0);
+      maxSpeed = 40;
+      driveToPos(40);
+      while (longitudeError() > 0.5) {
+        if (38 - longitudeError() > 3){
+          intake(-100);
+        }
+        wait(10);
+      }
+      wait(300);
+
+      //Move backward to scoring zone
+      driveToPos(-16);
+      while (fabs(longitudeError()) > 0.5) {
+        if (38 - longitudeError() > 3){
+          intake(-100);
+        }
+        wait(10);
+      }
+      wait(1000);
+
+      //Turn to zone
+      maxSpeed = 30;
+      turnToAngle(colorMod*-135);
+      while (fabs(yawError()) > 1.0){
+          if (fabs(yawError()) < 10){
+              maxSpeed = 10;
+          }
+          wait(10);
+      }
+      wait(1000);
+      
+      maxSpeed = 30;
+      driveToPos(13);
+      while (longitudeError() > 0.5) {
+        if (longitudeError() < 9) {
+          maxSpeed = 15;
+          intakeStop(coast);
+        }
+        task::sleep(10);
+      }
+      intake(50);
+      wait(500);
+      intakeStop(coast);
+      while (!liftRamp(true)) {
+        task::sleep(10);
+      }
+      rampLiftStop();
+      task::sleep(500);
+      // Stack and move back
+      intake(100);
+      maxSpeed = 20;
+      driveToPos(-20);
+      while (fabs(longitudeError()) > 0.5) {
+        task::sleep(10);
+      }
+      intakeStop();
+  }
+  /*if (autonMode == 4) {
     vex::task driveTask = task(drivePID);
     resetPosition();
     int colorMod = colorRed ? -1 : 1;
@@ -374,7 +441,7 @@ int auton() {
       task::sleep(10);
     }
     // Bring arms down while also driving forward faster
-  }
+  }*/
 
   /*---------------*/
   /*    Auton 5    */
