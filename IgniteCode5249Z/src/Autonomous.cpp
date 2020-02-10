@@ -377,8 +377,8 @@ int auton() {
       }
       wait(700);
       
-      maxSpeed = 30;
-      driveToPos(13);
+      maxSpeed = 40;
+      driveToPos(16);
       while (longitudeError() > 0.5) {
         if (longitudeError() < 10) {
           maxSpeed = 15;
@@ -387,7 +387,7 @@ int auton() {
         task::sleep(10);
       }
       int time = 0;
-      while(cubesClear() && time < 1000){
+      while(cubesClear() && time < 700){
           intake(50);
           time += 10;
           wait(10);

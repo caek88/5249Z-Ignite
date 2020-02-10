@@ -147,7 +147,7 @@ int selectAutonomous(){//method for selecting autons
     strcpy(selectAuton.text[1], "Game 8");
     strcpy(selectAuton.text[2], "Game 7");
     strcpy(selectAuton.text[3], "Game 6");
-    strcpy(selectAuton.text[4], "Game 10(0)");
+    strcpy(selectAuton.text[4], "Game 5");
     strcpy(selectAuton.text[5], "Game 1 :(");
     strcpy(selectAuton.text[6], "Test Inertial");
     return selectAuton.select();
