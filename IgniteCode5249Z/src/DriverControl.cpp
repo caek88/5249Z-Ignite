@@ -100,9 +100,9 @@ int driver(){
             } else if (ctrPrimary.ButtonDown.pressing()){
                 rampLift(-100);
                 rampMacro = false;
-            } else if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
+            } else if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing() && (mtrRampLift.rotation(degrees) < 200)){
                 rampLift(80);
-            } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){
+            } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing() && (mtrArm.rotation(degrees) > -200)){
                 rampLift(-80);
             } else {
                 if (limRamp.pressing()){

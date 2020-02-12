@@ -11,20 +11,20 @@ brain Brain;
 
 //Initializations from RobotConfig.h
 //Motors
-motor mtrLeft = motor(PORT11, false);
-motor mtrRight = motor(PORT15, true);
-motor mtrLeftFront = motor(PORT12, false);
-motor mtrRightFront = motor(PORT14, true);
-motor mtrArm = motor(PORT16, ratio36_1);
+motor mtrLeft = motor(PORT12, false);
+motor mtrRight = motor(PORT19, true);
+motor mtrLeftFront = motor(PORT11, false);
+motor mtrRightFront = motor(PORT20, true);
+motor mtrArm = motor(PORT2, ratio36_1);
 motor mtrIntakeLeft = motor(PORT1, ratio36_1, true);
-motor mtrIntakeRight = motor(PORT2, ratio36_1, false);
-motor mtrRampLift = motor(PORT17, ratio36_1, true);
+motor mtrIntakeRight = motor(PORT10, ratio36_1, false);
+motor mtrRampLift = motor(PORT18, ratio36_1, true);
 
 //Peripherals
-light cubeBump = light(Brain.ThreeWirePort.G);
-limit limArm = limit(Brain.ThreeWirePort.H);
-limit limRamp = limit(Brain.ThreeWirePort.F);
-limit limArmBottom = limit(Brain.ThreeWirePort.E);
+light cubeBump = light(Brain.ThreeWirePort.F);
+limit limArm = limit(Brain.ThreeWirePort.E);
+limit limRamp = limit(Brain.ThreeWirePort.G);
+limit limArmBottom = limit(Brain.ThreeWirePort.H);
 inertial navInert = inertial(PORT13);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
 //gyro gyroDrive = gyro(Brain.ThreeWirePort.H);
