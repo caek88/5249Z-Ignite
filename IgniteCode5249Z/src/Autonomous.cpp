@@ -236,7 +236,7 @@ int auton() {
     intake(-100);
     wait(400);
     intake(0);
-    maxSpeed = 40;
+    maxSpeed = 45;
     driveToPos(40);
     while (longitudeError() > 0.5) {
       if (38 - longitudeError() > 3) {
@@ -247,7 +247,7 @@ int auton() {
     wait(300);
 
     // Angle for last cube
-    maxSpeed = 30;
+    maxSpeed = 20;
     turnToAngle(colorMod * 20);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
@@ -255,7 +255,7 @@ int auton() {
       }
       wait(10);
     }
-    wait(700);
+    wait(500);
 
     // Pick up cube
     maxSpeed = 40;
@@ -273,10 +273,10 @@ int auton() {
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    wait(1000);
+    wait(500);
 
     // Adjust angle
-    maxSpeed = 30;
+    maxSpeed = 20;
     turnToAngle(colorMod * 0);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
@@ -284,18 +284,23 @@ int auton() {
       }
       wait(10);
     }
-    wait(700);
+    wait(500);
 
     // Move backward to scoring zone
     maxSpeed = 40;
-    driveToPos(-15);
+    driveToPos(-13);
     while (fabs(longitudeError()) > 0.5) {
       if (38 - longitudeError() > 3) {
         intake(-100);
       }
+      if (fabs(longitudeError()) < 5 || fabs(longitudeError()) > 10){
+          maxSpeed = 40;
+      } else {
+          maxSpeed = 80;
+      }
       wait(10);
     }
-    wait(700);
+    wait(500);
 
     // Turn to zone
     maxSpeed = 30;
@@ -311,21 +316,18 @@ int auton() {
     maxSpeed = 40;
     driveToPos(16);
     while (longitudeError() > 0.5) {
-      if (longitudeError() < 10) {
+      if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      task::sleep(10);
-    }
-    int time = 0;
-    while (cubesClear() && time < 700) {
-      intake(50);
-      time += 10;
+      if (16 - longitudeError() > 6) {
+        liftRamp(true);
+      }
       wait(10);
     }
-    intakeStop();
+    intakeStop(coast);
     while (!liftRamp(true)) {
-      task::sleep(10);
+      wait(10);
     }
     rampLiftStop();
     task::sleep(500);
