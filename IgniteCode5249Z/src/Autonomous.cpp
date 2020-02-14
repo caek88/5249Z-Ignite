@@ -314,13 +314,13 @@ int auton() {
     wait(500);
 
     maxSpeed = 40;
-    driveToPos(16);
+    driveToPos(15);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      if (16 - longitudeError() > 6) {
+      if (15 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
