@@ -17,7 +17,4 @@ void rampLiftStop(brakeType stopMode = brakeType::coast);
 bool cubesClear();
 void setOriginalLight();
 
-void deployRobot();
-bool liftRamp(bool moveUp, double slow = 50, double fast = 100, bool outtake = false);
-void stackTower(bool waitForCubes = true);
-
+bool liftRamp(bool moveUp, double slow = 50, double fast = 100);
