@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------*/
 /*    5249Z-Ignite                                              */
-/*    Version: 1.0                                              */
+/*    Version: 1.2.0                                            */
 /*    File: RobotConfig.cpp                                     */
 /*    Description: Instantiates extern objects in RobotConfig.h */
 /*--------------------------------------------------------------*/

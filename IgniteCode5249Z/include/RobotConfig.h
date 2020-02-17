@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------*/
 /*    5249Z-Ignite                                              */
-/*    Version: 1.0                                              */
+/*    Version: 1.2.0                                            */
 /*    File: RobotConfig.h                                       */
 /*    Description: Defines the global variables for the program */
 /*      and methods for the main program                        */

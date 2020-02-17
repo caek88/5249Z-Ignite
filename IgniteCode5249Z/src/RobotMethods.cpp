@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------*/
 /*    5249Z-Ignite                                              */
-/*    Version: 1.0                                              */
+/*    Version: 1.2.0                                            */
 /*    File: RobotMethods.cpp                                    */
 /*    Description: Defines functions in RobotMethods.h          */
 /*--------------------------------------------------------------*/
