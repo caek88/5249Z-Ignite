@@ -236,7 +236,7 @@ int auton() {
     intake(-100);
     wait(400);
     intake(0);
-    maxSpeed = 45;
+    maxSpeed = 40;
     driveToPos(40);
     while (longitudeError() > 0.5) {
       if (38 - longitudeError() > 3) {
@@ -265,7 +265,6 @@ int auton() {
       wait(10);
     }
     wait(500);
-    intakeStop();
 
     // Move back
     maxSpeed = 40;
@@ -274,37 +273,12 @@ int auton() {
       wait(10);
     }
     wait(500);
+    intakeStop();
 
-    // Adjust angle
-    maxSpeed = 20;
-    turnToAngle(colorMod * 0);
-    while (fabs(yawError()) > 2.0) {
-      if (fabs(yawError()) < 10) {
-        maxSpeed = 10;
-      }
-      wait(10);
-    }
-    wait(500);
 
-    // Move backward to scoring zone
-    maxSpeed = 40;
-    driveToPos(-13);
-    while (fabs(longitudeError()) > 0.5) {
-      if (38 - longitudeError() > 3) {
-        intake(-100);
-      }
-      if (fabs(longitudeError()) < 5 || fabs(longitudeError()) > 10){
-          maxSpeed = 40;
-      } else {
-          maxSpeed = 80;
-      }
-      wait(10);
-    }
-    wait(500);
-
-    // Turn to zone
+    //turn to score
     maxSpeed = 30;
-    turnToAngle(colorMod * -135);
+    turnToAngle(colorMod * -150);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -314,13 +288,13 @@ int auton() {
     wait(500);
 
     maxSpeed = 40;
-    driveToPos(15);
+    driveToPos(30);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      if (15 - longitudeError() > 6) {
+      if (30 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
@@ -331,6 +305,8 @@ int auton() {
     }
     rampLiftStop();
     task::sleep(500);
+
+    
     // Stack and move back
     intake(100);
     maxSpeed = 20;
