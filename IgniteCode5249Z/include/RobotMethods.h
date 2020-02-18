@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------*/
 /*    5249Z-Ignite                                              */
-/*    Version: 1.0                                              */
+/*    Version: 1.2.0                                            */
 /*    File: RobotMethods.h                                      */
 /*    Description: Methods for controlling different parts of   */
 /*        the robot                                             */
@@ -17,7 +17,4 @@ void rampLiftStop(brakeType stopMode = brakeType::coast);
 bool cubesClear();
 void setOriginalLight();
 
-void deployRobot();
-bool liftRamp(bool moveUp, double slow = 50, double fast = 100, bool outtake = false);
-void stackTower(bool waitForCubes = true);
-
+bool liftRamp(bool moveUp, double slow = 50, double fast = 100);

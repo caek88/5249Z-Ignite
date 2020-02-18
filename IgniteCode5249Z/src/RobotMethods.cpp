@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------*/
 /*    5249Z-Ignite                                              */
-/*    Version: 1.0                                              */
+/*    Version: 1.2.0                                            */
 /*    File: RobotMethods.cpp                                    */
 /*    Description: Defines functions in RobotMethods.h          */
 /*--------------------------------------------------------------*/
@@ -43,40 +43,8 @@ bool cubesClear(){
 void setOriginalLight(){
     originalLight = cubeBump.value(analogUnits::mV);
 }
-void deployRobot(){
-    intake(100);
-    int time = 0;
-    while (!liftRamp(true, 80, 100)){
-        if (time < 1000){
-            arm(-50);
-        } else {
-            armStop(brakeType::hold);
-        }
-        time += 10;
-        task::sleep(10);
-    }
-    //task::sleep(300);
-    time = 0;
-    while (!liftRamp(false, 80, 100)){
-        if (time < 2000 && time > 1000){
-            arm(100);
-        } else {
-            armStop(brakeType::hold);
-        }
-        time += 10;
-        task::sleep(10);
-    }
-    rampLiftStop();
-}
-bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
+bool liftRamp(bool moveUp, double slow, double fast){
     if (moveUp){
-        if (outtake){
-            if (!cubesClear()){
-                intakeStop();
-            } else {
-                intake(20);
-            }
-        }
         double moveSpeed = (double)(UP - mtrRampLift.rotation(degrees))/(UP - DOWN)*fast + slow;
         if (mtrRampLift.rotation(degrees) >= UP){
             return true;
@@ -91,33 +59,4 @@ bool liftRamp(bool moveUp, double slow, double fast, bool outtake){
         }
         return true;
     }
-}
-void stackTower(bool waitForCube){
-        intake(30);
-        while (waitForCube && cubesClear()){
-            Brain.Screen.printAt(10, 210, true, "Line Tracker: %d", cubeBump.value(analogUnits::mV));
-            task::sleep(10);
-            if(ctrPrimary.ButtonB.pressing()){
-              return;
-            }
-        }
-        intakeStop();
-        int time = 0;
-        while (!liftRamp(true, 15,50,true)){
-            if (time > 1000){
-                mtrIntakeLeft.startRotateFor(180, degrees);
-                mtrIntakeRight.startRotateFor(180, degrees);
-                time = 0;
-            } else {
-                time += 10;
-            }
-            task::sleep(10);
-            if(ctrPrimary.ButtonB.pressing()){
-              return;
-            }
-        }
-        arm(50);
-        task::sleep(500);
-        armStop();
-        intakeStop();
 }
