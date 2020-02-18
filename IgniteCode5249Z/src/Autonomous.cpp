@@ -312,6 +312,116 @@ int auton() {
                  // doesn't want you
     driveToPos(-10);
   }
+  /*---------------*/
+  /*    Auton 5    */
+  /*---------------*/
+  //4 cubes in unprotected
+  if (autonMode == 5) {
+    vex::task driveTask = task(drivePID);
+    resetPosition();
+    int colorMod = colorRed ? -1 : 1;
+    setOriginalLight();
+
+    // Move forward to get cube
+    intake(-100);
+    wait(300);
+    intake(0);
+    wait(1000);
+    maxSpeed = 40;
+    driveToPos(20);
+    while (longitudeError() > 0.5) {
+      if (19 - longitudeError() > 3) {
+        intake(-100);
+      }
+      wait(10);
+    }
+    wait(500);
+    intake(-100);
+    // Turn to tower
+    maxSpeed = 30;
+    turnToAngle(colorMod * -90);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+    intake(-100);
+    // Move forward to get cube 2
+    maxSpeed = 40;
+    driveToPos(14);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+    intake(-100);
+    //Move backwards
+    driveToPos(-15);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+
+    //turn around
+    maxSpeed = 30;
+    turnToAngle(colorMod * 90);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    //Drive forward for last cube
+    maxSpeed = 40;
+    driveToPos(20);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+
+    //Turn to score
+    maxSpeed = 30;
+    turnToAngle(colorMod * 135);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    
+    intakeStop();
+    maxSpeed = 15;
+    driveToPos(4);
+    while (longitudeError() > 0.5) {
+      task::sleep(10);
+    }
+    int time = 0;
+    while (cubesClear() && time < 700) {
+      intake(50);
+      time += 10;
+      wait(10);
+    }
+
+    intakeStop();
+    while (!liftRamp(true)) {
+      task::sleep(10);
+    }
+    rampLiftStop();
+    task::sleep(500);
+    // Stack and move back
+    intake(100);
+    maxSpeed = 20;
+    driveToPos(-20);
+    while (fabs(longitudeError()) > 0.5) {
+      task::sleep(10);
+    }
+    intakeStop();
+  }
   ctrPrimary.Screen.print("Done");
   return 0;
 }

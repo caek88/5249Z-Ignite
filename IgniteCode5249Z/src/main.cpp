@@ -142,12 +142,13 @@ bool confirmDriver(){
     return false;
 }
 int selectAutonomous(){//method for selecting autons
-    DisplaySelection selectAuton = DisplaySelection(5);//create display selection object
+    DisplaySelection selectAuton = DisplaySelection(6);//create display selection object
     strcpy(selectAuton.text[0], "Bypass");//place names of autons in array
     strcpy(selectAuton.text[1], "Skills");
     strcpy(selectAuton.text[2], "Game 6");
     strcpy(selectAuton.text[3], "Game 5");
     strcpy(selectAuton.text[4], "Game 1 :(");
+    strcpy(selectAuton.text[5], "Game 4P");
     return selectAuton.select();
 }
 void colorSelect(){//method for selecting field color
