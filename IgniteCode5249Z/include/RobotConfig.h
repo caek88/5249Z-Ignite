@@ -29,6 +29,7 @@ extern limit limArm;
 extern limit limRamp;
 extern limit limArmBottom;
 extern controller ctrPrimary;
+extern controller ctrPartner;
 //extern gyro gyroDrive;
 
 //extern variables

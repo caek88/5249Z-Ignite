@@ -37,6 +37,8 @@ void toggleSpeed(){
 int driver(){
     bool rampUp = false;
     bool rampMacro = false;
+    bool armMacro = false;
+    int armMacroPos = 0;
     //ctrPrimary.ButtonA.pressed(toggleSpeed);
     if (speedMax){
         toggleSpeed();
@@ -67,12 +69,21 @@ int driver(){
         }
         chassisLeft(speedMod * y + x * (speedMax?1.0:0.5));
         chassisRight(speedMod * y - x * (speedMax?1.0:0.5));
-        if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
-            arm(-100);
-        } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){
-            arm(100);
+        if (ctrPrimary.ButtonL1.pressing() || ctrPrimary.ButtonL2.pressing()){
+            armMacro = false;
+        }
+        if (armMacro){
+            if (liftArm(armMacroPos)){
+                armMacro = false;
+            }
         } else {
-            armStop(hold);
+            if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing()){
+                arm(-100);
+            } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing()){
+                arm(100);
+            } else {
+                armStop(hold);
+            }
         }
         if (ctrPrimary.ButtonR1.pressing()){
             intake(limArmBottom.pressing()?100:50);
@@ -91,6 +102,21 @@ int driver(){
             rampMacro = true;
             rampUp = false;
         }
+        if (ctrPartner.ButtonR1.pressing()){
+            armMacro = true;
+            armMacroPos = 2;
+        }
+        if (ctrPartner.ButtonR2.pressing()){
+            armMacro = true;
+            armMacroPos = 1;
+        }
+        if (ctrPartner.ButtonB.pressing()){
+            armMacro = true;
+            armMacroPos = 0;
+        }
+        if (ctrPrimary.ButtonRight.pressing() || ctrPrimary.ButtonDown.pressing()){
+            rampMacro = false;
+        }
         if (rampMacro){
             if (liftRamp(rampUp)){
                 rampMacro = false;
@@ -98,13 +124,11 @@ int driver(){
         } else {
             if (ctrPrimary.ButtonRight.pressing()){
                 rampLift(100);
-                rampMacro = false;
             } else if (ctrPrimary.ButtonDown.pressing()){
                 rampLift(-100);
-                rampMacro = false;
-            } else if (ctrPrimary.ButtonL1.pressing() && !limArm.pressing() && (mtrRampLift.rotation(degrees) < 200)){
+            } else if ((ctrPrimary.ButtonL1.pressing() || (armMacro && armMacroPos != 0)) && !limArm.pressing() && (mtrRampLift.rotation(degrees) < 200)){
                 rampLift(80);
-            } else if (ctrPrimary.ButtonL2.pressing() && !limArmBottom.pressing() && (mtrArm.rotation(degrees) > -200)){
+            } else if ((ctrPrimary.ButtonL2.pressing() || (armMacro && armMacroPos == 0)) && !limArmBottom.pressing() && (mtrArm.rotation(degrees) > -200)){
                 rampMacro = true;
                 rampUp = false;
             } else {

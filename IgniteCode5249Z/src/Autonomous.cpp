@@ -315,7 +315,7 @@ int auton() {
   /*---------------*/
   /*    Auton 5    */
   /*---------------*/
-  //4 cubes in unprotected
+  //4 cubes in protected
   if (autonMode == 5) {
     vex::task driveTask = task(drivePID);
     resetPosition();
@@ -365,7 +365,7 @@ int auton() {
 
     //turn around
     maxSpeed = 30;
-    turnToAngle(colorMod * 90);
+    turnToAngle(colorMod * 91);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -384,19 +384,19 @@ int auton() {
 
     //Turn to score
     maxSpeed = 30;
-    turnToAngle(colorMod * 135);
+    turnToAngle(colorMod * 133);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
       }
       wait(10);
     }
+    intake(50);
     wait(500);
-
     
     intakeStop();
     maxSpeed = 15;
-    driveToPos(4);
+    driveToPos(6);
     while (longitudeError() > 0.5) {
       task::sleep(10);
     }

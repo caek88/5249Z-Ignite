@@ -18,3 +18,5 @@ bool cubesClear();
 void setOriginalLight();
 
 bool liftRamp(bool moveUp, double slow = 50, double fast = 100);
+bool liftArm(int pos);
+enum armPos {downPos, lowPos, highPos};

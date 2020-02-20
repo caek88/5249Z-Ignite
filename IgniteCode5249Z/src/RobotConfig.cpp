@@ -27,6 +27,7 @@ limit limRamp = limit(Brain.ThreeWirePort.G);
 limit limArmBottom = limit(Brain.ThreeWirePort.H);
 inertial navInert = inertial(PORT13);
 controller ctrPrimary = controller(controllerType::primary);//Create the controller
+controller ctrPartner = controller(controllerType::partner);
 //gyro gyroDrive = gyro(Brain.ThreeWirePort.H);
 
 //extern variables

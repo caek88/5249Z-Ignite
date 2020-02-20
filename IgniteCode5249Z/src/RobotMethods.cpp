@@ -6,6 +6,7 @@
 /*--------------------------------------------------------------*/
 #include "RobotConfig.h"
 #include "RobotMethods.h"
+#include "PID.h"
 const int DOWN = 10;
 const int UP = 1290;//539
 int originalLight = 0;
@@ -59,4 +60,14 @@ bool liftRamp(bool moveUp, double slow, double fast){
         }
         return true;
     }
+}
+PID armPID = PID(5,0,0,0.01);
+bool liftArm(int pos){
+    int positions[] = {0, -450, -600};
+    armPID.setPoint = positions[pos];
+    arm(armPID.calculatePID(mtrArm.rotation(degrees)));
+    if (fabs(armPID.setPoint - mtrArm.rotation(degrees)) < 2){
+        return true;
+    }
+    return false;
 }
