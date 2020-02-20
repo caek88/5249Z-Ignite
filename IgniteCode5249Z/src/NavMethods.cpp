@@ -60,8 +60,8 @@ int drivePID(){//Maintains set robot position
         double dLongitude = longitudePID.calculatePID(longitudeCurrent);
         double dYaw = yawPID.calculatePID(navInert.rotation(degrees));
         Brain.Screen.printAt(1, 30, true, "Long: %f", longitudeError());
-        //Brain.Screen.printAt(1, 60, true, "Yaw: %f", gyroDrive.angle());
         Brain.Screen.printAt(1, 60, true, "Yaw: %f", navInert.rotation(degrees));
+        Brain.Screen.printAt(1, 90, true, "%d", cubesClear()?1:0);
         double speedLeft = dLongitude + dYaw;
         double speedRight = dLongitude - dYaw;
         if (speedLeft > maxSpeed){

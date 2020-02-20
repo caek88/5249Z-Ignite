@@ -9,11 +9,151 @@
 #include "RobotMethods.h"
 
 int auton() {
+  if (autonMode == 6){
+      setOriginalLight();
+      while (true){
+          Brain.Screen.printAt(1, 30, true, "%d", cubesClear()?1:0);
+          wait(20);
+      }
+  }
   /*---------------*/
   /*    Auton 1    */
   /*---------------*/
   if (autonMode == 1) { // Tries to get 8 cubes, cubes may cross the auton line
                         // - use in skills
+    vex::task driveTask = task(drivePID);
+    resetPosition();
+    setOriginalLight();
+
+    // Move forward to get 4 cubes
+    intake(-100);
+    wait(400);
+    intake(0);
+    maxSpeed = 40;
+    driveToPos(40);
+    while (longitudeError() > 0.5) {
+      if (38 - longitudeError() > 3) {
+        intake(-100);
+      }
+      wait(10);
+    }
+    wait(300);
+
+    // Angle for last cube
+    maxSpeed = 20;
+    turnToAngle(20);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    // Pick up cube
+    maxSpeed = 40;
+    driveToPos(11);
+    intake(-100);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+
+    // Move back
+    intakeStop();
+    wait(400);
+    intake(0);
+    maxSpeed = 40;
+    driveToPos(-8);
+    while (longitudeError() > 0.5) {
+      if (38 - longitudeError() > 3) {
+        intake(-100);
+      }
+      wait(10);
+    }
+    wait(300);
+    maxSpeed = 20;
+    turnToAngle(-112);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+    intakeStop(hold);
+    driveToPos(10);
+    while (!liftArm(lowPos)){
+        if (mtrRampLift.rotation(degrees) < 200){
+            rampLift(80);
+        } else {
+            rampLiftStop(hold);
+        }
+        wait(10);
+    }
+    intake(30);
+    wait(1000);
+    intake(-100);
+    driveToPos(-5);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    while (!liftArm(downPos)){
+        wait(10);
+        if (!limRamp.pressing() && mtrArm.rotation(degrees) > -150){
+            liftRamp(false);
+        }
+    }
+    mtrArm.stop(hold);
+    rampLiftStop();
+    wait(200);
+    intakeStop();
+    maxSpeed = 30;
+    turnToAngle(26);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    intake(50);
+    wait(500);
+
+    intakeStop(hold);
+    driveToPos(10);
+    while (!liftArm(lowPos)){
+        if (mtrRampLift.rotation(degrees) < 200){
+            rampLift(80);
+        } else {
+            rampLiftStop(hold);
+        }
+        wait(10);
+    }
+    intake(50);
+    wait(1000);
+    intake(-100);
+
+    driveToPos(-6);
+    while (!liftArm(downPos)){
+        wait(10);
+        if (!limRamp.pressing() && mtrArm.rotation(degrees) > -150 && longitudeError() > -4){
+            liftRamp(false);
+        }
+    }
+    mtrArm.stop(hold);
+    rampLiftStop();
+    wait(200);
+
+    maxSpeed = 30;
+    turnToAngle(0);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+    /*
     vex::task driveTask = task(drivePID);
     resetPosition();
     int colorMod = colorRed ? -1 : 1;
@@ -112,6 +252,7 @@ int auton() {
       wait(10);
     }
     intakeStop();
+    */
   }
   /*---------------*/
   /*    Auton 2    */
