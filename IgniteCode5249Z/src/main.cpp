@@ -185,7 +185,7 @@ int main() {
         if (mode == 1 || mode == 2){
             calibrateGyros();
             //autonMode = selectAutonomous();
-            autonMode = 5;
+            autonMode = 1;
         }
         //colorSelect();
         clearMotorRotations();

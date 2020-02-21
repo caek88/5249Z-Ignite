@@ -91,8 +91,9 @@ int auton() {
         }
         wait(10);
     }
-    intake(30);
-    wait(1000);
+    mtrArm.stop(hold);
+    intake(50);
+    wait(1500);
     intake(-100);
     driveToPos(-5);
     while (fabs(longitudeError()) > 0.5) {
@@ -107,7 +108,6 @@ int auton() {
     mtrArm.stop(hold);
     rampLiftStop();
     wait(200);
-    intakeStop();
     maxSpeed = 30;
     turnToAngle(26);
     while (fabs(yawError()) > 2.0) {
@@ -134,6 +134,7 @@ int auton() {
     intake(-100);
 
     driveToPos(-6);
+    wait(1000);
     while (!liftArm(downPos)){
         wait(10);
         if (!limRamp.pressing() && mtrArm.rotation(degrees) > -150 && longitudeError() > -4){
@@ -142,7 +143,7 @@ int auton() {
     }
     mtrArm.stop(hold);
     rampLiftStop();
-    wait(200);
+    wait(500);
 
     maxSpeed = 30;
     turnToAngle(0);
@@ -153,6 +154,78 @@ int auton() {
       wait(10);
     }
     wait(500);
+
+    maxSpeed = 40;
+    driveToPos(61);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+
+    maxSpeed = 30;
+    turnToAngle(-125);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    intakeStop(hold);
+    driveToPos(18);
+    while (!liftArm(lowPos)){
+        if (mtrRampLift.rotation(degrees) < 200){
+            rampLift(80);
+        } else {
+            rampLiftStop(hold);
+        }
+        wait(10);
+    }
+    mtrArm.stop(hold);
+    intake(50);
+    wait(1500);
+    intake(-100);
+    driveToPos(-18);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    while (!liftArm(downPos)){
+        wait(10);
+        if (!limRamp.pressing() && mtrArm.rotation(degrees) > -150){
+            liftRamp(false);
+        }
+    }
+    mtrArm.stop(hold);
+    rampLiftStop();
+    /*maxSpeed = 40;
+    driveToPos(20);
+    while (longitudeError() > 0.5) {
+      if (longitudeError() < 7) {
+        maxSpeed = 15;
+        intakeStop(coast);
+      }
+      if (30 - longitudeError() > 6) {
+        liftRamp(true);
+      }
+      wait(10);
+    }
+    intakeStop(coast);
+    while (!liftRamp(true)) {
+      wait(10);
+    }
+    rampLiftStop();
+    task::sleep(500);
+
+    
+    // Stack and move back
+    intake(100);
+    maxSpeed = 20;
+    driveToPos(-20);
+    while (fabs(longitudeError()) > 0.5) {
+      task::sleep(10);
+    }
+    intakeStop();*/
     /*
     vex::task driveTask = task(drivePID);
     resetPosition();

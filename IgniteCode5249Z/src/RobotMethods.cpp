@@ -61,7 +61,7 @@ bool liftRamp(bool moveUp, double slow, double fast){
         return true;
     }
 }
-PID armPID = PID(5,0,0,0.01);
+PID armPID = PID(2,0,0,0.01);
 bool liftArm(int pos){
     int positions[] = {0, -450, -600};
     armPID.setPoint = positions[pos];
