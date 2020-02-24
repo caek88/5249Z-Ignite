@@ -170,7 +170,31 @@ int auton() {
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    wait(300);
+    wait(500);
+
+    maxSpeed = 40;
+    driveToPos(-14);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
+
+    maxSpeed = 30;
+    turnToAngle(-2);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    maxSpeed = 40;
+    driveToPos(12);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(500);
 
     maxSpeed = 30;
     turnToAngle(2);
@@ -183,15 +207,23 @@ int auton() {
     wait(500);
 
     maxSpeed = 40;
-    driveToPos(52);
+    driveToPos(12);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    wait(200);
+    wait(500);
 
+    maxSpeed = 40;
+    driveToPos(40);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    wait(3000);
+
+    
     //turn for red tower
-    maxSpeed = 30;
-    turnToAngle(-93);
+    maxSpeed = 20;
+    turnToAngle(-96);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -224,7 +256,7 @@ int auton() {
 
     //Move back for stacking
     intake(-100);
-    driveToPos(-15);
+    driveToPos(-16);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -236,28 +268,28 @@ int auton() {
     }
     mtrArm.stop(hold);
     rampLiftStop();
-    wait(300);
+    wait(1000);
 
     //turn for scoring
     maxSpeed = 30;
-    turnToAngle(-52);
+    turnToAngle(-48);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
       }
       wait(10);
     }
-    wait(400);
+    wait(1000);
 
     //place stack in red zone
     maxSpeed = 40;
-    driveToPos(22);
+    driveToPos(26);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      if (22 - longitudeError() > 6) {
+      if (26 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
