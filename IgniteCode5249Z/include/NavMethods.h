@@ -8,7 +8,7 @@
 int drivePID();
 void resetPosition();
 void driveToPos(double distance);
-void turnToAngle(double angle);
+void turnToAngle(double angle, bool reset = true);
 double longitudeError();
 double yawError();
 extern double maxSpeed;
