@@ -179,15 +179,15 @@ int main() {
         strcpy(selectMode.text[1], "Autonomous");
         strcpy(selectMode.text[2], "Field Control");
         strcpy(selectMode.text[3], "");
-        mode = selectMode.select();
-        ////mode = 2;
+        //mode = selectMode.select();
+        mode = 2;
         colorRed = false;
         if (mode == 1 || mode == 2){
             calibrateGyros();
-            autonMode = selectAutonomous();
-            //autonMode = 1;
+            //autonMode = selectAutonomous();
+            autonMode = 1;
         }
-        colorSelect();
+        //colorSelect();
         clearMotorRotations();
         if(mode == 0){//Runs driver control
             ctrPrimary.Screen.clearScreen();

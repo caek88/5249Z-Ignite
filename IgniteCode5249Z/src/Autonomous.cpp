@@ -112,7 +112,7 @@ int auton() {
       }
       wait(10);
     }
-    intake(40);
+    intake(30);
     wait(500);
     intakeStop();
 
@@ -230,7 +230,7 @@ int auton() {
 
     //turn for scoring
     maxSpeed = 30;
-    turnToAngle(-48);
+    turnToAngle(-45);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
