@@ -108,7 +108,7 @@ int auton() {
     wait(500);
 
     maxSpeed = 40;
-    driveToPos(58);
+    driveToPos(62);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -117,7 +117,7 @@ int auton() {
     
     //turn for red tower
     maxSpeed = 20;
-    turnToAngle(-113);
+    turnToAngle(-120);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -141,7 +141,7 @@ int auton() {
     mtrArm.stop(hold);
 
     maxSpeed = 27;
-    driveToPos(6);
+    driveToPos(8);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -150,7 +150,7 @@ int auton() {
 
     //Move back for stacking
     intake(-100);
-    driveToPos(-6);
+    driveToPos(-8);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -166,7 +166,7 @@ int auton() {
 
     //turn for scoring
     maxSpeed = 25;
-    turnToAngle(-45);
+    turnToAngle(-47);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -177,13 +177,138 @@ int auton() {
 
     //place stack in red zone
     maxSpeed = 40;
-    driveToPos(15);
+    driveToPos(13);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      if (26 - longitudeError() > 6) {
+      if (13 - longitudeError() > 6) {
+        liftRamp(true);
+      }
+      wait(10);
+    }
+    intakeStop(coast);
+    while (!liftRamp(true)) {
+      wait(10);
+    }
+    rampLiftStop(hold);
+    wait(500);
+
+    
+    // Stack and move back
+    intake(100);
+    maxSpeed = 20;
+    driveToPos(-16);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    intakeStop();
+
+    //turn for high tower
+    maxSpeed = 30;
+    turnToAngle(90);
+    while (fabs(yawError()) > 2.0) {
+      if (!limRamp.pressing()){
+          liftRamp(false);
+      } else {
+          rampLiftStop();
+      }
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+    intake(-100);
+    rampLiftStop();
+    //Drive forward to get cube
+    maxSpeed = 50;
+    driveToPos(39);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    intakeStop(hold);
+    wait(500);
+
+    driveToPos(-6);
+    while (!liftArm(highPos)){
+        if (mtrRampLift.rotation(degrees) < 200){
+            rampLift(80);
+        } else if(mtrRampLift.rotation(degrees) >= 200){
+            rampLiftStop(hold);
+        } else {
+            rampLiftStop(hold);
+        }
+        wait(10);
+    }
+    mtrArm.stop(hold);
+
+    maxSpeed = 27;
+    driveToPos(11);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    intake(70);
+    wait(800);
+
+    intake(-100);
+    driveToPos(-6);
+    while (fabs(longitudeError()) > 0.5) {
+      wait(10);
+    }
+    while (!liftArm(downPos)){
+        wait(10);
+        if (!limRamp.pressing() && mtrArm.rotation(degrees) > -150){
+            liftRamp(false);
+        }
+    }
+    mtrArm.stop(hold);
+    rampLiftStop();
+
+    //turn for row of cubes
+    maxSpeed = 20;
+    turnToAngle(180);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    maxSpeed = 35;
+    intake(-100);
+    driveToPos(86);
+    while (fabs(longitudeError()) > 0.5) {
+      if (longitudeError() > 31 && longitudeError() < 36){
+          maxSpeed = 25;
+      } else {
+          maxSpeed = 35;
+      }
+      wait(10);
+    }
+    wait(500);
+
+    //turn for blue goal
+    maxSpeed = 20;
+    turnToAngle(-130);
+    while (fabs(yawError()) > 2.0) {
+      if (fabs(yawError()) < 10) {
+        maxSpeed = 10;
+      }
+      wait(10);
+    }
+
+    //place stack in blue zone
+    maxSpeed = 40;
+    driveToPos(47);
+    while (longitudeError() > 0.5) {
+      if (longitudeError() < 7) {
+        maxSpeed = 15;
+        intakeStop(coast);
+      }
+      if (47 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
@@ -204,96 +329,6 @@ int auton() {
       wait(10);
     }
     intakeStop();
-
-    //turn for row of cubes
-    maxSpeed = 30;
-    turnToAngle(80);
-    while (fabs(yawError()) > 2.0) {
-      if (!limRamp.pressing()){
-          liftRamp(false);
-      } else {
-          rampLiftStop();
-      }
-      if (fabs(yawError()) < 10) {
-        maxSpeed = 10;
-      }
-      wait(10);
-    }
-    wait(500);
-    intake(-100);
-    rampLiftStop();
-
-    //Drive forward to position
-    maxSpeed = 50;
-    driveToPos(35);
-    while (fabs(longitudeError()) > 0.5) {
-      wait(10);
-    }
-    intakeStop(hold);
-    wait(500);
-
-    //turn for row of cubes
-    maxSpeed = 20;
-    turnToAngle(180);
-    while (fabs(yawError()) > 2.0) {
-      if (fabs(yawError()) < 10) {
-        maxSpeed = 10;
-      }
-      wait(10);
-    }
-    wait(500);
-
-    maxSpeed = 35;
-    intake(-100);
-    driveToPos(84);
-    while (fabs(longitudeError()) > 0.5) {
-      if (longitudeError() > 31 && longitudeError() < 36){
-          maxSpeed = 25;
-      } else {
-          maxSpeed = 35;
-      }
-      wait(10);
-    }
-    wait(500);
-
-    //turn for blue tower
-    maxSpeed = 20;
-    turnToAngle(-90);
-    while (fabs(yawError()) > 2.0) {
-      if (fabs(yawError()) < 10) {
-        maxSpeed = 10;
-      }
-      wait(10);
-    }
-
-    maxSpeed = 40;
-    driveToPos(36);
-    while (fabs(longitudeError()) > 0.5) {
-      wait(10);
-    }
-    intake(15);
-    wait(500);
-
-
-    //Place cube in blue tower
-    intakeStop(hold);
-    while (!liftArm(lowPos)){
-        if (mtrRampLift.rotation(degrees) < 200){
-            rampLift(80);
-        } else {
-            rampLiftStop(hold);
-        }
-        wait(10);
-    }
-    mtrArm.stop(hold);
-
-    maxSpeed = 27;
-    driveToPos(6);
-    while (fabs(longitudeError()) > 0.5) {
-      wait(10);
-    }
-    intake(30);
-    wait(1500);
     /*
     // Move forward to get 4 cubes
     intake(-100);
