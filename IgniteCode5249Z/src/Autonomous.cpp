@@ -71,7 +71,7 @@ int auton() {
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    intake(30);
+    intake(35);
     wait(1000);
     intake(-100);
 
@@ -124,8 +124,6 @@ int auton() {
       }
       wait(10);
     }
-    intake(15);
-    wait(500);
 
 
     //Place cube in red tower
@@ -145,7 +143,7 @@ int auton() {
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    intake(30);
+    intake(40);
     wait(1500);
 
     //Move back for stacking
@@ -222,6 +220,7 @@ int auton() {
     wait(500);
     intake(-100);
     rampLiftStop();
+
     //Drive forward to get cube
     maxSpeed = 50;
     driveToPos(39);
@@ -292,7 +291,7 @@ int auton() {
 
     //turn for blue goal
     maxSpeed = 20;
-    turnToAngle(-130);
+    turnToAngle(-125);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -302,13 +301,13 @@ int auton() {
 
     //place stack in blue zone
     maxSpeed = 40;
-    driveToPos(47);
+    driveToPos(42);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
         intakeStop(coast);
       }
-      if (47 - longitudeError() > 6) {
+      if (43 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
@@ -318,12 +317,11 @@ int auton() {
       wait(10);
     }
     rampLiftStop(hold);
-    wait(500);
 
     
     // Stack and move back
     intake(100);
-    maxSpeed = 20;
+    maxSpeed = 40;
     driveToPos(-15);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
@@ -700,8 +698,8 @@ int auton() {
       }
       wait(10);
     }
-    wait(500);
 
+    intakeStop();
     maxSpeed = 40;
     driveToPos(30);
     while (longitudeError() > 0.5) {
@@ -852,7 +850,7 @@ int auton() {
     intake(0);
     wait(1000);
     maxSpeed = 40;
-    driveToPos(20);
+    driveToPos(23);
     while (longitudeError() > 0.5) {
       if (19 - longitudeError() > 3) {
         intake(-100);
@@ -861,7 +859,7 @@ int auton() {
     }
     wait(500);
     intake(-100);
-    // Turn to tower
+    /*// Turn to tower
     maxSpeed = 30;
     turnToAngle(colorMod * -90);
     while (fabs(yawError()) > 2.0) {
@@ -886,7 +884,7 @@ int auton() {
       wait(10);
     }
     wait(500);
-
+    */
     //turn around
     maxSpeed = 30;
     turnToAngle(colorMod * 91);
@@ -900,7 +898,7 @@ int auton() {
 
     //Drive forward for last cube
     maxSpeed = 40;
-    driveToPos(20);
+    driveToPos(21);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -915,20 +913,14 @@ int auton() {
       }
       wait(10);
     }
-    intake(50);
-    wait(500);
+    intake(60);
+    wait(600);
     
     intakeStop();
     maxSpeed = 15;
-    driveToPos(6);
+    driveToPos(7);
     while (longitudeError() > 0.5) {
       task::sleep(10);
-    }
-    int time = 0;
-    while (cubesClear() && time < 700) {
-      intake(50);
-      time += 10;
-      wait(10);
     }
 
     intakeStop();
