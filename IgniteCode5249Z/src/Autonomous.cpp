@@ -124,7 +124,8 @@ int auton() {
       }
       wait(10);
     }
-
+    intake(30);
+    wait(300);
 
     //Place cube in red tower
     intakeStop(hold);
@@ -302,19 +303,22 @@ int auton() {
     //place stack in blue zone
     maxSpeed = 40;
     driveToPos(42);
-    while (longitudeError() > 0.5) {
+    int time = 0;
+    while (longitudeError() > 0.5 && time < 4000) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
-        intakeStop(coast);
+        intake(20);
       }
-      if (43 - longitudeError() > 6) {
+      if (42 - longitudeError() > 8) {
         liftRamp(true);
       }
       wait(10);
+      time += 10;
     }
     intakeStop(coast);
-    while (!liftRamp(true)) {
+    while (!liftRamp(true) && time < 5000) {
       wait(10);
+      time += 10;
     }
     rampLiftStop(hold);
 
