@@ -47,7 +47,7 @@ int auton() {
       }
       wait(10);
     }
-    intake(30);
+    intake(25);
     wait(500);
     intakeStop();
 
@@ -72,7 +72,7 @@ int auton() {
       wait(10);
     }
     intake(35);
-    wait(1000);
+    wait(1100);
     intake(-100);
 
     //back up to be in line with row of cubes
@@ -117,7 +117,7 @@ int auton() {
     
     //turn for red tower
     maxSpeed = 20;
-    turnToAngle(-120);
+    turnToAngle(-122);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -165,7 +165,7 @@ int auton() {
 
     //turn for scoring
     maxSpeed = 25;
-    turnToAngle(-47);
+    turnToAngle(-49);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -176,13 +176,13 @@ int auton() {
 
     //place stack in red zone
     maxSpeed = 40;
-    driveToPos(13);
+    intakeStop(coast);
+    driveToPos(11);
     while (longitudeError() > 0.5) {
       if (longitudeError() < 7) {
         maxSpeed = 15;
-        intakeStop(coast);
       }
-      if (13 - longitudeError() > 6) {
+      if (8 - longitudeError() > 6) {
         liftRamp(true);
       }
       wait(10);
@@ -224,7 +224,7 @@ int auton() {
 
     //Drive forward to get cube
     maxSpeed = 50;
-    driveToPos(39);
+    driveToPos(38);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -249,12 +249,12 @@ int auton() {
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
-    intake(70);
+    intake(60);
     wait(800);
 
 
     intake(-100);
-    driveToPos(-6);
+    driveToPos(-7);
     while (fabs(longitudeError()) > 0.5) {
       wait(10);
     }
@@ -293,19 +293,20 @@ int auton() {
 
     //turn for blue goal zone
     maxSpeed = 20;
-    turnToAngle(-125);
+    turnToAngle(-128);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
       }
       wait(10);
     }
-    intake(20);
+    //intake(30);
     wait(500);
-    intakeStop();
+    //intakeStop();
 
     //place stack in blue zone
-    maxSpeed = 40;
+    intake(-100);
+    maxSpeed = 30;
     driveToPos(42);
     int time = 0;
     while (longitudeError() > 0.5 && time < 4000) {
@@ -313,9 +314,9 @@ int auton() {
         maxSpeed = 15;
         intake(20);
       }
-      if (42 - longitudeError() > 8) {
+      /*if (42 - longitudeError() > 14) {
         liftRamp(true);
-      }
+      }*/
       wait(10);
       time += 10;
     }
