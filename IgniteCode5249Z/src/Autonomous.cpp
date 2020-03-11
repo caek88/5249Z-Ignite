@@ -293,7 +293,7 @@ int auton() {
 
     //turn for blue goal zone
     maxSpeed = 20;
-    turnToAngle(-128);
+    turnToAngle(-126);
     while (fabs(yawError()) > 2.0) {
       if (fabs(yawError()) < 10) {
         maxSpeed = 10;
@@ -307,7 +307,7 @@ int auton() {
     //place stack in blue zone
     intake(-100);
     maxSpeed = 30;
-    driveToPos(42);
+    driveToPos(43);
     int time = 0;
     while (longitudeError() > 0.5 && time < 4000) {
       if (longitudeError() < 7) {
